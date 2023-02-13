@@ -105,6 +105,21 @@ void op_par_loop_update(char const *, op_set,
   op_arg,
   op_arg,
   op_arg );
+void op_decl_const_gam(int dim, char const *type,
+                       float *dat);
+void op_decl_const_gm1(int dim, char const *type,
+                       float *dat);
+void op_decl_const_cfl(int dim, char const *type,
+                       float *dat);
+void op_decl_const_eps(int dim, char const *type,
+                       float *dat);
+void op_decl_const_mach(int dim, char const *type,
+                       float *dat);
+void op_decl_const_alpha(int dim, char const *type,
+                       float *dat);
+void op_decl_const_qinf(int dim, char const *type,
+                       float *dat);
+
 #ifdef OPENACC
 #ifdef __cplusplus
 }
@@ -167,13 +182,13 @@ int main(int argc, char **argv) {
   op_get_const_hdf5("alpha", 1, "float", (char *)&alpha, "new_grid.h5");
   op_get_const_hdf5("qinf", 4, "float", (char *)&qinf, "new_grid.h5");
 
-  op_decl_const2("gam",1,"float",&gam);
-  op_decl_const2("gm1",1,"float",&gm1);
-  op_decl_const2("cfl",1,"float",&cfl);
-  op_decl_const2("eps",1,"float",&eps);
-  op_decl_const2("mach",1,"float",&mach);
-  op_decl_const2("alpha",1,"float",&alpha);
-  op_decl_const2("qinf",4,"float",qinf);
+  op_decl_const_gam(1,"float",&gam);
+  op_decl_const_gm1(1,"float",&gm1);
+  op_decl_const_cfl(1,"float",&cfl);
+  op_decl_const_eps(1,"float",&eps);
+  op_decl_const_mach(1,"float",&mach);
+  op_decl_const_alpha(1,"float",&alpha);
+  op_decl_const_qinf(4,"float",qinf);
 
   if (op_is_root())
     op_diagnostic_output();

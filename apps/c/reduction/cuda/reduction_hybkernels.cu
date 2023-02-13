@@ -10,6 +10,7 @@
 #undef op_par_loop_res_calc
 #undef op_par_loop_update
 #else
+#define SKIP_DECL_CONST
 #define op_par_loop_res_calc op_par_loop_res_calc_cpu
 #define op_par_loop_update op_par_loop_update_cpu
 #include "../openmp/reduction_kernels.cpp"

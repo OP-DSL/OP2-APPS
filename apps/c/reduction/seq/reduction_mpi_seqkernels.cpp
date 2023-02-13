@@ -7,6 +7,7 @@
 // header
 #include "op_lib_cpp.h"
 
+
 // user kernel files
 #include "res_calc_seqkernel.cpp"
 #include "update_seqkernel.cpp"

@@ -9,13 +9,13 @@ double alpha_ompkernel;
 #include "../user_types.h"
 #include "op_lib_cpp.h"
 
-void op_decl_const_char(int dim, char const *type,
-  int size, char *dat, char const *name){
-  if(!strcmp(name, "alpha")) {
-    memcpy(&alpha_ompkernel, dat, dim*size);
+
+void op_decl_const_alpha(int dim, char const *type,
+                       double *dat){
+  memcpy(&alpha_ompkernel, dat, dim*sizeof(double));
   #pragma omp target enter data map(to:alpha_ompkernel)
-  }
 }
+
 // user kernel files
 #include "res_omp4kernel_func.cpp"
 #include "update_omp4kernel_func.cpp"

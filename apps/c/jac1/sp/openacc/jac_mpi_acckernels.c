@@ -8,8 +8,11 @@ extern float alpha;
 // header
 #include "op_lib_c.h"
 
-void op_decl_const_char(int dim, char const *type,
-int size, char *dat, char const *name){}
+
+void op_decl_const_alpha(int dim, char const *type,
+                       float *dat){
+}
+
 // user kernel files
 #include "res_acckernel.c"
 #include "update_acckernel.c"

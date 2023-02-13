@@ -69,6 +69,7 @@ void op_par_loop_res_calc(char const *, op_set,
 void op_par_loop_update(char const *, op_set,
   op_arg,
   op_arg );
+
 #ifdef OPENACC
 #ifdef __cplusplus
 }

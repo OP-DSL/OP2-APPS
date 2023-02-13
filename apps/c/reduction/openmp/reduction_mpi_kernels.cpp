@@ -11,6 +11,9 @@
 // header
 #include "op_lib_cpp.h"
 
+#ifndef SKIP_DECL_CONST
+#endif
+
 // user kernel files
 #include "res_calc_kernel.cpp"
 #include "update_kernel.cpp"

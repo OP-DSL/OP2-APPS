@@ -24,6 +24,7 @@
 #undef op_par_loop_updateP
 #undef op_par_loop_update
 #else
+#define SKIP_DECL_CONST
 #define op_par_loop_res_calc op_par_loop_res_calc_cpu
 #define op_par_loop_dirichlet op_par_loop_dirichlet_cpu
 #define op_par_loop_init_cg op_par_loop_init_cg_cpu

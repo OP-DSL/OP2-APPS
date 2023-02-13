@@ -18,6 +18,37 @@ extern float qinf[4];
 // header
 #include "op_lib_cpp.h"
 
+#ifndef SKIP_DECL_CONST
+
+void op_decl_const_gam(int dim, char const *type,
+                       float *dat){
+}
+
+void op_decl_const_gm1(int dim, char const *type,
+                       float *dat){
+}
+
+void op_decl_const_cfl(int dim, char const *type,
+                       float *dat){
+}
+
+void op_decl_const_eps(int dim, char const *type,
+                       float *dat){
+}
+
+void op_decl_const_mach(int dim, char const *type,
+                       float *dat){
+}
+
+void op_decl_const_alpha(int dim, char const *type,
+                       float *dat){
+}
+
+void op_decl_const_qinf(int dim, char const *type,
+                       float *dat){
+}
+#endif
+
 // user kernel files
 #include "save_soln_kernel.cpp"
 #include "adt_calc_kernel.cpp"

@@ -23,8 +23,71 @@ extern double mfan;
 // header
 #include "op_lib_c.h"
 
-void op_decl_const_char(int dim, char const *type,
-int size, char *dat, char const *name){}
+
+void op_decl_const_gam(int dim, char const *type,
+                       double *dat){
+}
+
+void op_decl_const_gm1(int dim, char const *type,
+                       double *dat){
+}
+
+void op_decl_const_gm1i(int dim, char const *type,
+                       double *dat){
+}
+
+void op_decl_const_m2(int dim, char const *type,
+                       double *dat){
+}
+
+void op_decl_const_wtg1(int dim, char const *type,
+                       double *dat){
+}
+
+void op_decl_const_xi1(int dim, char const *type,
+                       double *dat){
+}
+
+void op_decl_const_Ng1(int dim, char const *type,
+                       double *dat){
+}
+
+void op_decl_const_Ng1_xi(int dim, char const *type,
+                       double *dat){
+}
+
+void op_decl_const_wtg2(int dim, char const *type,
+                       double *dat){
+}
+
+void op_decl_const_Ng2(int dim, char const *type,
+                       double *dat){
+}
+
+void op_decl_const_Ng2_xi(int dim, char const *type,
+                       double *dat){
+}
+
+void op_decl_const_minf(int dim, char const *type,
+                       double *dat){
+}
+
+void op_decl_const_freq(int dim, char const *type,
+                       double *dat){
+}
+
+void op_decl_const_kappa(int dim, char const *type,
+                       double *dat){
+}
+
+void op_decl_const_nmode(int dim, char const *type,
+                       double *dat){
+}
+
+void op_decl_const_mfan(int dim, char const *type,
+                       double *dat){
+}
+
 // user kernel files
 #include "res_calc_acckernel.c"
 #include "dirichlet_acckernel.c"

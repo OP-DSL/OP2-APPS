@@ -10,6 +10,7 @@
 #undef op_par_loop_res
 #undef op_par_loop_update
 #else
+#define SKIP_DECL_CONST
 #define op_par_loop_res op_par_loop_res_cpu
 #define op_par_loop_update op_par_loop_update_cpu
 #include "../openmp/jac_kernels.cpp"

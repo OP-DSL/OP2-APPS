@@ -78,6 +78,9 @@ void op_par_loop_update(char const *, op_set,
   op_arg,
   op_arg,
   op_arg );
+void op_decl_const_alpha(int dim, char const *type,
+                       float *dat);
+
 #ifdef OPENACC
 #ifdef __cplusplus
 }
@@ -198,9 +201,9 @@ int main(int argc, char **argv) {
   op_dat p_du = op_decl_dat(nodes, 3, "float", du, "p_du");
 
   alpha = 2.0f;
-  op_decl_const2("alpha",1,"float",&alpha);
+  op_decl_const_alpha(1,"float",&alpha);
   alpha = 1.0f;
-  op_decl_const2("alpha",1,"float",&alpha);
+  op_decl_const_alpha(1,"float",&alpha);
 
   op_diagnostic_output();
 

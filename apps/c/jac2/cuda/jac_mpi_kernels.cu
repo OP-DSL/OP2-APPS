@@ -14,16 +14,10 @@ __constant__ float alpha_cuda;
 #include "op_cuda_rt_support.h"
 #include "op_cuda_reduction.h"
 
-void op_decl_const_char(int dim, char const *type,
-int size, char *dat, char const *name){
+void op_decl_const_alpha(int dim, char const *type,
+                       float *dat){
   if (!OP_hybrid_gpu) return;
-  if (!strcmp(name,"alpha")) {
-    cutilSafeCall(cudaMemcpyToSymbol(alpha_cuda, dat, dim*size));
-  }
-  else
-  {
-    printf("error: unknown const name\n"); exit(1);
-  }
+  cutilSafeCall(cudaMemcpyToSymbol(alpha_cuda, dat, dim*sizeof(float)));
 }
 
 //user kernel files

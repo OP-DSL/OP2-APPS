@@ -13,6 +13,13 @@ extern double alpha;
 #include "../user_types.h"
 #include "op_lib_cpp.h"
 
+#ifndef SKIP_DECL_CONST
+
+void op_decl_const_alpha(int dim, char const *type,
+                       double *dat){
+}
+#endif
+
 // user kernel files
 #include "res_kernel.cpp"
 #include "update_kernel.cpp"

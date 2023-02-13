@@ -14,31 +14,49 @@ float qinf_ompkernel[4];
 // header
 #include "op_lib_cpp.h"
 
-void op_decl_const_char(int dim, char const *type,
-  int size, char *dat, char const *name){
-  if(!strcmp(name, "gam")) {
-    memcpy(&gam_ompkernel, dat, dim*size);
+
+void op_decl_const_gam(int dim, char const *type,
+                       float *dat){
+  memcpy(&gam_ompkernel, dat, dim*sizeof(float));
   #pragma omp target enter data map(to:gam_ompkernel)
-  } else if(!strcmp(name, "gm1")) {
-    memcpy(&gm1_ompkernel, dat, dim*size);
-  #pragma omp target enter data map(to:gm1_ompkernel)
-  } else if(!strcmp(name, "cfl")) {
-    memcpy(&cfl_ompkernel, dat, dim*size);
-  #pragma omp target enter data map(to:cfl_ompkernel)
-  } else if(!strcmp(name, "eps")) {
-    memcpy(&eps_ompkernel, dat, dim*size);
-  #pragma omp target enter data map(to:eps_ompkernel)
-  } else if(!strcmp(name, "mach")) {
-    memcpy(&mach_ompkernel, dat, dim*size);
-  #pragma omp target enter data map(to:mach_ompkernel)
-  } else if(!strcmp(name, "alpha")) {
-    memcpy(&alpha_ompkernel, dat, dim*size);
-  #pragma omp target enter data map(to:alpha_ompkernel)
-  } else if(!strcmp(name, "qinf")) {
-    memcpy(qinf_ompkernel, dat, dim*size);
-  #pragma omp target enter data map(to:qinf_ompkernel[:4])
-  }
 }
+
+void op_decl_const_gm1(int dim, char const *type,
+                       float *dat){
+  memcpy(&gm1_ompkernel, dat, dim*sizeof(float));
+  #pragma omp target enter data map(to:gm1_ompkernel)
+}
+
+void op_decl_const_cfl(int dim, char const *type,
+                       float *dat){
+  memcpy(&cfl_ompkernel, dat, dim*sizeof(float));
+  #pragma omp target enter data map(to:cfl_ompkernel)
+}
+
+void op_decl_const_eps(int dim, char const *type,
+                       float *dat){
+  memcpy(&eps_ompkernel, dat, dim*sizeof(float));
+  #pragma omp target enter data map(to:eps_ompkernel)
+}
+
+void op_decl_const_mach(int dim, char const *type,
+                       float *dat){
+  memcpy(&mach_ompkernel, dat, dim*sizeof(float));
+  #pragma omp target enter data map(to:mach_ompkernel)
+}
+
+void op_decl_const_alpha(int dim, char const *type,
+                       float *dat){
+  memcpy(&alpha_ompkernel, dat, dim*sizeof(float));
+  #pragma omp target enter data map(to:alpha_ompkernel)
+}
+
+void op_decl_const_qinf(int dim, char const *type,
+                       float *dat){
+  memcpy(qinf_ompkernel, dat, dim*sizeof(float));
+  #pragma omp target enter data map(to:qinf_ompkernel[:4])
+}
+
 // user kernel files
 #include "save_soln_omp4kernel_func.cpp"
 #include "adt_calc_omp4kernel_func.cpp"

@@ -23,58 +23,103 @@ double mfan_ompkernel;
 // header
 #include "op_lib_cpp.h"
 
-void op_decl_const_char(int dim, char const *type,
-  int size, char *dat, char const *name){
-  if(!strcmp(name, "gam")) {
-    memcpy(&gam_ompkernel, dat, dim*size);
+
+void op_decl_const_gam(int dim, char const *type,
+                       double *dat){
+  memcpy(&gam_ompkernel, dat, dim*sizeof(double));
   #pragma omp target enter data map(to:gam_ompkernel)
-  } else if(!strcmp(name, "gm1")) {
-    memcpy(&gm1_ompkernel, dat, dim*size);
-  #pragma omp target enter data map(to:gm1_ompkernel)
-  } else if(!strcmp(name, "gm1i")) {
-    memcpy(&gm1i_ompkernel, dat, dim*size);
-  #pragma omp target enter data map(to:gm1i_ompkernel)
-  } else if(!strcmp(name, "m2")) {
-    memcpy(&m2_ompkernel, dat, dim*size);
-  #pragma omp target enter data map(to:m2_ompkernel)
-  } else if(!strcmp(name, "wtg1")) {
-    memcpy(wtg1_ompkernel, dat, dim*size);
-  #pragma omp target enter data map(to:wtg1_ompkernel[:2])
-  } else if(!strcmp(name, "xi1")) {
-    memcpy(xi1_ompkernel, dat, dim*size);
-  #pragma omp target enter data map(to:xi1_ompkernel[:2])
-  } else if(!strcmp(name, "Ng1")) {
-    memcpy(Ng1_ompkernel, dat, dim*size);
-  #pragma omp target enter data map(to:Ng1_ompkernel[:4])
-  } else if(!strcmp(name, "Ng1_xi")) {
-    memcpy(Ng1_xi_ompkernel, dat, dim*size);
-  #pragma omp target enter data map(to:Ng1_xi_ompkernel[:4])
-  } else if(!strcmp(name, "wtg2")) {
-    memcpy(wtg2_ompkernel, dat, dim*size);
-  #pragma omp target enter data map(to:wtg2_ompkernel[:4])
-  } else if(!strcmp(name, "Ng2")) {
-    memcpy(Ng2_ompkernel, dat, dim*size);
-  #pragma omp target enter data map(to:Ng2_ompkernel[:16])
-  } else if(!strcmp(name, "Ng2_xi")) {
-    memcpy(Ng2_xi_ompkernel, dat, dim*size);
-  #pragma omp target enter data map(to:Ng2_xi_ompkernel[:32])
-  } else if(!strcmp(name, "minf")) {
-    memcpy(&minf_ompkernel, dat, dim*size);
-  #pragma omp target enter data map(to:minf_ompkernel)
-  } else if(!strcmp(name, "freq")) {
-    memcpy(&freq_ompkernel, dat, dim*size);
-  #pragma omp target enter data map(to:freq_ompkernel)
-  } else if(!strcmp(name, "kappa")) {
-    memcpy(&kappa_ompkernel, dat, dim*size);
-  #pragma omp target enter data map(to:kappa_ompkernel)
-  } else if(!strcmp(name, "nmode")) {
-    memcpy(&nmode_ompkernel, dat, dim*size);
-  #pragma omp target enter data map(to:nmode_ompkernel)
-  } else if(!strcmp(name, "mfan")) {
-    memcpy(&mfan_ompkernel, dat, dim*size);
-  #pragma omp target enter data map(to:mfan_ompkernel)
-  }
 }
+
+void op_decl_const_gm1(int dim, char const *type,
+                       double *dat){
+  memcpy(&gm1_ompkernel, dat, dim*sizeof(double));
+  #pragma omp target enter data map(to:gm1_ompkernel)
+}
+
+void op_decl_const_gm1i(int dim, char const *type,
+                       double *dat){
+  memcpy(&gm1i_ompkernel, dat, dim*sizeof(double));
+  #pragma omp target enter data map(to:gm1i_ompkernel)
+}
+
+void op_decl_const_m2(int dim, char const *type,
+                       double *dat){
+  memcpy(&m2_ompkernel, dat, dim*sizeof(double));
+  #pragma omp target enter data map(to:m2_ompkernel)
+}
+
+void op_decl_const_wtg1(int dim, char const *type,
+                       double *dat){
+  memcpy(wtg1_ompkernel, dat, dim*sizeof(double));
+  #pragma omp target enter data map(to:wtg1_ompkernel[:2])
+}
+
+void op_decl_const_xi1(int dim, char const *type,
+                       double *dat){
+  memcpy(xi1_ompkernel, dat, dim*sizeof(double));
+  #pragma omp target enter data map(to:xi1_ompkernel[:2])
+}
+
+void op_decl_const_Ng1(int dim, char const *type,
+                       double *dat){
+  memcpy(Ng1_ompkernel, dat, dim*sizeof(double));
+  #pragma omp target enter data map(to:Ng1_ompkernel[:4])
+}
+
+void op_decl_const_Ng1_xi(int dim, char const *type,
+                       double *dat){
+  memcpy(Ng1_xi_ompkernel, dat, dim*sizeof(double));
+  #pragma omp target enter data map(to:Ng1_xi_ompkernel[:4])
+}
+
+void op_decl_const_wtg2(int dim, char const *type,
+                       double *dat){
+  memcpy(wtg2_ompkernel, dat, dim*sizeof(double));
+  #pragma omp target enter data map(to:wtg2_ompkernel[:4])
+}
+
+void op_decl_const_Ng2(int dim, char const *type,
+                       double *dat){
+  memcpy(Ng2_ompkernel, dat, dim*sizeof(double));
+  #pragma omp target enter data map(to:Ng2_ompkernel[:16])
+}
+
+void op_decl_const_Ng2_xi(int dim, char const *type,
+                       double *dat){
+  memcpy(Ng2_xi_ompkernel, dat, dim*sizeof(double));
+  #pragma omp target enter data map(to:Ng2_xi_ompkernel[:32])
+}
+
+void op_decl_const_minf(int dim, char const *type,
+                       double *dat){
+  memcpy(&minf_ompkernel, dat, dim*sizeof(double));
+  #pragma omp target enter data map(to:minf_ompkernel)
+}
+
+void op_decl_const_freq(int dim, char const *type,
+                       double *dat){
+  memcpy(&freq_ompkernel, dat, dim*sizeof(double));
+  #pragma omp target enter data map(to:freq_ompkernel)
+}
+
+void op_decl_const_kappa(int dim, char const *type,
+                       double *dat){
+  memcpy(&kappa_ompkernel, dat, dim*sizeof(double));
+  #pragma omp target enter data map(to:kappa_ompkernel)
+}
+
+void op_decl_const_nmode(int dim, char const *type,
+                       double *dat){
+  memcpy(&nmode_ompkernel, dat, dim*sizeof(double));
+  #pragma omp target enter data map(to:nmode_ompkernel)
+}
+
+void op_decl_const_mfan(int dim, char const *type,
+                       double *dat){
+  memcpy(&mfan_ompkernel, dat, dim*sizeof(double));
+  #pragma omp target enter data map(to:mfan_ompkernel)
+}
+
 // user kernel files
 #include "res_calc_omp4kernel_func.cpp"
 #include "dirichlet_omp4kernel_func.cpp"

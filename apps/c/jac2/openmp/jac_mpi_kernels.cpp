@@ -12,6 +12,13 @@ extern float alpha;
 // header
 #include "op_lib_cpp.h"
 
+#ifndef SKIP_DECL_CONST
+
+void op_decl_const_alpha(int dim, char const *type,
+                       float *dat){
+}
+#endif
+
 // user kernel files
 #include "res_kernel.cpp"
 #include "update_kernel.cpp"

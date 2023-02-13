@@ -9,6 +9,11 @@ extern double alpha;
 #include "../user_types.h"
 #include "op_lib_cpp.h"
 
+
+void op_decl_const_alpha(int dim, char const *type,
+                       double *dat){
+}
+
 // user kernel files
 #include "res_seqkernel.cpp"
 #include "update_seqkernel.cpp"

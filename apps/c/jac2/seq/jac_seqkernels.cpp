@@ -8,6 +8,11 @@ extern float alpha;
 // header
 #include "op_lib_cpp.h"
 
+
+void op_decl_const_alpha(int dim, char const *type,
+                       float *dat){
+}
+
 // user kernel files
 #include "res_seqkernel.cpp"
 #include "update_seqkernel.cpp"

@@ -48,10 +48,11 @@ __global__ void op_cuda_res_calc(
   const int *__restrict opDat2Map,
   int start,
   int end,
+  int *col_reord,
   int   set_size) {
   int tid = threadIdx.x + blockIdx.x * blockDim.x;
   if (tid + start < end) {
-    int n = tid + start;
+    int n = col_reord[tid + start];
     //initialise local variables
     double arg6_l[4];
     for ( int d=0; d<4; d++ ){
@@ -77,16 +78,8 @@ __global__ void op_cuda_res_calc(
              ind_arg1+map3idx*4,
              ind_arg2+map2idx*1,
              ind_arg2+map3idx*1,
-             arg6_l,
-             arg7_l);
-    atomicAdd(&ind_arg3[0+map2idx*4],arg6_l[0]);
-    atomicAdd(&ind_arg3[1+map2idx*4],arg6_l[1]);
-    atomicAdd(&ind_arg3[2+map2idx*4],arg6_l[2]);
-    atomicAdd(&ind_arg3[3+map2idx*4],arg6_l[3]);
-    atomicAdd(&ind_arg3[0+map3idx*4],arg7_l[0]);
-    atomicAdd(&ind_arg3[1+map3idx*4],arg7_l[1]);
-    atomicAdd(&ind_arg3[2+map3idx*4],arg7_l[2]);
-    atomicAdd(&ind_arg3[3+map3idx*4],arg7_l[3]);
+             ind_arg3+map2idx*4,
+             ind_arg3+map3idx*4);
   }
 }
 
@@ -128,8 +121,18 @@ void op_par_loop_res_calc(char const *name, op_set set,
   if (OP_diags>2) {
     printf(" kernel routine with indirection: res_calc\n");
   }
+
+  //get plan
+  #ifdef OP_PART_SIZE_2
+    int part_size = OP_PART_SIZE_2;
+  #else
+    int part_size = OP_part_size;
+  #endif
+
   int set_size = op_mpi_halo_exchanges_grouped(set, nargs, args, 2);
   if (set_size > 0) {
+
+    op_plan *Plan = op_plan_get_stage(name,set,part_size,nargs,args,ninds,inds,OP_COLOR2);
 
     //set CUDA execution parameters
     #ifdef OP_BLOCK_SIZE_2
@@ -138,24 +141,29 @@ void op_par_loop_res_calc(char const *name, op_set set,
       int nthread = OP_block_size;
     #endif
 
-    for ( int round=0; round<2; round++ ){
-      if (round==1) {
+    //execute plan
+    for ( int col=0; col<Plan->ncolors; col++ ){
+      if (col==Plan->ncolors_core) {
         op_mpi_wait_all_grouped(nargs, args, 2);
       }
-      int start = round==0 ? 0 : set->core_size;
-      int end = round==0 ? set->core_size : set->size + set->exec_size;
-      if (end-start>0) {
-        int nblocks = (end-start-1)/nthread+1;
-        op_cuda_res_calc<<<nblocks,nthread>>>(
-        (double *)arg0.data_d,
-        (double *)arg2.data_d,
-        (double *)arg4.data_d,
-        (double *)arg6.data_d,
-        arg0.map_data_d,
-        arg2.map_data_d,
-        start,end,set->size+set->exec_size);
-      }
+      int start = Plan->col_offsets[0][col];
+      int end = Plan->col_offsets[0][col+1];
+      int nblocks = (end - start - 1)/nthread + 1;
+      op_cuda_res_calc<<<nblocks,nthread>>>(
+      (double *)arg0.data_d,
+      (double *)arg2.data_d,
+      (double *)arg4.data_d,
+      (double *)arg6.data_d,
+      arg0.map_data_d,
+      arg2.map_data_d,
+      start,
+      end,
+      Plan->col_reord,
+      set->size+set->exec_size);
+
     }
+    OP_kernels[2].transfer  += Plan->transfer;
+    OP_kernels[2].transfer2 += Plan->transfer2;
   }
   op_mpi_set_dirtybit_cuda(nargs, args);
   cutilSafeCall(cudaDeviceSynchronize());

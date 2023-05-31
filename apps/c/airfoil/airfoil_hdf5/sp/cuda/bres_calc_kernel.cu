@@ -46,10 +46,11 @@ __global__ void op_cuda_bres_calc(
   const int *__restrict arg5,
   int start,
   int end,
+  int *col_reord,
   int   set_size) {
   int tid = threadIdx.x + blockIdx.x * blockDim.x;
   if (tid + start < end) {
-    int n = tid + start;
+    int n = col_reord[tid + start];
     //initialise local variables
     float arg4_l[4];
     for ( int d=0; d<4; d++ ){
@@ -67,12 +68,8 @@ __global__ void op_cuda_bres_calc(
               ind_arg0+map1idx*2,
               ind_arg1+map2idx*4,
               ind_arg2+map2idx*1,
-              arg4_l,
+              ind_arg3+map2idx*4,
               arg5+n*1);
-    atomicAdd(&ind_arg3[0+map2idx*4],arg4_l[0]);
-    atomicAdd(&ind_arg3[1+map2idx*4],arg4_l[1]);
-    atomicAdd(&ind_arg3[2+map2idx*4],arg4_l[2]);
-    atomicAdd(&ind_arg3[3+map2idx*4],arg4_l[3]);
   }
 }
 
@@ -110,8 +107,18 @@ void op_par_loop_bres_calc(char const *name, op_set set,
   if (OP_diags>2) {
     printf(" kernel routine with indirection: bres_calc\n");
   }
+
+  //get plan
+  #ifdef OP_PART_SIZE_3
+    int part_size = OP_PART_SIZE_3;
+  #else
+    int part_size = OP_part_size;
+  #endif
+
   int set_size = op_mpi_halo_exchanges_grouped(set, nargs, args, 2);
   if (set_size > 0) {
+
+    op_plan *Plan = op_plan_get_stage(name,set,part_size,nargs,args,ninds,inds,OP_COLOR2);
 
     //set CUDA execution parameters
     #ifdef OP_BLOCK_SIZE_3
@@ -120,25 +127,30 @@ void op_par_loop_bres_calc(char const *name, op_set set,
       int nthread = OP_block_size;
     #endif
 
-    for ( int round=0; round<2; round++ ){
-      if (round==1) {
+    //execute plan
+    for ( int col=0; col<Plan->ncolors; col++ ){
+      if (col==Plan->ncolors_core) {
         op_mpi_wait_all_grouped(nargs, args, 2);
       }
-      int start = round==0 ? 0 : set->core_size;
-      int end = round==0 ? set->core_size : set->size + set->exec_size;
-      if (end-start>0) {
-        int nblocks = (end-start-1)/nthread+1;
-        op_cuda_bres_calc<<<nblocks,nthread>>>(
-        (float *)arg0.data_d,
-        (float *)arg2.data_d,
-        (float *)arg3.data_d,
-        (float *)arg4.data_d,
-        arg0.map_data_d,
-        arg2.map_data_d,
-        (int*)arg5.data_d,
-        start,end,set->size+set->exec_size);
-      }
+      int start = Plan->col_offsets[0][col];
+      int end = Plan->col_offsets[0][col+1];
+      int nblocks = (end - start - 1)/nthread + 1;
+      op_cuda_bres_calc<<<nblocks,nthread>>>(
+      (float *)arg0.data_d,
+      (float *)arg2.data_d,
+      (float *)arg3.data_d,
+      (float *)arg4.data_d,
+      arg0.map_data_d,
+      arg2.map_data_d,
+      (int*)arg5.data_d,
+      start,
+      end,
+      Plan->col_reord,
+      set->size+set->exec_size);
+
     }
+    OP_kernels[3].transfer  += Plan->transfer;
+    OP_kernels[3].transfer2 += Plan->transfer2;
   }
   op_mpi_set_dirtybit_cuda(nargs, args);
   cutilSafeCall(cudaDeviceSynchronize());

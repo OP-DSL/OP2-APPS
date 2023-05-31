@@ -237,17 +237,18 @@ void op_par_loop_res_calc(char const *name, op_set set,
 
     op_plan *Plan = op_plan_get_stage(name,set,part_size,nargs,args,ninds,inds,OP_COLOR2);
 
+    //set CUDA execution parameters
+    #ifdef OP_BLOCK_SIZE_0
+      int nthread = OP_BLOCK_SIZE_0;
+    #else
+      int nthread = OP_block_size;
+    #endif
+
     //execute plan
     for ( int col=0; col<Plan->ncolors; col++ ){
       if (col==Plan->ncolors_core) {
         op_mpi_wait_all_grouped(nargs, args, 2);
       }
-      #ifdef OP_BLOCK_SIZE_0
-      int nthread = OP_BLOCK_SIZE_0;
-      #else
-      int nthread = OP_block_size;
-      #endif
-
       int start = Plan->col_offsets[0][col];
       int end = Plan->col_offsets[0][col+1];
       int nblocks = (end - start - 1)/nthread + 1;

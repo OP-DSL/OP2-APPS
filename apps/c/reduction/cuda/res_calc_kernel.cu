@@ -16,6 +16,7 @@ __global__ void op_cuda_res_calc(
   int *arg1,
   int start,
   int end,
+  int *col_reord,
   int   set_size) {
   int arg1_l[1];
   for ( int d=0; d<1; d++ ){
@@ -23,7 +24,7 @@ __global__ void op_cuda_res_calc(
   }
   int tid = threadIdx.x + blockIdx.x * blockDim.x;
   if (tid + start < end) {
-    int n = tid + start;
+    int n = col_reord[tid + start];
     //initialise local variables
     double arg0_l[4];
     for ( int d=0; d<4; d++ ){
@@ -33,12 +34,8 @@ __global__ void op_cuda_res_calc(
     map0idx = opDat0Map[n + set_size * 0];
 
     //user-supplied kernel call
-    res_calc_gpu(arg0_l,
+    res_calc_gpu(ind_arg0+map0idx*4,
              arg1_l);
-    atomicAdd(&ind_arg0[0+map0idx*4],arg0_l[0]);
-    atomicAdd(&ind_arg0[1+map0idx*4],arg0_l[1]);
-    atomicAdd(&ind_arg0[2+map0idx*4],arg0_l[2]);
-    atomicAdd(&ind_arg0[3+map0idx*4],arg0_l[3]);
   }
 
   //global reductions
@@ -75,8 +72,18 @@ void op_par_loop_res_calc(char const *name, op_set set,
   if (OP_diags>2) {
     printf(" kernel routine with indirection: res_calc\n");
   }
+
+  //get plan
+  #ifdef OP_PART_SIZE_0
+    int part_size = OP_PART_SIZE_0;
+  #else
+    int part_size = OP_part_size;
+  #endif
+
   int set_size = op_mpi_halo_exchanges_grouped(set, nargs, args, 2);
   if (set_size > 0) {
+
+    op_plan *Plan = op_plan_get_stage(name,set,part_size,nargs,args,ninds,inds,OP_COLOR2);
 
     //set CUDA execution parameters
     #ifdef OP_BLOCK_SIZE_0
@@ -86,7 +93,13 @@ void op_par_loop_res_calc(char const *name, op_set set,
     #endif
 
     //transfer global reduction data to GPU
-    int maxblocks = (MAX(set->core_size, set->size+set->exec_size-set->core_size)-1)/nthread+1;
+    int maxblocks = 0;
+    for ( int col=0; col<Plan->ncolors; col++ ){
+      int start = Plan->col_offsets[0][col];
+      int end = Plan->col_offsets[0][col+1];
+      int nblocks = (end - start - 1)/nthread + 1;
+      maxblocks = MAX(maxblocks,nblocks);
+    }
     int reduct_bytes = 0;
     int reduct_size  = 0;
     reduct_bytes += ROUND_UP(maxblocks*1*sizeof(int));
@@ -103,23 +116,31 @@ void op_par_loop_res_calc(char const *name, op_set set,
     reduct_bytes += ROUND_UP(maxblocks*1*sizeof(int));
     mvReductArraysToDevice(reduct_bytes);
 
-    for ( int round=0; round<3; round++ ){
-      if (round==1) {
+    //execute plan
+    for ( int col=0; col<Plan->ncolors; col++ ){
+      if (col==Plan->ncolors_core) {
         op_mpi_wait_all_grouped(nargs, args, 2);
       }
-      int start = round==0 ? 0 : (round==1 ? set->core_size : set->size);
-      int end = round==0 ? set->core_size : (round==1? set->size :  set->size + set->exec_size);
-      if (end-start>0) {
-        int nblocks = (end-start-1)/nthread+1;
-        int nshared = reduct_size*nthread;
-        op_cuda_res_calc<<<nblocks,nthread,nshared>>>(
-        (double *)arg0.data_d,
-        arg0.map_data_d,
-        (int*)arg1.data_d,
-        start,end,set->size+set->exec_size);
+      int start = Plan->col_offsets[0][col];
+      int end = Plan->col_offsets[0][col+1];
+      int nblocks = (end - start - 1)/nthread + 1;
+      int nshared = reduct_size*nthread;
+      op_cuda_res_calc<<<nblocks,nthread,nshared>>>(
+      (double *)arg0.data_d,
+      arg0.map_data_d,
+      (int*)arg1.data_d,
+      start,
+      end,
+      Plan->col_reord,
+      set->size+set->exec_size);
+
+      //transfer global reduction data back to CPU
+      if (col == Plan->ncolors_owned-1) {
+        mvReductArraysToHost(reduct_bytes);
       }
-      if (round==1) mvReductArraysToHost(reduct_bytes);
     }
+    OP_kernels[0].transfer  += Plan->transfer;
+    OP_kernels[0].transfer2 += Plan->transfer2;
     for ( int b=0; b<maxblocks; b++ ){
       for ( int d=0; d<1; d++ ){
         arg1h[d] = arg1h[d] + ((int *)arg1.data)[d+b*1];

@@ -18,10 +18,11 @@ __global__ void op_cuda_res(
   const double *arg3,
   int start,
   int end,
+  int *col_reord,
   int   set_size) {
   int tid = threadIdx.x + blockIdx.x * blockDim.x;
   if (tid + start < end) {
-    int n = tid + start;
+    int n = col_reord[tid + start];
     //initialise local variables
     double arg2_l[1];
     for ( int d=0; d<1; d++ ){
@@ -35,9 +36,8 @@ __global__ void op_cuda_res(
     //user-supplied kernel call
     res_gpu(arg0+n*1,
         ind_arg0+map1idx*1,
-        arg2_l,
+        ind_arg1+map2idx*1,
         arg3);
-    atomicAdd(&ind_arg1[0+map2idx*1],arg2_l[0]);
   }
 }
 
@@ -72,8 +72,18 @@ void op_par_loop_res(char const *name, op_set set,
   if (OP_diags>2) {
     printf(" kernel routine with indirection: res\n");
   }
+
+  //get plan
+  #ifdef OP_PART_SIZE_0
+    int part_size = OP_PART_SIZE_0;
+  #else
+    int part_size = OP_part_size;
+  #endif
+
   int set_size = op_mpi_halo_exchanges_grouped(set, nargs, args, 2);
   if (set_size > 0) {
+
+    op_plan *Plan = op_plan_get_stage(name,set,part_size,nargs,args,ninds,inds,OP_COLOR2);
 
     //transfer constants to GPU
     int consts_bytes = 0;
@@ -95,23 +105,28 @@ void op_par_loop_res(char const *name, op_set set,
       int nthread = OP_block_size;
     #endif
 
-    for ( int round=0; round<2; round++ ){
-      if (round==1) {
+    //execute plan
+    for ( int col=0; col<Plan->ncolors; col++ ){
+      if (col==Plan->ncolors_core) {
         op_mpi_wait_all_grouped(nargs, args, 2);
       }
-      int start = round==0 ? 0 : set->core_size;
-      int end = round==0 ? set->core_size : set->size + set->exec_size;
-      if (end-start>0) {
-        int nblocks = (end-start-1)/nthread+1;
-        op_cuda_res<<<nblocks,nthread>>>(
-        (double *)arg1.data_d,
-        (double *)arg2.data_d,
-        arg1.map_data_d,
-        (double*)arg0.data_d,
-        (double*)arg3.data_d,
-        start,end,set->size+set->exec_size);
-      }
+      int start = Plan->col_offsets[0][col];
+      int end = Plan->col_offsets[0][col+1];
+      int nblocks = (end - start - 1)/nthread + 1;
+      op_cuda_res<<<nblocks,nthread>>>(
+      (double *)arg1.data_d,
+      (double *)arg2.data_d,
+      arg1.map_data_d,
+      (double*)arg0.data_d,
+      (double*)arg3.data_d,
+      start,
+      end,
+      Plan->col_reord,
+      set->size+set->exec_size);
+
     }
+    OP_kernels[0].transfer  += Plan->transfer;
+    OP_kernels[0].transfer2 += Plan->transfer2;
   }
   op_mpi_set_dirtybit_cuda(nargs, args);
   cutilSafeCall(cudaDeviceSynchronize());

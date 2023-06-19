@@ -84,7 +84,7 @@ void op_par_loop_init_cg(char const *name, op_set set,
       int nthread = OP_block_size;
     #endif
 
-    int nblocks = 200;
+    int nblocks = 400;
 
     //transfer global reduction data to GPU
     int maxblocks = nblocks;

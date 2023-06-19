@@ -17,7 +17,8 @@ __global__ void op_cuda_save_soln(
 
 
   //process set elements
-  for ( int n=threadIdx.x+blockIdx.x*blockDim.x; n<set_size; n+=blockDim.x*gridDim.x ){
+  int n = threadIdx.x+blockIdx.x*blockDim.x;
+  if (n < set_size) {
 
     //user-supplied kernel call
     save_soln_gpu(arg0+n*4,
@@ -59,7 +60,7 @@ void op_par_loop_save_soln(char const *name, op_set set,
       int nthread = OP_block_size;
     #endif
 
-    int nblocks = 200;
+    int nblocks = (set_size - 1) / nthread + 1;
 
     op_cuda_save_soln<<<nblocks,nthread>>>(
       (double *) arg0.data_d,

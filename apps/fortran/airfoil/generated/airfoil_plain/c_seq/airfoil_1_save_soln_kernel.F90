@@ -1,4 +1,63 @@
-module op2_m_airfoil_1_save_soln
+module op2_m_airfoil_1_save_soln_main
+
+    use iso_c_binding
+
+    use op2_fortran_declarations
+    use op2_fortran_rt_support
+
+    implicit none
+
+    private
+    public :: op2_k_airfoil_1_save_soln_main
+
+    interface
+
+        subroutine op2_k_airfoil_1_save_soln_main_c( &
+            set, &
+            arg0, &
+            arg1 &
+        ) bind(C, name='op2_k_airfoil_1_save_soln_main_c')
+
+            use iso_c_binding
+            use op2_fortran_declarations
+
+            type(c_ptr), value :: set
+
+            type(op_arg), value :: arg0
+            type(op_arg), value :: arg1
+
+        end subroutine
+
+    end interface
+
+contains
+
+subroutine op2_k_airfoil_1_save_soln_main( &
+    name, &
+    set, &
+    arg0, &
+    arg1 &
+)
+    implicit none
+
+    ! parameters
+    character(kind=c_char, len=*) :: name
+    type(op_set) :: set
+
+    type(op_arg) :: arg0
+    type(op_arg) :: arg1
+
+    call op2_k_airfoil_1_save_soln_main_c( &
+        set%setcptr, &
+        arg0, &
+        arg1 &
+    )
+
+end subroutine
+
+end module
+
+module op2_m_airfoil_1_save_soln_fallback
 
     use iso_c_binding
 
@@ -10,7 +69,7 @@ module op2_m_airfoil_1_save_soln
     implicit none
 
     private
-    public :: op2_k_airfoil_1_save_soln
+    public :: op2_k_airfoil_1_save_soln_fallback
 
 contains
 
@@ -51,7 +110,7 @@ subroutine op2_k_airfoil_1_save_soln_wrapper( &
     end do
 end subroutine
 
-subroutine op2_k_airfoil_1_save_soln( &
+subroutine op2_k_airfoil_1_save_soln_fallback( &
     name, &
     set, &
     arg0, &
@@ -106,6 +165,54 @@ subroutine op2_k_airfoil_1_save_soln( &
 
     call op_mpi_set_dirtybit(size(args), args)
     call op_timing2_exit()
+end subroutine
+
+end module
+
+module op2_m_airfoil_1_save_soln
+
+    use iso_c_binding
+
+    use op2_fortran_declarations
+    use op2_fortran_rt_support
+
+    use op2_m_airfoil_1_save_soln_fallback
+    use op2_m_airfoil_1_save_soln_main
+
+    implicit none
+
+    private
+    public :: op2_k_airfoil_1_save_soln
+
+contains
+
+subroutine op2_k_airfoil_1_save_soln( &
+    name, &
+    set, &
+    arg0, &
+    arg1 &
+)
+    character(kind=c_char, len=*) :: name
+    type(op_set) :: set
+
+    type(op_arg) :: arg0
+    type(op_arg) :: arg1
+
+    if (op_check_whitelist("airfoil_1_save_soln")) then
+        call op2_k_airfoil_1_save_soln_main( &
+            name, &
+            set, &
+            arg0, &
+            arg1 &
+        )
+    else
+        call op2_k_airfoil_1_save_soln_fallback( &
+            name, &
+            set, &
+            arg0, &
+            arg1 &
+        )
+    end if
 end subroutine
 
 end module

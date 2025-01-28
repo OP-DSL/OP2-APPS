@@ -1,4 +1,93 @@
-module op2_m_airfoil_5_update
+module op2_m_airfoil_5_update_main
+
+    use iso_c_binding
+
+    use op2_fortran_declarations
+    use op2_fortran_rt_support
+
+    implicit none
+
+    private
+    public :: op2_k_airfoil_5_update_main
+
+    interface
+
+        subroutine op2_k_airfoil_5_update_main_c( &
+            set, &
+            arg0, &
+            arg1, &
+            arg2, &
+            arg3, &
+            arg4, &
+            arg5, &
+            arg6, &
+            arg7 &
+        ) bind(C, name='op2_k_airfoil_5_update_main_c')
+
+            use iso_c_binding
+            use op2_fortran_declarations
+
+            type(c_ptr), value :: set
+
+            type(op_arg), value :: arg0
+            type(op_arg), value :: arg1
+            type(op_arg), value :: arg2
+            type(op_arg), value :: arg3
+            type(op_arg), value :: arg4
+            type(op_arg), value :: arg5
+            type(op_arg), value :: arg6
+            type(op_arg), value :: arg7
+
+        end subroutine
+
+    end interface
+
+contains
+
+subroutine op2_k_airfoil_5_update_main( &
+    name, &
+    set, &
+    arg0, &
+    arg1, &
+    arg2, &
+    arg3, &
+    arg4, &
+    arg5, &
+    arg6, &
+    arg7 &
+)
+    implicit none
+
+    ! parameters
+    character(kind=c_char, len=*) :: name
+    type(op_set) :: set
+
+    type(op_arg) :: arg0
+    type(op_arg) :: arg1
+    type(op_arg) :: arg2
+    type(op_arg) :: arg3
+    type(op_arg) :: arg4
+    type(op_arg) :: arg5
+    type(op_arg) :: arg6
+    type(op_arg) :: arg7
+
+    call op2_k_airfoil_5_update_main_c( &
+        set%setcptr, &
+        arg0, &
+        arg1, &
+        arg2, &
+        arg3, &
+        arg4, &
+        arg5, &
+        arg6, &
+        arg7 &
+    )
+
+end subroutine
+
+end module
+
+module op2_m_airfoil_5_update_fallback
 
     use iso_c_binding
 
@@ -10,7 +99,7 @@ module op2_m_airfoil_5_update
     implicit none
 
     private
-    public :: op2_k_airfoil_5_update
+    public :: op2_k_airfoil_5_update_fallback
 
 contains
 
@@ -84,7 +173,7 @@ subroutine op2_k_airfoil_5_update_wrapper( &
     end do
 end subroutine
 
-subroutine op2_k_airfoil_5_update( &
+subroutine op2_k_airfoil_5_update_fallback( &
     name, &
     set, &
     arg0, &
@@ -181,6 +270,78 @@ subroutine op2_k_airfoil_5_update( &
 
     call op_mpi_set_dirtybit(size(args), args)
     call op_timing2_exit()
+end subroutine
+
+end module
+
+module op2_m_airfoil_5_update
+
+    use iso_c_binding
+
+    use op2_fortran_declarations
+    use op2_fortran_rt_support
+
+    use op2_m_airfoil_5_update_fallback
+    use op2_m_airfoil_5_update_main
+
+    implicit none
+
+    private
+    public :: op2_k_airfoil_5_update
+
+contains
+
+subroutine op2_k_airfoil_5_update( &
+    name, &
+    set, &
+    arg0, &
+    arg1, &
+    arg2, &
+    arg3, &
+    arg4, &
+    arg5, &
+    arg6, &
+    arg7 &
+)
+    character(kind=c_char, len=*) :: name
+    type(op_set) :: set
+
+    type(op_arg) :: arg0
+    type(op_arg) :: arg1
+    type(op_arg) :: arg2
+    type(op_arg) :: arg3
+    type(op_arg) :: arg4
+    type(op_arg) :: arg5
+    type(op_arg) :: arg6
+    type(op_arg) :: arg7
+
+    if (op_check_whitelist("airfoil_5_update")) then
+        call op2_k_airfoil_5_update_main( &
+            name, &
+            set, &
+            arg0, &
+            arg1, &
+            arg2, &
+            arg3, &
+            arg4, &
+            arg5, &
+            arg6, &
+            arg7 &
+        )
+    else
+        call op2_k_airfoil_5_update_fallback( &
+            name, &
+            set, &
+            arg0, &
+            arg1, &
+            arg2, &
+            arg3, &
+            arg4, &
+            arg5, &
+            arg6, &
+            arg7 &
+        )
+    end if
 end subroutine
 
 end module

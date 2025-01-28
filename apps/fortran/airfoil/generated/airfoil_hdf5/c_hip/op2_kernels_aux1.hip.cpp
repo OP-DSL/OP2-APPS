@@ -5,11 +5,11 @@
 #include <extern/incbin.h>
 
 
-#define OP_F2C_PRELUDE OP_F2C_PRELUDE_7914203947
-#define OP_F2C_PARAMS OP_F2C_PARAMS_7914203947
+#define OP_F2C_PRELUDE OP_F2C_PRELUDE_8013278002
+#define OP_F2C_PARAMS OP_F2C_PARAMS_8013278002
 
-#define OP_F2C_PRELUDE_DATA OP_F2C_PRELUDE_7914203947_data
-#define OP_F2C_PARAMS_DATA OP_F2C_PARAMS_7914203947_data
+#define OP_F2C_PRELUDE_DATA OP_F2C_PRELUDE_8013278002_data
+#define OP_F2C_PARAMS_DATA OP_F2C_PARAMS_8013278002_data
 
 INCTXT(OP_F2C_PRELUDE, "op_f2c_prelude.h");
 INCTXT(OP_F2C_PARAMS, "hydra_const_list_params.h");
@@ -35,3 +35,8 @@ void setGblIncAtomic(bool enable);
 
 }
 
+#include "airfoil_1_save_soln_kernel_aux1.hip.h"
+#include "airfoil_2_adt_calc_kernel_aux1.hip.h"
+#include "airfoil_3_res_calc_kernel_aux1.hip.h"
+#include "airfoil_4_bres_calc_kernel_aux1.hip.h"
+#include "airfoil_5_update_kernel_aux1.hip.h"

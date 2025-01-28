@@ -1,4 +1,93 @@
-module op2_m_airfoil_3_res_calc
+module op2_m_airfoil_3_res_calc_main
+
+    use iso_c_binding
+
+    use op2_fortran_declarations
+    use op2_fortran_rt_support
+
+    implicit none
+
+    private
+    public :: op2_k_airfoil_3_res_calc_main
+
+    interface
+
+        subroutine op2_k_airfoil_3_res_calc_main_c( &
+            set, &
+            arg0, &
+            arg1, &
+            arg2, &
+            arg3, &
+            arg4, &
+            arg5, &
+            arg6, &
+            arg7 &
+        ) bind(C, name='op2_k_airfoil_3_res_calc_main_c')
+
+            use iso_c_binding
+            use op2_fortran_declarations
+
+            type(c_ptr), value :: set
+
+            type(op_arg), value :: arg0
+            type(op_arg), value :: arg1
+            type(op_arg), value :: arg2
+            type(op_arg), value :: arg3
+            type(op_arg), value :: arg4
+            type(op_arg), value :: arg5
+            type(op_arg), value :: arg6
+            type(op_arg), value :: arg7
+
+        end subroutine
+
+    end interface
+
+contains
+
+subroutine op2_k_airfoil_3_res_calc_main( &
+    name, &
+    set, &
+    arg0, &
+    arg1, &
+    arg2, &
+    arg3, &
+    arg4, &
+    arg5, &
+    arg6, &
+    arg7 &
+)
+    implicit none
+
+    ! parameters
+    character(kind=c_char, len=*) :: name
+    type(op_set) :: set
+
+    type(op_arg) :: arg0
+    type(op_arg) :: arg1
+    type(op_arg) :: arg2
+    type(op_arg) :: arg3
+    type(op_arg) :: arg4
+    type(op_arg) :: arg5
+    type(op_arg) :: arg6
+    type(op_arg) :: arg7
+
+    call op2_k_airfoil_3_res_calc_main_c( &
+        set%setcptr, &
+        arg0, &
+        arg1, &
+        arg2, &
+        arg3, &
+        arg4, &
+        arg5, &
+        arg6, &
+        arg7 &
+    )
+
+end subroutine
+
+end module
+
+module op2_m_airfoil_3_res_calc_fallback
 
     use iso_c_binding
 
@@ -10,7 +99,7 @@ module op2_m_airfoil_3_res_calc
     implicit none
 
     private
-    public :: op2_k_airfoil_3_res_calc
+    public :: op2_k_airfoil_3_res_calc_fallback
 
 contains
 
@@ -92,7 +181,7 @@ subroutine op2_k_airfoil_3_res_calc_wrapper( &
     end do
 end subroutine
 
-subroutine op2_k_airfoil_3_res_calc( &
+subroutine op2_k_airfoil_3_res_calc_fallback( &
     name, &
     set, &
     arg0, &
@@ -179,6 +268,78 @@ subroutine op2_k_airfoil_3_res_calc( &
 
     call op_mpi_set_dirtybit(size(args), args)
     call op_timing2_exit()
+end subroutine
+
+end module
+
+module op2_m_airfoil_3_res_calc
+
+    use iso_c_binding
+
+    use op2_fortran_declarations
+    use op2_fortran_rt_support
+
+    use op2_m_airfoil_3_res_calc_fallback
+    use op2_m_airfoil_3_res_calc_main
+
+    implicit none
+
+    private
+    public :: op2_k_airfoil_3_res_calc
+
+contains
+
+subroutine op2_k_airfoil_3_res_calc( &
+    name, &
+    set, &
+    arg0, &
+    arg1, &
+    arg2, &
+    arg3, &
+    arg4, &
+    arg5, &
+    arg6, &
+    arg7 &
+)
+    character(kind=c_char, len=*) :: name
+    type(op_set) :: set
+
+    type(op_arg) :: arg0
+    type(op_arg) :: arg1
+    type(op_arg) :: arg2
+    type(op_arg) :: arg3
+    type(op_arg) :: arg4
+    type(op_arg) :: arg5
+    type(op_arg) :: arg6
+    type(op_arg) :: arg7
+
+    if (op_check_whitelist("airfoil_3_res_calc")) then
+        call op2_k_airfoil_3_res_calc_main( &
+            name, &
+            set, &
+            arg0, &
+            arg1, &
+            arg2, &
+            arg3, &
+            arg4, &
+            arg5, &
+            arg6, &
+            arg7 &
+        )
+    else
+        call op2_k_airfoil_3_res_calc_fallback( &
+            name, &
+            set, &
+            arg0, &
+            arg1, &
+            arg2, &
+            arg3, &
+            arg4, &
+            arg5, &
+            arg6, &
+            arg7 &
+        )
+    end if
 end subroutine
 
 end module

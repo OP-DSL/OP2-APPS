@@ -44,7 +44,6 @@ PROGRAM airfoil
   CALL op_decl_dat(cells, 4, "real(8)", q, p_q, "p_q")
   CALL op_decl_dat(cells, 4, "real(8)", qold, p_qold, "p_qold")
   CALL op_decl_dat(cells, 1, "real(8)", adt, p_adt, "p_adt")
-  CALL op_decl_dat(cells, 4, "real(8)", res, p_res, "p_res")
   CALL release_buffers
   CALL op_print("Declaring OP2 constants")
   CALL op_decl_const_gam(gam, 1)

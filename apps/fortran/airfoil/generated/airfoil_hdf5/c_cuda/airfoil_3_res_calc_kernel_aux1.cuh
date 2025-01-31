@@ -230,8 +230,8 @@ extern "C" void op2_k_airfoil_3_res_calc_main_c(
                                     op2_k_airfoil_3_res_calc_main_src);
 
     if (first_invocation) {
-        info.add_param("op2_const_gm1_d", &gm1, &op2_const_gm1_d, &op2_const_gm1_hash);
         info.add_param("op2_const_eps_d", &eps, &op2_const_eps_d, &op2_const_eps_hash);
+        info.add_param("op2_const_gm1_d", &gm1, &op2_const_gm1_d, &op2_const_gm1_hash);
 
         first_invocation = false;
     }

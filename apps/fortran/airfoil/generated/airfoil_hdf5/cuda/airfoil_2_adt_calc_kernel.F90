@@ -152,9 +152,9 @@ subroutine op2_k_airfoil_2_adt_calc_main( &
     end if
 
     call op_timing2_next("Update consts")
-    call op_update_const_cuda_gm1()
     call op_update_const_cuda_cfl()
     call op_update_const_cuda_gam()
+    call op_update_const_cuda_gm1()
 
     call op_timing2_exit()
 

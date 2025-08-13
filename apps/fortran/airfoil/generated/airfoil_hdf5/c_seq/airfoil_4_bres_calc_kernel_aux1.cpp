@@ -99,6 +99,11 @@ extern "C" void op2_k_airfoil_4_bres_calc_main_c(
 
 
 
+    int zero_int = 0;
+    bool zero_bool = 0;
+    float zero_float = 0;
+    double zero_double = 0;
+
     for (int n = 0; n < n_exec; ++n) {
         if (n == set->core_size) {
             op_timing2_next("MPI Wait");

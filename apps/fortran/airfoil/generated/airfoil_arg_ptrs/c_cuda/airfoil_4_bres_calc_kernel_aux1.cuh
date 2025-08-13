@@ -78,6 +78,11 @@ void op2_k_airfoil_4_bres_calc_main_wrapper(
     using namespace op2_m_airfoil_4_bres_calc_main;
     int thread_id = threadIdx.x + blockIdx.x * blockDim.x;
 
+    int zero_int = 0;
+    bool zero_bool = 0;
+    float zero_float = 0;
+    double zero_double = 0;
+
     for (int i = thread_id + start; i < end; i += blockDim.x * gridDim.x) {
         int n = i;
 
@@ -172,6 +177,11 @@ void op2_k_airfoil_4_bres_calc_main_wrapper(
     using namespace op2_m_airfoil_4_bres_calc_main;
     int thread_id = threadIdx.x + blockIdx.x * blockDim.x;
 
+    int zero_int = 0;
+    bool zero_bool = 0;
+    float zero_float = 0;
+    double zero_double = 0;
+
     for (int i = thread_id + start; i < end; i += blockDim.x * gridDim.x) {
         int n = i;
 
@@ -217,8 +227,8 @@ extern "C" void op2_k_airfoil_4_bres_calc_main_c(
 
     if (first_invocation) {
         info.add_param("op2_const_eps_d", &eps, &op2_const_eps_d, &op2_const_eps_hash);
-        info.add_param("op2_const_qinf_d", qinf, sizeof(op2_const_qinf_d) / sizeof(qinf[0]), op2_const_qinf_d, &op2_const_qinf_hash);
         info.add_param("op2_const_gm1_d", &gm1, &op2_const_gm1_d, &op2_const_gm1_hash);
+        info.add_param("op2_const_qinf_d", qinf, sizeof(op2_const_qinf_d) / sizeof(qinf[0]), op2_const_qinf_d, &op2_const_qinf_hash);
 
         first_invocation = false;
     }

@@ -169,9 +169,9 @@ subroutine op2_k_airfoil_4_bres_calc_main( &
     end if
 
     call op_timing2_next("Update consts")
+    call op_update_const_cuda_qinf()
     call op_update_const_cuda_gm1()
     call op_update_const_cuda_eps()
-    call op_update_const_cuda_qinf()
 
     call op_timing2_exit()
 

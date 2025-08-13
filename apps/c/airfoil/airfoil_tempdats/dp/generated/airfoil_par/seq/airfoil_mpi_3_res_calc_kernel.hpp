@@ -1,4 +1,11 @@
-namespace op2_k3 {
+#include <op_lib_cpp.h>
+
+#include <cstdint>
+#include <cmath>
+#include <cstdio>
+
+namespace op2_m_airfoil_mpi_3_res_calc {
+
 inline void res_calc(const double *x1, const double *x2, const double *q1,
                      const double *q2, const double *adt1, const double *adt2,
                      double *res1, double *res2) {
@@ -31,11 +38,11 @@ inline void res_calc(const double *x1, const double *x2, const double *q1,
   f = 0.5f * (vol1 * (q1[3] + p1) + vol2 * (q2[3] + p2)) + mu * (q1[3] - q2[3]);
   res1[3] += f;
   res2[3] -= f;
-}
-}
+}}
+
 
 void op_par_loop_airfoil_mpi_3_res_calc(
-    const char *name,
+    const char* name,
     op_set set,
     op_arg arg0,
     op_arg arg1,
@@ -46,43 +53,32 @@ void op_par_loop_airfoil_mpi_3_res_calc(
     op_arg arg6,
     op_arg arg7
 ) {
-    int num_args_expanded = 8;
-    op_arg args_expanded[8];
+    int n_args = 8;
+    op_arg args[8];
 
-    args_expanded[0] = arg0;
-    args_expanded[1] = arg1;
-    args_expanded[2] = arg2;
-    args_expanded[3] = arg3;
-    args_expanded[4] = arg4;
-    args_expanded[5] = arg5;
-    args_expanded[6] = arg6;
-    args_expanded[7] = arg7;
+    args[0] = arg0;
+    args[1] = arg1;
+    args[2] = arg2;
+    args[3] = arg3;
+    args[4] = arg4;
+    args[5] = arg5;
+    args[6] = arg6;
+    args[7] = arg7;
 
-    double cpu_start, cpu_end, wall_start, wall_end;
-    op_timing_realloc(3);
-
-    OP_kernels[3].name = name;
-    OP_kernels[3].count += 1;
-
-    op_timers_core(&cpu_start, &wall_start);
-
-    if (OP_diags > 2)
-        printf(" kernel routine (indirect): airfoil_mpi_3_res_calc\n");
-
-    int set_size = op_mpi_halo_exchanges(set, num_args_expanded, args_expanded);
+    int n_exec = op_mpi_halo_exchanges(set, n_args, args);
 
 
-    for (int n = 0; n < set_size; ++n) {
-        if (n < set->core_size && n > 0 && n % OP_mpi_test_frequency == 0)
-            op_mpi_test_all(num_args_expanded, args_expanded);
 
-        if (n == set->core_size)
-            op_mpi_wait_all(num_args_expanded, args_expanded);
+    for (int n = 0; n < n_exec; ++n) {
+        if (n == set->core_size) {
+            op_mpi_wait_all(n_args, args);
+        }
 
         int *map0 = arg0.map_data + n * arg0.map->dim;
         int *map1 = arg2.map_data + n * arg2.map->dim;
 
-        op2_k3::res_calc(
+
+        op2_m_airfoil_mpi_3_res_calc::res_calc(
             (double *)arg0.data + map0[0] * 2,
             (double *)arg1.data + map0[1] * 2,
             (double *)arg2.data + map1[0] * 4,
@@ -92,14 +88,17 @@ void op_par_loop_airfoil_mpi_3_res_calc(
             (double *)arg6.data + map1[0] * 4,
             (double *)arg7.data + map1[1] * 4
         );
+
+        if (n == set->size - 1) {
+        }
     }
 
-    if (set_size == 0 || set_size == set->core_size)
-        op_mpi_wait_all(num_args_expanded, args_expanded);
+    if (n_exec < set->size) {
+    }
 
-    op_mpi_set_dirtybit(num_args_expanded, args_expanded);
+    if (n_exec == 0 || n_exec == set->core_size)
+        op_mpi_wait_all(n_args, args);
 
-    op_timers_core(&cpu_end, &wall_end);
-    OP_kernels[3].time += wall_end - wall_start;
 
+    op_mpi_set_dirtybit(n_args, args);
 }

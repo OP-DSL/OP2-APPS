@@ -69,6 +69,11 @@ extern "C" void op2_k_jac_2_update_main_c(
 
 
 
+    int zero_int = 0;
+    bool zero_bool = 0;
+    float zero_float = 0;
+    double zero_double = 0;
+
     for (int n = 0; n < n_exec; ++n) {
 
 

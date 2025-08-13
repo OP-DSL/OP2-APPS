@@ -1,4 +1,11 @@
-namespace op2_k1 {
+#include <op_lib_cpp.h>
+
+#include <cstdint>
+#include <cmath>
+#include <cstdio>
+
+namespace op2_m_aero_1_res_calc {
+
 inline void res_calc(const double **x, const double **phim, double *K,
                      /*double *Kt,*/ double **res, double **none) {
   for (int j = 0; j < 4; j++) {
@@ -66,11 +73,11 @@ inline void res_calc(const double **x, const double **phim, double *K,
       }
     }
   }
-}
-}
+}}
+
 
 void op_par_loop_aero_1_res_calc(
-    const char *name,
+    const char* name,
     op_set set,
     op_arg arg0,
     op_arg arg1,
@@ -78,93 +85,45 @@ void op_par_loop_aero_1_res_calc(
     op_arg arg3,
     op_arg arg4
 ) {
-    int num_args_expanded = 17;
-    op_arg args_expanded[17];
+    int n_args = 5;
+    op_arg args[5];
 
-    args_expanded[0] = op_arg_dat(arg0.dat, 0, arg0.map, 2, "double", 0);
-    args_expanded[1] = op_arg_dat(arg0.dat, 1, arg0.map, 2, "double", 0);
-    args_expanded[2] = op_arg_dat(arg0.dat, 2, arg0.map, 2, "double", 0);
-    args_expanded[3] = op_arg_dat(arg0.dat, 3, arg0.map, 2, "double", 0);
-    args_expanded[4] = op_arg_dat(arg1.dat, 0, arg1.map, 1, "double", 0);
-    args_expanded[5] = op_arg_dat(arg1.dat, 1, arg1.map, 1, "double", 0);
-    args_expanded[6] = op_arg_dat(arg1.dat, 2, arg1.map, 1, "double", 0);
-    args_expanded[7] = op_arg_dat(arg1.dat, 3, arg1.map, 1, "double", 0);
-    args_expanded[8] = arg2;
-    args_expanded[9] = op_opt_arg_dat(arg3.opt, arg3.dat, 0, arg3.map, 1, "double", 2);
-    args_expanded[10] = op_opt_arg_dat(arg3.opt, arg3.dat, 1, arg3.map, 1, "double", 2);
-    args_expanded[11] = op_opt_arg_dat(arg3.opt, arg3.dat, 2, arg3.map, 1, "double", 2);
-    args_expanded[12] = op_opt_arg_dat(arg3.opt, arg3.dat, 3, arg3.map, 1, "double", 2);
-    args_expanded[13] = op_opt_arg_dat(arg4.opt, arg4.dat, 0, arg4.map, 4, "double", 3);
-    args_expanded[14] = op_opt_arg_dat(arg4.opt, arg4.dat, 1, arg4.map, 4, "double", 3);
-    args_expanded[15] = op_opt_arg_dat(arg4.opt, arg4.dat, 2, arg4.map, 4, "double", 3);
-    args_expanded[16] = op_opt_arg_dat(arg4.opt, arg4.dat, 3, arg4.map, 4, "double", 3);
+    args[0] = arg0;
+    args[1] = arg1;
+    args[2] = arg2;
+    args[3] = arg3;
+    args[4] = arg4;
 
-    double cpu_start, cpu_end, wall_start, wall_end;
-    op_timing_realloc(1);
-
-    OP_kernels[1].name = name;
-    OP_kernels[1].count += 1;
-
-    op_timers_core(&cpu_start, &wall_start);
-
-    if (OP_diags > 2)
-        printf(" kernel routine (indirect): aero_1_res_calc\n");
-
-    int set_size = op_mpi_halo_exchanges(set, num_args_expanded, args_expanded);
+    int n_exec = op_mpi_halo_exchanges(set, n_args, args);
 
 
-    for (int n = 0; n < set_size; ++n) {
-        if (n < set->core_size && n > 0 && n % OP_mpi_test_frequency == 0)
-            op_mpi_test_all(num_args_expanded, args_expanded);
 
-        if (n == set->core_size)
-            op_mpi_wait_all(num_args_expanded, args_expanded);
+    for (int n = 0; n < n_exec; ++n) {
+        if (n == set->core_size) {
+            op_mpi_wait_all(n_args, args);
+        }
 
         int *map0 = arg0.map_data + n * arg0.map->dim;
 
-        const double *arg0_vec[] = {
-            (double *)arg0.data + map0[0] * 2,
-            (double *)arg0.data + map0[1] * 2,
-            (double *)arg0.data + map0[2] * 2,
-            (double *)arg0.data + map0[3] * 2
-        };
 
-        const double *arg1_vec[] = {
-            (double *)arg1.data + map0[0] * 1,
-            (double *)arg1.data + map0[1] * 1,
-            (double *)arg1.data + map0[2] * 1,
-            (double *)arg1.data + map0[3] * 1
-        };
-
-        double *arg3_vec[] = {
-            (double *)arg3.data + map0[0] * 1,
-            (double *)arg3.data + map0[1] * 1,
-            (double *)arg3.data + map0[2] * 1,
-            (double *)arg3.data + map0[3] * 1
-        };
-
-        double *arg4_vec[] = {
-            (double *)arg4.data + map0[0] * 4,
-            (double *)arg4.data + map0[1] * 4,
-            (double *)arg4.data + map0[2] * 4,
-            (double *)arg4.data + map0[3] * 4
-        };
-
-        op2_k1::res_calc(
-            arg0_vec,
-            arg1_vec,
+        op2_m_aero_1_res_calc::res_calc(
+            (double *)arg0.data + map0[-4] * 2,
+            (double *)arg1.data + map0[-4] * 1,
             (double *)arg2.data + n * 16,
-            arg3_vec,
-            arg4_vec
+            (double *)arg3.data + map0[-4] * 1,
+            (double *)arg4.data + map0[-4] * 4
         );
+
+        if (n == set->size - 1) {
+        }
     }
 
-    if (set_size == 0 || set_size == set->core_size)
-        op_mpi_wait_all(num_args_expanded, args_expanded);
+    if (n_exec < set->size) {
+    }
 
-    op_mpi_set_dirtybit(num_args_expanded, args_expanded);
+    if (n_exec == 0 || n_exec == set->core_size)
+        op_mpi_wait_all(n_args, args);
 
-    op_timers_core(&cpu_end, &wall_end);
-    OP_kernels[1].time += wall_end - wall_start;
 
+    op_mpi_set_dirtybit(n_args, args);
 }

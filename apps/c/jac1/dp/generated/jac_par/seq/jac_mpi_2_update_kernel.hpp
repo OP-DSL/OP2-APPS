@@ -1,4 +1,11 @@
-namespace op2_k2 {
+#include <op_lib_cpp.h>
+
+#include <cstdint>
+#include <cmath>
+#include <cstdio>
+
+namespace op2_m_jac_mpi_2_update {
+
 static inline double maxfun(double a, double b) {
    return a>b ? a : b;
 }
@@ -9,11 +16,11 @@ inline void update(const double *r, double *du, double *u, int *index, double *u
   *du = 0.0f;
   *u_sum += (*u) * (*u);
   *u_max = maxfun(*u_max, *u);
-}
-}
+}}
+
 
 void op_par_loop_jac_mpi_2_update(
-    const char *name,
+    const char* name,
     op_set set,
     op_arg arg0,
     op_arg arg1,
@@ -22,45 +29,41 @@ void op_par_loop_jac_mpi_2_update(
     op_arg arg4,
     op_arg arg5
 ) {
-    int num_args_expanded = 5;
-    op_arg args_expanded[5];
+    int n_args = 6;
+    op_arg args[6];
 
-    args_expanded[0] = arg0;
-    args_expanded[1] = arg1;
-    args_expanded[2] = arg2;
-    args_expanded[3] = arg4;
-    args_expanded[4] = arg5;
+    args[0] = arg0;
+    args[1] = arg1;
+    args[2] = arg2;
+    args[3] = arg3;
+    args[4] = arg4;
+    args[5] = arg5;
 
-    double cpu_start, cpu_end, wall_start, wall_end;
-    op_timing_realloc(2);
-
-    OP_kernels[2].name = name;
-    OP_kernels[2].count += 1;
-
-    op_timers_core(&cpu_start, &wall_start);
-
-    if (OP_diags > 2)
-        printf(" kernel routine (direct): jac_mpi_2_update\n");
-
-    int set_size = op_mpi_halo_exchanges(set, num_args_expanded, args_expanded);
+    int n_exec = op_mpi_halo_exchanges(set, n_args, args);
 
 
-    for (int n = 0; n < set_size; ++n) {
-        op2_k2::update(
+
+    for (int n = 0; n < n_exec; ++n) {
+
+        int idx = n;
+
+        op2_m_jac_mpi_2_update::update(
             (double *)arg0.data + n * 1,
             (double *)arg1.data + n * 1,
             (double *)arg2.data + n * 1,
-            &n,
+            idx,
             (double *)arg4.data,
             (double *)arg5.data
         );
+
     }
+
+
+    if (n_exec == 0 || n_exec == set->core_size)
+        op_mpi_wait_all(n_args, args);
 
     op_mpi_reduce(&arg4, (double *)arg4.data);
     op_mpi_reduce(&arg5, (double *)arg5.data);
-    op_mpi_set_dirtybit(num_args_expanded, args_expanded);
 
-    op_timers_core(&cpu_end, &wall_end);
-    OP_kernels[2].time += wall_end - wall_start;
-
+    op_mpi_set_dirtybit(n_args, args);
 }

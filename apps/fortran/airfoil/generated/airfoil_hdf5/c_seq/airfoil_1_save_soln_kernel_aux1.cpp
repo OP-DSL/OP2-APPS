@@ -10,7 +10,7 @@
 
 namespace f2c = op::f2c;
 
-namespace op2_m_airfoil_1_save_soln_main {
+namespace op2_m_airfoil_1_save_soln_m {
 
 static void save_soln(
     f2c::Ptr<const float> _f2c_ptr_q,
@@ -34,7 +34,7 @@ static void save_soln(
 }
 
 
-extern "C" void op2_k_airfoil_1_save_soln_main_c(
+extern "C" void op2_k_airfoil_1_save_soln_m_c(
     op_set set,
     op_arg arg0,
     op_arg arg1
@@ -62,7 +62,7 @@ extern "C" void op2_k_airfoil_1_save_soln_main_c(
     for (int n = 0; n < n_exec; ++n) {
 
 
-        op2_m_airfoil_1_save_soln_main::save_soln(
+        op2_m_airfoil_1_save_soln_m::save_soln(
             (double *)arg0.data + n * 4,
             (double *)arg1.data + n * 4
         );

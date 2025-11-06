@@ -1,4 +1,4 @@
-namespace op2_m_airfoil_5_update_main {
+namespace op2_m_airfoil_5_update_m {
 
 
 
@@ -50,7 +50,7 @@ static __device__ void update(
 
 
 extern "C" __global__ __launch_bounds__(128)
-void op2_k_airfoil_5_update_main_wrapper(
+void op2_k_airfoil_5_update_m_wrapper(
     const double *__restrict dat0,
     double *__restrict dat1,
     double *__restrict dat2,
@@ -63,7 +63,7 @@ void op2_k_airfoil_5_update_main_wrapper(
     const int end,
     const int stride
 ) {
-    using namespace op2_m_airfoil_5_update_main;
+    using namespace op2_m_airfoil_5_update_m;
     int thread_id = threadIdx.x + blockIdx.x * blockDim.x;
 
     int zero_int = 0;
@@ -91,8 +91,8 @@ void op2_k_airfoil_5_update_main_wrapper(
 }
 
 
-const char op2_k_airfoil_5_update_main_src[] = R"_op2_k(
-namespace op2_m_airfoil_5_update_main {
+const char op2_k_airfoil_5_update_m_src[] = R"_op2_k(
+namespace op2_m_airfoil_5_update_m {
 
 static __device__ void update(
     f2c::Ptr<const float> _f2c_ptr_qold,
@@ -140,7 +140,7 @@ static __device__ void update(
 }
 
 extern "C" __global__ __launch_bounds__(128)
-void op2_k_airfoil_5_update_main_wrapper(
+void op2_k_airfoil_5_update_m_wrapper(
     const double *__restrict dat0,
     double *__restrict dat1,
     double *__restrict dat2,
@@ -153,7 +153,7 @@ void op2_k_airfoil_5_update_main_wrapper(
     const int end,
     const int stride
 ) {
-    using namespace op2_m_airfoil_5_update_main;
+    using namespace op2_m_airfoil_5_update_m;
     int thread_id = threadIdx.x + blockIdx.x * blockDim.x;
 
     int zero_int = 0;
@@ -183,13 +183,13 @@ void op2_k_airfoil_5_update_main_wrapper(
 )_op2_k";
 
 __global__
-static void op2_k_airfoil_5_update_main_init_gbls(
+static void op2_k_airfoil_5_update_m_init_gbls(
     double *gbl4,
     double *gbl5,
     double *gbl5_ref,
     int stride
 ) {
-    namespace kernel = op2_m_airfoil_5_update_main;
+    namespace kernel = op2_m_airfoil_5_update_m;
 
     int thread_id = threadIdx.x + blockIdx.x * blockDim.x;
 
@@ -201,7 +201,7 @@ static void op2_k_airfoil_5_update_main_init_gbls(
     }
 }
 
-extern "C" void op2_k_airfoil_5_update_main_c(
+extern "C" void op2_k_airfoil_5_update_m_c(
     op_set set,
     op_arg arg0,
     op_arg arg1,
@@ -212,7 +212,7 @@ extern "C" void op2_k_airfoil_5_update_main_c(
     op_arg arg6,
     op_arg arg7
 ) {
-    namespace kernel = op2_m_airfoil_5_update_main;
+    namespace kernel = op2_m_airfoil_5_update_m;
 
     int n_args = 8;
     op_arg args[8];
@@ -223,9 +223,9 @@ extern "C" void op2_k_airfoil_5_update_main_c(
     op_timing2_enter("Kernel Info Setup");
 
     static bool first_invocation = true;
-    static op::f2c::KernelInfo info("op2_k_airfoil_5_update_main_wrapper",
-                                    (void *)op2_k_airfoil_5_update_main_wrapper,
-                                    op2_k_airfoil_5_update_main_src);
+    static op::f2c::KernelInfo info("op2_k_airfoil_5_update_m_wrapper",
+                                    (void *)op2_k_airfoil_5_update_m_wrapper,
+                                    op2_k_airfoil_5_update_m_src);
 
     if (first_invocation) {
 
@@ -299,7 +299,7 @@ extern "C" void op2_k_airfoil_5_update_main_c(
     op_timing2_next("Init GBLs");
 
     int stride_gbl = block_size * max_blocks;
-    op2_k_airfoil_5_update_main_init_gbls<<<max_blocks, block_size>>>(
+    op2_k_airfoil_5_update_m_init_gbls<<<max_blocks, block_size>>>(
         (double *)arg4.data_d,
         (double *)arg5.data_d,
         gbl5_ref_d,

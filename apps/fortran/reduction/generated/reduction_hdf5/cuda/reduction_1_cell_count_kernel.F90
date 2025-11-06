@@ -1,6 +1,6 @@
 #define op2_s(idx, stride) 1 + ((idx) - 1) * op2_stride_##stride##_d
 
-module op2_m_reduction_1_cell_count_main
+module op2_m_reduction_1_cell_count_m
 
     use cudafor
     use iso_c_binding
@@ -14,7 +14,7 @@ module op2_m_reduction_1_cell_count_main
     implicit none
 
     private
-    public :: op2_k_reduction_1_cell_count_main
+    public :: op2_k_reduction_1_cell_count_m
 
     integer(4) :: op2_stride_gbl = 0
     integer(4), constant :: op2_stride_gbl_d = 0
@@ -85,7 +85,7 @@ subroutine op2_k_reduction_1_cell_count_init_gbls( &
     end do
 end subroutine
 
-subroutine op2_k_reduction_1_cell_count_main( &
+subroutine op2_k_reduction_1_cell_count_m( &
     name, &
     set, &
     arg0, &
@@ -220,7 +220,7 @@ end subroutine
 
 end module
 
-module op2_m_reduction_1_cell_count_fallback
+module op2_m_reduction_1_cell_count_fb
 
     use iso_c_binding
 
@@ -232,7 +232,7 @@ module op2_m_reduction_1_cell_count_fallback
     implicit none
 
     private
-    public :: op2_k_reduction_1_cell_count_fallback
+    public :: op2_k_reduction_1_cell_count_fb
 
 contains
 
@@ -276,7 +276,7 @@ subroutine op2_k_reduction_1_cell_count_wrapper( &
     end do
 end subroutine
 
-subroutine op2_k_reduction_1_cell_count_fallback( &
+subroutine op2_k_reduction_1_cell_count_fb( &
     name, &
     set, &
     arg0, &
@@ -348,8 +348,8 @@ module op2_m_reduction_1_cell_count
     use op2_fortran_declarations
     use op2_fortran_rt_support
 
-    use op2_m_reduction_1_cell_count_fallback
-    use op2_m_reduction_1_cell_count_main
+    use op2_m_reduction_1_cell_count_fb
+    use op2_m_reduction_1_cell_count_m
 
     implicit none
 
@@ -371,20 +371,22 @@ subroutine op2_k_reduction_1_cell_count( &
     type(op_arg) :: arg1
 
     if (op_check_whitelist("reduction_1_cell_count")) then
-        call op2_k_reduction_1_cell_count_main( &
+        call op2_k_reduction_1_cell_count_m( &
             name, &
             set, &
             arg0, &
             arg1 &
         )
     else
-        call op2_k_reduction_1_cell_count_fallback( &
+        call op_check_fallback_mode("reduction_1_cell_count")
+        call op2_k_reduction_1_cell_count_fb( &
             name, &
             set, &
             arg0, &
             arg1 &
         )
     end if
+
 end subroutine
 
 end module

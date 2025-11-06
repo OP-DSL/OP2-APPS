@@ -1,4 +1,4 @@
-namespace op2_m_jac_1_res_main {
+namespace op2_m_jac_1_res_m {
 
 
 
@@ -30,7 +30,7 @@ static __device__ void res(
 
 
 extern "C" __global__ __launch_bounds__(128)
-void op2_k_jac_1_res_main_wrapper(
+void op2_k_jac_1_res_m_wrapper(
     const double *__restrict dat0,
     const double *__restrict dat1,
     double *__restrict dat2,
@@ -40,7 +40,7 @@ void op2_k_jac_1_res_main_wrapper(
     const int end,
     const int stride
 ) {
-    using namespace op2_m_jac_1_res_main;
+    using namespace op2_m_jac_1_res_m;
     int thread_id = threadIdx.x + blockIdx.x * blockDim.x;
 
     int zero_int = 0;
@@ -63,8 +63,8 @@ void op2_k_jac_1_res_main_wrapper(
 }
 
 
-const char op2_k_jac_1_res_main_src[] = R"_op2_k(
-namespace op2_m_jac_1_res_main {
+const char op2_k_jac_1_res_m_src[] = R"_op2_k(
+namespace op2_m_jac_1_res_m {
 
 static __device__ void res(
     f2c::Ptr<const float> _f2c_ptr_a,
@@ -91,7 +91,7 @@ static __device__ void res(
 }
 
 extern "C" __global__ __launch_bounds__(128)
-void op2_k_jac_1_res_main_wrapper(
+void op2_k_jac_1_res_m_wrapper(
     const double *__restrict dat0,
     const double *__restrict dat1,
     double *__restrict dat2,
@@ -100,7 +100,7 @@ void op2_k_jac_1_res_main_wrapper(
     const int end,
     const int stride
 ) {
-    using namespace op2_m_jac_1_res_main;
+    using namespace op2_m_jac_1_res_m;
     int thread_id = threadIdx.x + blockIdx.x * blockDim.x;
 
     int zero_int = 0;
@@ -125,14 +125,14 @@ void op2_k_jac_1_res_main_wrapper(
 )_op2_k";
 
 
-extern "C" void op2_k_jac_1_res_main_c(
+extern "C" void op2_k_jac_1_res_m_c(
     op_set set,
     op_arg arg0,
     op_arg arg1,
     op_arg arg2,
     op_arg arg3
 ) {
-    namespace kernel = op2_m_jac_1_res_main;
+    namespace kernel = op2_m_jac_1_res_m;
 
     int n_args = 4;
     op_arg args[4];
@@ -143,9 +143,9 @@ extern "C" void op2_k_jac_1_res_main_c(
     op_timing2_enter("Kernel Info Setup");
 
     static bool first_invocation = true;
-    static op::f2c::KernelInfo info("op2_k_jac_1_res_main_wrapper",
-                                    (void *)op2_k_jac_1_res_main_wrapper,
-                                    op2_k_jac_1_res_main_src);
+    static op::f2c::KernelInfo info("op2_k_jac_1_res_m_wrapper",
+                                    (void *)op2_k_jac_1_res_m_wrapper,
+                                    op2_k_jac_1_res_m_src);
 
     if (first_invocation) {
         info.add_param("op2_gbl3_d", &kernel::op2_gbl3);

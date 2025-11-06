@@ -1,4 +1,4 @@
-namespace op2_m_jac_2_update_main {
+namespace op2_m_jac_2_update_m {
 
 
 
@@ -35,7 +35,7 @@ static __device__ void update(
 
 
 extern "C" __global__ 
-void op2_k_jac_2_update_main_wrapper(
+void op2_k_jac_2_update_m_wrapper(
     const double *__restrict dat0,
     double *__restrict dat1,
     double *__restrict dat2,
@@ -46,7 +46,7 @@ void op2_k_jac_2_update_main_wrapper(
     const int end,
     const int stride
 ) {
-    using namespace op2_m_jac_2_update_main;
+    using namespace op2_m_jac_2_update_m;
     int thread_id = threadIdx.x + blockIdx.x * blockDim.x;
 
     int zero_int = 0;
@@ -70,8 +70,8 @@ void op2_k_jac_2_update_main_wrapper(
 }
 
 
-const char op2_k_jac_2_update_main_src[] = R"_op2_k(
-namespace op2_m_jac_2_update_main {
+const char op2_k_jac_2_update_m_src[] = R"_op2_k(
+namespace op2_m_jac_2_update_m {
 
 static __device__ void update(
     f2c::Ptr<const float> _f2c_ptr_r,
@@ -104,7 +104,7 @@ static __device__ void update(
 }
 
 extern "C" __global__ 
-void op2_k_jac_2_update_main_wrapper(
+void op2_k_jac_2_update_m_wrapper(
     const double *__restrict dat0,
     double *__restrict dat1,
     double *__restrict dat2,
@@ -115,7 +115,7 @@ void op2_k_jac_2_update_main_wrapper(
     const int end,
     const int stride
 ) {
-    using namespace op2_m_jac_2_update_main;
+    using namespace op2_m_jac_2_update_m;
     int thread_id = threadIdx.x + blockIdx.x * blockDim.x;
 
     int zero_int = 0;
@@ -141,13 +141,13 @@ void op2_k_jac_2_update_main_wrapper(
 )_op2_k";
 
 __global__
-static void op2_k_jac_2_update_main_init_gbls(
+static void op2_k_jac_2_update_m_init_gbls(
     double *gbl3,
     double *gbl4,
     double *gbl4_ref,
     int stride
 ) {
-    namespace kernel = op2_m_jac_2_update_main;
+    namespace kernel = op2_m_jac_2_update_m;
 
     int thread_id = threadIdx.x + blockIdx.x * blockDim.x;
 
@@ -159,7 +159,7 @@ static void op2_k_jac_2_update_main_init_gbls(
     }
 }
 
-extern "C" void op2_k_jac_2_update_main_c(
+extern "C" void op2_k_jac_2_update_m_c(
     op_set set,
     op_arg arg0,
     op_arg arg1,
@@ -167,7 +167,7 @@ extern "C" void op2_k_jac_2_update_main_c(
     op_arg arg3,
     op_arg arg4
 ) {
-    namespace kernel = op2_m_jac_2_update_main;
+    namespace kernel = op2_m_jac_2_update_m;
 
     int n_args = 5;
     op_arg args[5];
@@ -178,9 +178,9 @@ extern "C" void op2_k_jac_2_update_main_c(
     op_timing2_enter("Kernel Info Setup");
 
     static bool first_invocation = true;
-    static op::f2c::KernelInfo info("op2_k_jac_2_update_main_wrapper",
-                                    (void *)op2_k_jac_2_update_main_wrapper,
-                                    op2_k_jac_2_update_main_src);
+    static op::f2c::KernelInfo info("op2_k_jac_2_update_m_wrapper",
+                                    (void *)op2_k_jac_2_update_m_wrapper,
+                                    op2_k_jac_2_update_m_src);
 
     if (first_invocation) {
         info.add_param("op2_const_alpha_d", &alpha, &op2_const_alpha_d, &op2_const_alpha_hash);
@@ -249,7 +249,7 @@ extern "C" void op2_k_jac_2_update_main_c(
     op_timing2_next("Init GBLs");
 
     int stride_gbl = block_size * max_blocks;
-    op2_k_jac_2_update_main_init_gbls<<<max_blocks, block_size>>>(
+    op2_k_jac_2_update_m_init_gbls<<<max_blocks, block_size>>>(
         (double *)arg3.data_d,
         (double *)arg4.data_d,
         gbl4_ref_d,

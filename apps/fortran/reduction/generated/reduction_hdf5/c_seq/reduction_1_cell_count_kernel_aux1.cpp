@@ -10,7 +10,7 @@
 
 namespace f2c = op::f2c;
 
-namespace op2_m_reduction_1_cell_count_main {
+namespace op2_m_reduction_1_cell_count_m {
 
 static void cell_count(
     f2c::Ptr<float> _f2c_ptr_res,
@@ -35,7 +35,7 @@ static void cell_count(
 }
 
 
-extern "C" void op2_k_reduction_1_cell_count_main_c(
+extern "C" void op2_k_reduction_1_cell_count_m_c(
     op_set set,
     op_arg arg0,
     op_arg arg1
@@ -63,7 +63,7 @@ extern "C" void op2_k_reduction_1_cell_count_main_c(
     for (int n = 0; n < n_exec; ++n) {
 
 
-        op2_m_reduction_1_cell_count_main::cell_count(
+        op2_m_reduction_1_cell_count_m::cell_count(
             (double *)arg0.data + n * 4,
             ((int *)arg1.data)[0]
         );

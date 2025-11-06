@@ -10,7 +10,7 @@
 
 namespace f2c = op::f2c;
 
-namespace op2_m_jac_1_res_main {
+namespace op2_m_jac_1_res_m {
 
 static void res(
     f2c::Ptr<const float> _f2c_ptr_a,
@@ -37,7 +37,7 @@ static void res(
 }
 
 
-extern "C" void op2_k_jac_1_res_main_c(
+extern "C" void op2_k_jac_1_res_m_c(
     op_set set,
     op_arg arg0,
     op_arg arg1,
@@ -76,7 +76,7 @@ extern "C" void op2_k_jac_1_res_main_c(
         int *map0 = arg1.map_data + n * arg1.map->dim;
 
 
-        op2_m_jac_1_res_main::res(
+        op2_m_jac_1_res_m::res(
             ((double *)arg0.data + n * 1)[0],
             ((double *)arg1.data + map0[2 - 1] * 1)[0],
             ((double *)arg2.data + map0[1 - 1] * 1)[0],

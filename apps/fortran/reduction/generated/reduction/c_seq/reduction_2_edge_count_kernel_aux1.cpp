@@ -10,7 +10,7 @@
 
 namespace f2c = op::f2c;
 
-namespace op2_m_reduction_2_edge_count_main {
+namespace op2_m_reduction_2_edge_count_m {
 
 static void edge_count(
     f2c::Ptr<float> _f2c_ptr_res,
@@ -35,7 +35,7 @@ static void edge_count(
 }
 
 
-extern "C" void op2_k_reduction_2_edge_count_main_c(
+extern "C" void op2_k_reduction_2_edge_count_m_c(
     op_set set,
     op_arg arg0,
     op_arg arg1
@@ -72,7 +72,7 @@ extern "C" void op2_k_reduction_2_edge_count_main_c(
         int *map0 = arg0.map_data + n * arg0.map->dim;
 
 
-        op2_m_reduction_2_edge_count_main::edge_count(
+        op2_m_reduction_2_edge_count_m::edge_count(
             (double *)arg0.data + map0[1 - 1] * 4,
             (gbl1_temp)[0]
         );

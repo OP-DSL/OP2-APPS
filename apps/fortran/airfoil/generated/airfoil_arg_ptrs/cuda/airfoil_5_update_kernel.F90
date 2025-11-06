@@ -1,6 +1,6 @@
 #define op2_s(idx, stride) 1 + ((idx) - 1) * op2_stride_##stride##_d
 
-module op2_m_airfoil_5_update_main
+module op2_m_airfoil_5_update_m
 
     use cudafor
     use iso_c_binding
@@ -14,7 +14,7 @@ module op2_m_airfoil_5_update_main
     implicit none
 
     private
-    public :: op2_k_airfoil_5_update_main
+    public :: op2_k_airfoil_5_update_m
 
     integer(4) :: op2_stride_gbl = 0
     integer(4), constant :: op2_stride_gbl_d = 0
@@ -124,7 +124,7 @@ subroutine op2_k_airfoil_5_update_init_gbls( &
     end do
 end subroutine
 
-subroutine op2_k_airfoil_5_update_main( &
+subroutine op2_k_airfoil_5_update_m( &
     name, &
     set, &
     arg0, &
@@ -316,7 +316,7 @@ end subroutine
 
 end module
 
-module op2_m_airfoil_5_update_fallback
+module op2_m_airfoil_5_update_fb
 
     use iso_c_binding
 
@@ -328,7 +328,7 @@ module op2_m_airfoil_5_update_fallback
     implicit none
 
     private
-    public :: op2_k_airfoil_5_update_fallback
+    public :: op2_k_airfoil_5_update_fb
 
 contains
 
@@ -402,7 +402,7 @@ subroutine op2_k_airfoil_5_update_wrapper( &
     end do
 end subroutine
 
-subroutine op2_k_airfoil_5_update_fallback( &
+subroutine op2_k_airfoil_5_update_fb( &
     name, &
     set, &
     arg0, &
@@ -510,8 +510,8 @@ module op2_m_airfoil_5_update
     use op2_fortran_declarations
     use op2_fortran_rt_support
 
-    use op2_m_airfoil_5_update_fallback
-    use op2_m_airfoil_5_update_main
+    use op2_m_airfoil_5_update_fb
+    use op2_m_airfoil_5_update_m
 
     implicit none
 
@@ -545,7 +545,7 @@ subroutine op2_k_airfoil_5_update( &
     type(op_arg) :: arg7
 
     if (op_check_whitelist("airfoil_5_update")) then
-        call op2_k_airfoil_5_update_main( &
+        call op2_k_airfoil_5_update_m( &
             name, &
             set, &
             arg0, &
@@ -558,7 +558,8 @@ subroutine op2_k_airfoil_5_update( &
             arg7 &
         )
     else
-        call op2_k_airfoil_5_update_fallback( &
+        call op_check_fallback_mode("airfoil_5_update")
+        call op2_k_airfoil_5_update_fb( &
             name, &
             set, &
             arg0, &
@@ -571,6 +572,7 @@ subroutine op2_k_airfoil_5_update( &
             arg7 &
         )
     end if
+
 end subroutine
 
 end module

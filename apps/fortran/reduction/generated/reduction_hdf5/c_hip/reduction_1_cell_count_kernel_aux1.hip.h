@@ -1,4 +1,4 @@
-namespace op2_m_reduction_1_cell_count_main {
+namespace op2_m_reduction_1_cell_count_m {
 
 
 
@@ -27,7 +27,7 @@ static __device__ void cell_count(
 
 
 extern "C" __global__ __launch_bounds__(128)
-void op2_k_reduction_1_cell_count_main_wrapper(
+void op2_k_reduction_1_cell_count_m_wrapper(
     double *__restrict dat0,
     int *__restrict gbl1,
     const int stride_gbl,
@@ -35,7 +35,7 @@ void op2_k_reduction_1_cell_count_main_wrapper(
     const int end,
     const int stride
 ) {
-    using namespace op2_m_reduction_1_cell_count_main;
+    using namespace op2_m_reduction_1_cell_count_m;
     int thread_id = threadIdx.x + blockIdx.x * blockDim.x;
 
     int zero_int = 0;
@@ -56,8 +56,8 @@ void op2_k_reduction_1_cell_count_main_wrapper(
 }
 
 
-const char op2_k_reduction_1_cell_count_main_src[] = R"_op2_k(
-namespace op2_m_reduction_1_cell_count_main {
+const char op2_k_reduction_1_cell_count_m_src[] = R"_op2_k(
+namespace op2_m_reduction_1_cell_count_m {
 
 static __device__ void cell_count(
     f2c::Ptr<float> _f2c_ptr_res,
@@ -82,7 +82,7 @@ static __device__ void cell_count(
 }
 
 extern "C" __global__ __launch_bounds__(128)
-void op2_k_reduction_1_cell_count_main_wrapper(
+void op2_k_reduction_1_cell_count_m_wrapper(
     double *__restrict dat0,
     int *__restrict gbl1,
     const int stride_gbl,
@@ -90,7 +90,7 @@ void op2_k_reduction_1_cell_count_main_wrapper(
     const int end,
     const int stride
 ) {
-    using namespace op2_m_reduction_1_cell_count_main;
+    using namespace op2_m_reduction_1_cell_count_m;
     int thread_id = threadIdx.x + blockIdx.x * blockDim.x;
 
     int zero_int = 0;
@@ -113,11 +113,11 @@ void op2_k_reduction_1_cell_count_main_wrapper(
 )_op2_k";
 
 __global__
-static void op2_k_reduction_1_cell_count_main_init_gbls(
+static void op2_k_reduction_1_cell_count_m_init_gbls(
     int *gbl1,
     int stride
 ) {
-    namespace kernel = op2_m_reduction_1_cell_count_main;
+    namespace kernel = op2_m_reduction_1_cell_count_m;
 
     int thread_id = threadIdx.x + blockIdx.x * blockDim.x;
 
@@ -126,12 +126,12 @@ static void op2_k_reduction_1_cell_count_main_init_gbls(
     }
 }
 
-extern "C" void op2_k_reduction_1_cell_count_main_c(
+extern "C" void op2_k_reduction_1_cell_count_m_c(
     op_set set,
     op_arg arg0,
     op_arg arg1
 ) {
-    namespace kernel = op2_m_reduction_1_cell_count_main;
+    namespace kernel = op2_m_reduction_1_cell_count_m;
 
     int n_args = 2;
     op_arg args[2];
@@ -142,9 +142,9 @@ extern "C" void op2_k_reduction_1_cell_count_main_c(
     op_timing2_enter("Kernel Info Setup");
 
     static bool first_invocation = true;
-    static op::f2c::KernelInfo info("op2_k_reduction_1_cell_count_main_wrapper",
-                                    (void *)op2_k_reduction_1_cell_count_main_wrapper,
-                                    op2_k_reduction_1_cell_count_main_src);
+    static op::f2c::KernelInfo info("op2_k_reduction_1_cell_count_m_wrapper",
+                                    (void *)op2_k_reduction_1_cell_count_m_wrapper,
+                                    op2_k_reduction_1_cell_count_m_src);
 
     if (first_invocation) {
 
@@ -199,7 +199,7 @@ extern "C" void op2_k_reduction_1_cell_count_main_c(
     op_timing2_next("Init GBLs");
 
     int stride_gbl = block_size * max_blocks;
-    op2_k_reduction_1_cell_count_main_init_gbls<<<max_blocks, block_size>>>(
+    op2_k_reduction_1_cell_count_m_init_gbls<<<max_blocks, block_size>>>(
         (int *)arg1.data_d,
         stride_gbl
     );

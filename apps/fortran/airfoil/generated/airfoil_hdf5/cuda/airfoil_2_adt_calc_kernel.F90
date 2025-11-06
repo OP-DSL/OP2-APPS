@@ -1,6 +1,6 @@
 #define op2_s(idx, stride) 1 + ((idx) - 1) * op2_stride_##stride##_d
 
-module op2_m_airfoil_2_adt_calc_main
+module op2_m_airfoil_2_adt_calc_m
 
     use cudafor
     use iso_c_binding
@@ -14,7 +14,7 @@ module op2_m_airfoil_2_adt_calc_main
     implicit none
 
     private
-    public :: op2_k_airfoil_2_adt_calc_main
+    public :: op2_k_airfoil_2_adt_calc_m
 
 contains
 
@@ -81,7 +81,7 @@ subroutine op2_k_airfoil_2_adt_calc_wrapper( &
     end do
 end subroutine
 
-subroutine op2_k_airfoil_2_adt_calc_main( &
+subroutine op2_k_airfoil_2_adt_calc_m( &
     name, &
     set, &
     arg0, &
@@ -152,9 +152,9 @@ subroutine op2_k_airfoil_2_adt_calc_main( &
     end if
 
     call op_timing2_next("Update consts")
+    call op_update_const_cuda_gam()
     call op_update_const_cuda_gm1()
     call op_update_const_cuda_cfl()
-    call op_update_const_cuda_gam()
 
     call op_timing2_exit()
 
@@ -231,7 +231,7 @@ end subroutine
 
 end module
 
-module op2_m_airfoil_2_adt_calc_fallback
+module op2_m_airfoil_2_adt_calc_fb
 
     use iso_c_binding
 
@@ -243,7 +243,7 @@ module op2_m_airfoil_2_adt_calc_fallback
     implicit none
 
     private
-    public :: op2_k_airfoil_2_adt_calc_fallback
+    public :: op2_k_airfoil_2_adt_calc_fb
 
 contains
 
@@ -314,7 +314,7 @@ subroutine op2_k_airfoil_2_adt_calc_wrapper( &
     end do
 end subroutine
 
-subroutine op2_k_airfoil_2_adt_calc_fallback( &
+subroutine op2_k_airfoil_2_adt_calc_fb( &
     name, &
     set, &
     arg0, &
@@ -400,8 +400,8 @@ module op2_m_airfoil_2_adt_calc
     use op2_fortran_declarations
     use op2_fortran_rt_support
 
-    use op2_m_airfoil_2_adt_calc_fallback
-    use op2_m_airfoil_2_adt_calc_main
+    use op2_m_airfoil_2_adt_calc_fb
+    use op2_m_airfoil_2_adt_calc_m
 
     implicit none
 
@@ -431,7 +431,7 @@ subroutine op2_k_airfoil_2_adt_calc( &
     type(op_arg) :: arg5
 
     if (op_check_whitelist("airfoil_2_adt_calc")) then
-        call op2_k_airfoil_2_adt_calc_main( &
+        call op2_k_airfoil_2_adt_calc_m( &
             name, &
             set, &
             arg0, &
@@ -442,7 +442,8 @@ subroutine op2_k_airfoil_2_adt_calc( &
             arg5 &
         )
     else
-        call op2_k_airfoil_2_adt_calc_fallback( &
+        call op_check_fallback_mode("airfoil_2_adt_calc")
+        call op2_k_airfoil_2_adt_calc_fb( &
             name, &
             set, &
             arg0, &
@@ -453,6 +454,7 @@ subroutine op2_k_airfoil_2_adt_calc( &
             arg5 &
         )
     end if
+
 end subroutine
 
 end module

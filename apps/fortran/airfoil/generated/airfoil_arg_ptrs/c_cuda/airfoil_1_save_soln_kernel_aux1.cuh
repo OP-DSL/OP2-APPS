@@ -1,4 +1,4 @@
-namespace op2_m_airfoil_1_save_soln_main {
+namespace op2_m_airfoil_1_save_soln_m {
 
 
 
@@ -26,14 +26,14 @@ static __device__ void save_soln(
 
 
 extern "C" __global__ 
-void op2_k_airfoil_1_save_soln_main_wrapper(
+void op2_k_airfoil_1_save_soln_m_wrapper(
     const double *__restrict dat0,
     double *__restrict dat1,
     const int start,
     const int end,
     const int stride
 ) {
-    using namespace op2_m_airfoil_1_save_soln_main;
+    using namespace op2_m_airfoil_1_save_soln_m;
     int thread_id = threadIdx.x + blockIdx.x * blockDim.x;
 
     int zero_int = 0;
@@ -54,8 +54,8 @@ void op2_k_airfoil_1_save_soln_main_wrapper(
 }
 
 
-const char op2_k_airfoil_1_save_soln_main_src[] = R"_op2_k(
-namespace op2_m_airfoil_1_save_soln_main {
+const char op2_k_airfoil_1_save_soln_m_src[] = R"_op2_k(
+namespace op2_m_airfoil_1_save_soln_m {
 
 static __device__ void save_soln(
     f2c::Ptr<const float> _f2c_ptr_q,
@@ -79,14 +79,14 @@ static __device__ void save_soln(
 }
 
 extern "C" __global__ 
-void op2_k_airfoil_1_save_soln_main_wrapper(
+void op2_k_airfoil_1_save_soln_m_wrapper(
     const double *__restrict dat0,
     double *__restrict dat1,
     const int start,
     const int end,
     const int stride
 ) {
-    using namespace op2_m_airfoil_1_save_soln_main;
+    using namespace op2_m_airfoil_1_save_soln_m;
     int thread_id = threadIdx.x + blockIdx.x * blockDim.x;
 
     int zero_int = 0;
@@ -109,12 +109,12 @@ void op2_k_airfoil_1_save_soln_main_wrapper(
 )_op2_k";
 
 
-extern "C" void op2_k_airfoil_1_save_soln_main_c(
+extern "C" void op2_k_airfoil_1_save_soln_m_c(
     op_set set,
     op_arg arg0,
     op_arg arg1
 ) {
-    namespace kernel = op2_m_airfoil_1_save_soln_main;
+    namespace kernel = op2_m_airfoil_1_save_soln_m;
 
     int n_args = 2;
     op_arg args[2];
@@ -125,9 +125,9 @@ extern "C" void op2_k_airfoil_1_save_soln_main_c(
     op_timing2_enter("Kernel Info Setup");
 
     static bool first_invocation = true;
-    static op::f2c::KernelInfo info("op2_k_airfoil_1_save_soln_main_wrapper",
-                                    (void *)op2_k_airfoil_1_save_soln_main_wrapper,
-                                    op2_k_airfoil_1_save_soln_main_src);
+    static op::f2c::KernelInfo info("op2_k_airfoil_1_save_soln_m_wrapper",
+                                    (void *)op2_k_airfoil_1_save_soln_m_wrapper,
+                                    op2_k_airfoil_1_save_soln_m_src);
 
     if (first_invocation) {
 

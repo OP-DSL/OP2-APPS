@@ -1,4 +1,4 @@
-module op2_m_jac_1_res_main
+module op2_m_jac_1_res_m
 
     use iso_c_binding
 
@@ -8,17 +8,17 @@ module op2_m_jac_1_res_main
     implicit none
 
     private
-    public :: op2_k_jac_1_res_main
+    public :: op2_k_jac_1_res_m
 
     interface
 
-        subroutine op2_k_jac_1_res_main_c( &
+        subroutine op2_k_jac_1_res_m_c( &
             set, &
             arg0, &
             arg1, &
             arg2, &
             arg3 &
-        ) bind(C, name='op2_k_jac_1_res_main_c')
+        ) bind(C, name='op2_k_jac_1_res_m_c')
 
             use iso_c_binding
             use op2_fortran_declarations
@@ -36,7 +36,7 @@ module op2_m_jac_1_res_main
 
 contains
 
-subroutine op2_k_jac_1_res_main( &
+subroutine op2_k_jac_1_res_m( &
     name, &
     set, &
     arg0, &
@@ -55,7 +55,7 @@ subroutine op2_k_jac_1_res_main( &
     type(op_arg) :: arg2
     type(op_arg) :: arg3
 
-    call op2_k_jac_1_res_main_c( &
+    call op2_k_jac_1_res_m_c( &
         set%setcptr, &
         arg0, &
         arg1, &
@@ -67,7 +67,7 @@ end subroutine
 
 end module
 
-module op2_m_jac_1_res_fallback
+module op2_m_jac_1_res_fb
 
     use iso_c_binding
 
@@ -79,7 +79,7 @@ module op2_m_jac_1_res_fallback
     implicit none
 
     private
-    public :: op2_k_jac_1_res_fallback
+    public :: op2_k_jac_1_res_fb
 
 contains
 
@@ -133,7 +133,7 @@ subroutine op2_k_jac_1_res_wrapper( &
     end do
 end subroutine
 
-subroutine op2_k_jac_1_res_fallback( &
+subroutine op2_k_jac_1_res_fb( &
     name, &
     set, &
     arg0, &
@@ -218,8 +218,8 @@ module op2_m_jac_1_res
     use op2_fortran_declarations
     use op2_fortran_rt_support
 
-    use op2_m_jac_1_res_fallback
-    use op2_m_jac_1_res_main
+    use op2_m_jac_1_res_fb
+    use op2_m_jac_1_res_m
 
     implicit none
 
@@ -245,7 +245,7 @@ subroutine op2_k_jac_1_res( &
     type(op_arg) :: arg3
 
     if (op_check_whitelist("jac_1_res")) then
-        call op2_k_jac_1_res_main( &
+        call op2_k_jac_1_res_m( &
             name, &
             set, &
             arg0, &
@@ -254,7 +254,8 @@ subroutine op2_k_jac_1_res( &
             arg3 &
         )
     else
-        call op2_k_jac_1_res_fallback( &
+        call op_check_fallback_mode("jac_1_res")
+        call op2_k_jac_1_res_fb( &
             name, &
             set, &
             arg0, &
@@ -263,6 +264,7 @@ subroutine op2_k_jac_1_res( &
             arg3 &
         )
     end if
+
 end subroutine
 
 end module

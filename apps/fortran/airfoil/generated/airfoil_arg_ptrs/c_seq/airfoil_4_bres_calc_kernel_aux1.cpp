@@ -10,7 +10,7 @@
 
 namespace f2c = op::f2c;
 
-namespace op2_m_airfoil_4_bres_calc_main {
+namespace op2_m_airfoil_4_bres_calc_m {
 
 static void bres_calc(
     f2c::Ptr<const float> _f2c_ptr_x1,
@@ -71,7 +71,7 @@ static void bres_calc(
 }
 
 
-extern "C" void op2_k_airfoil_4_bres_calc_main_c(
+extern "C" void op2_k_airfoil_4_bres_calc_m_c(
     op_set set,
     op_arg arg0,
     op_arg arg1,
@@ -115,7 +115,7 @@ extern "C" void op2_k_airfoil_4_bres_calc_main_c(
         int *map1 = arg2.map_data + n * arg2.map->dim;
 
 
-        op2_m_airfoil_4_bres_calc_main::bres_calc(
+        op2_m_airfoil_4_bres_calc_m::bres_calc(
             (double *)arg0.data + map0[1 - 1] * 2,
             (double *)arg1.data + map0[2 - 1] * 2,
             (double *)arg2.data + map1[1 - 1] * 4,

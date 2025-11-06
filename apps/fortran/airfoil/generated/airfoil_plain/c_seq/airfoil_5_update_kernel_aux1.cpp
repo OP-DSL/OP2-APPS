@@ -10,7 +10,7 @@
 
 namespace f2c = op::f2c;
 
-namespace op2_m_airfoil_5_update_main {
+namespace op2_m_airfoil_5_update_m {
 
 static void update(
     f2c::Ptr<const float> _f2c_ptr_qold,
@@ -58,7 +58,7 @@ static void update(
 }
 
 
-extern "C" void op2_k_airfoil_5_update_main_c(
+extern "C" void op2_k_airfoil_5_update_m_c(
     op_set set,
     op_arg arg0,
     op_arg arg1,
@@ -99,7 +99,7 @@ extern "C" void op2_k_airfoil_5_update_main_c(
 
         int idx = n + 1;
 
-        op2_m_airfoil_5_update_main::update(
+        op2_m_airfoil_5_update_m::update(
             (double *)arg0.data + n * 4,
             (double *)arg1.data + n * 4,
             (double *)arg2.data + n * 4,

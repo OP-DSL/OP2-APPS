@@ -10,7 +10,7 @@
 
 namespace f2c = op::f2c;
 
-namespace op2_m_jac_2_update_main {
+namespace op2_m_jac_2_update_m {
 
 static void update(
     f2c::Ptr<const float> _f2c_ptr_r,
@@ -43,7 +43,7 @@ static void update(
 }
 
 
-extern "C" void op2_k_jac_2_update_main_c(
+extern "C" void op2_k_jac_2_update_m_c(
     op_set set,
     op_arg arg0,
     op_arg arg1,
@@ -77,7 +77,7 @@ extern "C" void op2_k_jac_2_update_main_c(
     for (int n = 0; n < n_exec; ++n) {
 
 
-        op2_m_jac_2_update_main::update(
+        op2_m_jac_2_update_m::update(
             ((double *)arg0.data + n * 1)[0],
             ((double *)arg1.data + n * 1)[0],
             ((double *)arg2.data + n * 1)[0],

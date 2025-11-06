@@ -10,7 +10,7 @@
 
 namespace f2c = op::f2c;
 
-namespace op2_m_airfoil_2_adt_calc_main {
+namespace op2_m_airfoil_2_adt_calc_m {
 
 static void adt_calc(
     f2c::Ptr<const float> _f2c_ptr_x1,
@@ -64,7 +64,7 @@ static void adt_calc(
 }
 
 
-extern "C" void op2_k_airfoil_2_adt_calc_main_c(
+extern "C" void op2_k_airfoil_2_adt_calc_m_c(
     op_set set,
     op_arg arg0,
     op_arg arg1,
@@ -107,7 +107,7 @@ extern "C" void op2_k_airfoil_2_adt_calc_main_c(
         int *map0 = arg0.map_data + n * arg0.map->dim;
 
 
-        op2_m_airfoil_2_adt_calc_main::adt_calc(
+        op2_m_airfoil_2_adt_calc_m::adt_calc(
             (double *)arg0.data + map0[1 - 1] * 2,
             (double *)arg1.data + map0[2 - 1] * 2,
             (double *)arg2.data + map0[3 - 1] * 2,

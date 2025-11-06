@@ -1,4 +1,4 @@
-namespace op2_m_airfoil_2_adt_calc_main {
+namespace op2_m_airfoil_2_adt_calc_m {
 
 
 
@@ -56,7 +56,7 @@ static __device__ void adt_calc(
 
 
 extern "C" __global__ 
-void op2_k_airfoil_2_adt_calc_main_wrapper(
+void op2_k_airfoil_2_adt_calc_m_wrapper(
     const double *__restrict dat0,
     const double *__restrict dat1,
     double *__restrict dat2,
@@ -65,7 +65,7 @@ void op2_k_airfoil_2_adt_calc_main_wrapper(
     const int end,
     const int stride
 ) {
-    using namespace op2_m_airfoil_2_adt_calc_main;
+    using namespace op2_m_airfoil_2_adt_calc_m;
     int thread_id = threadIdx.x + blockIdx.x * blockDim.x;
 
     int zero_int = 0;
@@ -90,8 +90,8 @@ void op2_k_airfoil_2_adt_calc_main_wrapper(
 }
 
 
-const char op2_k_airfoil_2_adt_calc_main_src[] = R"_op2_k(
-namespace op2_m_airfoil_2_adt_calc_main {
+const char op2_k_airfoil_2_adt_calc_m_src[] = R"_op2_k(
+namespace op2_m_airfoil_2_adt_calc_m {
 
 static __device__ void adt_calc(
     f2c::Ptr<const float> _f2c_ptr_x1,
@@ -145,7 +145,7 @@ static __device__ void adt_calc(
 }
 
 extern "C" __global__ 
-void op2_k_airfoil_2_adt_calc_main_wrapper(
+void op2_k_airfoil_2_adt_calc_m_wrapper(
     const double *__restrict dat0,
     const double *__restrict dat1,
     double *__restrict dat2,
@@ -154,7 +154,7 @@ void op2_k_airfoil_2_adt_calc_main_wrapper(
     const int end,
     const int stride
 ) {
-    using namespace op2_m_airfoil_2_adt_calc_main;
+    using namespace op2_m_airfoil_2_adt_calc_m;
     int thread_id = threadIdx.x + blockIdx.x * blockDim.x;
 
     int zero_int = 0;
@@ -181,7 +181,7 @@ void op2_k_airfoil_2_adt_calc_main_wrapper(
 )_op2_k";
 
 
-extern "C" void op2_k_airfoil_2_adt_calc_main_c(
+extern "C" void op2_k_airfoil_2_adt_calc_m_c(
     op_set set,
     op_arg arg0,
     op_arg arg1,
@@ -190,7 +190,7 @@ extern "C" void op2_k_airfoil_2_adt_calc_main_c(
     op_arg arg4,
     op_arg arg5
 ) {
-    namespace kernel = op2_m_airfoil_2_adt_calc_main;
+    namespace kernel = op2_m_airfoil_2_adt_calc_m;
 
     int n_args = 6;
     op_arg args[6];
@@ -201,14 +201,14 @@ extern "C" void op2_k_airfoil_2_adt_calc_main_c(
     op_timing2_enter("Kernel Info Setup");
 
     static bool first_invocation = true;
-    static op::f2c::KernelInfo info("op2_k_airfoil_2_adt_calc_main_wrapper",
-                                    (void *)op2_k_airfoil_2_adt_calc_main_wrapper,
-                                    op2_k_airfoil_2_adt_calc_main_src);
+    static op::f2c::KernelInfo info("op2_k_airfoil_2_adt_calc_m_wrapper",
+                                    (void *)op2_k_airfoil_2_adt_calc_m_wrapper,
+                                    op2_k_airfoil_2_adt_calc_m_src);
 
     if (first_invocation) {
-        info.add_param("op2_const_gm1_d", &gm1, &op2_const_gm1_d, &op2_const_gm1_hash);
         info.add_param("op2_const_gam_d", &gam, &op2_const_gam_d, &op2_const_gam_hash);
         info.add_param("op2_const_cfl_d", &cfl, &op2_const_cfl_d, &op2_const_cfl_hash);
+        info.add_param("op2_const_gm1_d", &gm1, &op2_const_gm1_d, &op2_const_gm1_hash);
 
         first_invocation = false;
     }

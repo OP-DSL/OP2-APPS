@@ -1,5 +1,6 @@
-
 namespace op2_k3 {
+
+
 __device__ inline void res_calc(const double *x1, const double *x2, const double *q1,
                      const double *q2, const double *adt1, const double *adt2,
                      double *res1, double *res2) {
@@ -51,7 +52,6 @@ __global__ void op_cuda_airfoil_mpi_3_res_calc(
 
     if (thread_id + start < end) {
         int n = thread_id + start;
-
         double arg6_0_local[4];
         for (int d = 0; d < 4; ++d)
             arg6_0_local[d] = ZERO_double;

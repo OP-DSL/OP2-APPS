@@ -24,8 +24,8 @@ contains
 attributes(device) &
 SUBROUTINE cell_count(res, cell_count_result)
   IMPLICIT NONE
-  REAL(KIND = 8), DIMENSION(4) :: res
-  INTEGER(KIND = 4), DIMENSION(1) :: cell_count_result
+  REAL(KIND = 8), DIMENSION(4), INTENT(OUT) :: res
+  INTEGER(KIND = 4), INTENT(OUT) :: cell_count_result
   INTEGER(KIND = 4) :: d
   DO d = 1, 4
     res(d) = 0.0
@@ -34,7 +34,7 @@ SUBROUTINE cell_count(res, cell_count_result)
 END SUBROUTINE
 
 attributes(global) &
-subroutine op2_k_reduction_1_cell_count_wrapper( &
+subroutine op2_k_reduction_1_cell_count_wr( &
     dat0, &
     gbl1, &
     start, &
@@ -160,7 +160,7 @@ subroutine op2_k_reduction_1_cell_count_m( &
     arg0 = args(1)
     arg1 = args(2)
 
-    call c_f_pointer(arg0%data_d, dat0_d, (/4 * getsetsizefromoparg(arg0)/))
+    call c_f_pointer(arg0%data_d, dat0_d, (/4 * round32f(getsetsizefromoparg(arg0)) /))
 
     call c_f_pointer(arg1%data, gbl1, (/1/))
     call c_f_pointer(arg1%data_d, gbl1_d, (/1 * block_size * max_blocks/))
@@ -182,7 +182,7 @@ subroutine op2_k_reduction_1_cell_count_m( &
     end = set%setptr%size
 
     call op_timing2_enter("Kernel")
-    call op2_k_reduction_1_cell_count_wrapper<<<num_blocks, block_size>>>( &
+    call op2_k_reduction_1_cell_count_wr<<<num_blocks, block_size>>>( &
         dat0_d, &
         gbl1_d, &
         start, &
@@ -238,8 +238,8 @@ contains
 
 SUBROUTINE cell_count(res, cell_count_result)
   IMPLICIT NONE
-  REAL(KIND = 8), DIMENSION(4) :: res
-  INTEGER(KIND = 4), DIMENSION(1) :: cell_count_result
+  REAL(KIND = 8), DIMENSION(4), INTENT(OUT) :: res
+  INTEGER(KIND = 4), INTENT(OUT) :: cell_count_result
   INTEGER(KIND = 4) :: d
   DO d = 1, 4
     res(d) = 0.0
@@ -247,7 +247,7 @@ SUBROUTINE cell_count(res, cell_count_result)
   cell_count_result = cell_count_result + 1
 END SUBROUTINE
 
-subroutine op2_k_reduction_1_cell_count_wrapper( &
+subroutine op2_k_reduction_1_cell_count_wr( &
     dat0, &
     gbl1, &
     n_exec, &
@@ -316,7 +316,7 @@ subroutine op2_k_reduction_1_cell_count_fb( &
 
     call c_f_pointer(arg1%data, gbl1, (/1/))
 
-    call op2_k_reduction_1_cell_count_wrapper( &
+    call op2_k_reduction_1_cell_count_wr( &
         dat0, &
         gbl1, &
         n_exec, &

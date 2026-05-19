@@ -16,6 +16,7 @@ PROGRAM reduction
   INTEGER(KIND = 4) :: i, cell_count_result, edge_count_result
   INTEGER(KIND = 4) :: stat
   CALL op_init_base(0, 0)
+  CALL op_timing2_start("Reduction")
   CALL op_decl_set_hdf5(nedge, edges, file_name_h5, "edges")
   CALL op_decl_set_hdf5(ncell, cells, file_name_h5, "cells")
   CALL op_decl_map_hdf5(edges, cells, 2, pecell, file_name_h5, "pecell", stat)
@@ -43,12 +44,15 @@ PROGRAM reduction
     PRINT *
     PRINT *, 'Time = ', end_time - start_time, 'seconds'
   END IF
+  CALL op_timing2_finish
+  IF (op_is_root() == 1) PRINT *
+  CALL op_timing2_output
   CALL op_exit
   CONTAINS
   SUBROUTINE cell_count(res, cell_count_result)
     IMPLICIT NONE
-    REAL(KIND = 8), DIMENSION(4) :: res
-    INTEGER(KIND = 4), DIMENSION(1) :: cell_count_result
+    REAL(KIND = 8), DIMENSION(4), INTENT(OUT) :: res
+    INTEGER(KIND = 4), INTENT(OUT) :: cell_count_result
     INTEGER(KIND = 4) :: d
     DO d = 1, 4
       res(d) = 0.0
@@ -57,8 +61,8 @@ PROGRAM reduction
   END SUBROUTINE
   SUBROUTINE edge_count(res, edge_count_result)
     IMPLICIT NONE
-    REAL(KIND = 8), DIMENSION(4) :: res
-    INTEGER(KIND = 4), DIMENSION(1) :: edge_count_result
+    REAL(KIND = 8), DIMENSION(4), INTENT(OUT) :: res
+    INTEGER(KIND = 4), INTENT(OUT) :: edge_count_result
     INTEGER(KIND = 4) :: d
     DO d = 1, 4
       res(d) = 0.0

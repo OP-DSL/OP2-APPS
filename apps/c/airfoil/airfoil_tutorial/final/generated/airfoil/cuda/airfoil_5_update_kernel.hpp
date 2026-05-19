@@ -1,5 +1,6 @@
-
 namespace op2_k5 {
+
+
 __device__ inline void update(const double *qold, double *q, double *res,
                    const double *adt, double *rms) {
   double del, adti;

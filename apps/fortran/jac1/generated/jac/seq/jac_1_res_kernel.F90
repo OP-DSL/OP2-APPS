@@ -20,7 +20,7 @@ SUBROUTINE res(A, u, du, beta)
   du(1) = du(1) + beta(1) * A(1) * u(1)
 END SUBROUTINE
 
-subroutine op2_k_jac_1_res_wrapper( &
+subroutine op2_k_jac_1_res_wr( &
     dat0, &
     dat1, &
     dat2, &
@@ -118,7 +118,7 @@ subroutine op2_k_jac_1_res( &
 
     call c_f_pointer(arg3%data, gbl3, (/1/))
 
-    call op2_k_jac_1_res_wrapper( &
+    call op2_k_jac_1_res_wr( &
         dat0, &
         dat1, &
         dat2, &

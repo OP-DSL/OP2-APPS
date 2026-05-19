@@ -53,7 +53,7 @@ void jac_2_update_wrapper(
                 dat0 + n * 1,
                 arg1_local[lane],
                 arg2_local[lane],
-                arg3_local[lane],
+                &n,
                 arg4_local[lane],
                 arg5_local[lane]
             );
@@ -85,7 +85,7 @@ void jac_2_update_wrapper(
             dat0 + n * 1,
             dat1 + n * 1,
             dat2 + n * 1,
-            dat + n * ,
+            &n,
             gbl4,
             gbl5
         );

@@ -70,7 +70,7 @@ void op_par_loop_airfoil_3_res_calc(char const *, op_set, op_arg, op_arg, op_arg
 
 void op_par_loop_airfoil_4_bres_calc(char const *, op_set, op_arg, op_arg, op_arg, op_arg, op_arg, op_arg);
 
-void op_par_loop_airfoil_5_update(char const *, op_set, op_arg, op_arg, op_arg, op_arg, op_arg);
+void op_par_loop_airfoil_5_update(char const *, op_set, op_arg, op_arg, op_arg, op_arg, op_arg, op_arg, op_arg, op_arg);
 
 #ifdef OPENACC
 #ifdef __cplusplus
@@ -97,8 +97,8 @@ int main(int argc, char **argv) {
   int *becell, *ecell, *bound, *bedge, *edge, *cell;
   double *x, *q, *qold, *adt, *res;
 
-  int nnode, ncell, nedge, nbedge, niter;
-  double rms;
+  int nnode, ncell, nedge, nbedge, niter, errloc;
+  double rms, maxerr;
 
   // timer
   double cpu_t1, cpu_t2, wall_t1, wall_t2;
@@ -285,19 +285,24 @@ int main(int argc, char **argv) {
       // update flow field
 
       rms = 0.0;
+      maxerr = 0.0;
+      errloc = 0;
 
       op_par_loop_airfoil_5_update("update", cells,
                   op_arg_dat(p_qold, -1, OP_ID, 4, "double", OP_READ),
                   op_arg_dat(p_q, -1, OP_ID, 4, "double", OP_WRITE),
                   op_arg_dat(p_res, -1, OP_ID, 4, "double", OP_RW),
                   op_arg_dat(p_adt, -1, OP_ID, 1, "double", OP_READ),
-                  op_arg_gbl(&rms, 1, "double", OP_INC));
+                  op_arg_gbl(&rms, 1, "double", OP_INC),
+                  op_arg_gbl(&maxerr, 1, "double", OP_MAX),
+                  op_arg_idx(-1, OP_ID),
+                  op_arg_info(&errloc, 1, "int", 5));
     }
 
     // print iteration history
     rms = sqrt(rms / (double)op_get_size(cells));
     if (iter % 100 == 0)
-      op_printf(" %d  %10.5e \n", iter, rms);
+      op_printf(" %d  %10.5e, max err: %3.15E at %d\n", iter, rms, maxerr, errloc);
     if (iter % 1000 == 0 &&
         ncell == 720000) { // defailt mesh -- for validation testing
       // op_printf(" %d  %3.16lf \n",iter,rms);

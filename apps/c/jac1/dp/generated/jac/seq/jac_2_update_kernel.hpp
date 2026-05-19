@@ -51,7 +51,7 @@ void op_par_loop_jac_2_update(
             (double *)arg0.data + n * 1,
             (double *)arg1.data + n * 1,
             (double *)arg2.data + n * 1,
-            idx,
+            &idx,
             (double *)arg4.data,
             (double *)arg5.data
         );

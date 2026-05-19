@@ -1,5 +1,6 @@
-
 namespace op2_k2 {
+
+
 __device__ inline void update(const float *r, float *du, float *u, float *u_sum,
                    float *u_max) {
   *u += *du + alpha_d * (*r);

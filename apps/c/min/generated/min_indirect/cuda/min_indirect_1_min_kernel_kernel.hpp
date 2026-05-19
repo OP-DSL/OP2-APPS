@@ -1,5 +1,6 @@
-
 namespace op2_k1 {
+
+
 __device__ void min_kernel(const int *d, int *min) {
     *min = std::min(*d, *min);
 }
@@ -22,7 +23,6 @@ __global__ void op_cuda_min_indirect_1_min_kernel(
 
     if (thread_id + start < end) {
         int n = thread_id + start;
-
         op2_k1::min_kernel(
             dat0 + map0[round32(set_size) * 0 + n] * 1,
             gbl1_local

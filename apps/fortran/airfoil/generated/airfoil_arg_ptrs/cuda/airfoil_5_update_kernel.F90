@@ -47,7 +47,7 @@ SUBROUTINE update(qold, q, res, adt, rms, maxerr, idx, errloc)
 END SUBROUTINE
 
 attributes(global) &
-subroutine op2_k_airfoil_5_update_wrapper( &
+subroutine op2_k_airfoil_5_update_wr( &
     dat0, &
     dat1, &
     dat2, &
@@ -234,10 +234,10 @@ subroutine op2_k_airfoil_5_update_m( &
     arg6 = args(7)
     arg7 = args(8)
 
-    call c_f_pointer(arg0%data_d, dat0_d, (/4 * getsetsizefromoparg(arg0)/))
-    call c_f_pointer(arg1%data_d, dat1_d, (/4 * getsetsizefromoparg(arg1)/))
-    call c_f_pointer(arg2%data_d, dat2_d, (/4 * getsetsizefromoparg(arg2)/))
-    call c_f_pointer(arg3%data_d, dat3_d, (/1 * getsetsizefromoparg(arg3)/))
+    call c_f_pointer(arg0%data_d, dat0_d, (/4 * round32f(getsetsizefromoparg(arg0)) /))
+    call c_f_pointer(arg1%data_d, dat1_d, (/4 * round32f(getsetsizefromoparg(arg1)) /))
+    call c_f_pointer(arg2%data_d, dat2_d, (/4 * round32f(getsetsizefromoparg(arg2)) /))
+    call c_f_pointer(arg3%data_d, dat3_d, (/1 * round32f(getsetsizefromoparg(arg3)) /))
 
     call c_f_pointer(arg4%data, gbl4, (/2/))
     call c_f_pointer(arg4%data_d, gbl4_d, (/2 * block_size * max_blocks/))
@@ -272,7 +272,7 @@ subroutine op2_k_airfoil_5_update_m( &
     end = set%setptr%size
 
     call op_timing2_enter("Kernel")
-    call op2_k_airfoil_5_update_wrapper<<<num_blocks, block_size>>>( &
+    call op2_k_airfoil_5_update_wr<<<num_blocks, block_size>>>( &
         dat0_d, &
         dat1_d, &
         dat2_d, &
@@ -356,7 +356,7 @@ SUBROUTINE update(qold, q, res, adt, rms, maxerr, idx, errloc)
   END DO
 END SUBROUTINE
 
-subroutine op2_k_airfoil_5_update_wrapper( &
+subroutine op2_k_airfoil_5_update_wr( &
     dat0, &
     dat1, &
     dat2, &
@@ -472,7 +472,7 @@ subroutine op2_k_airfoil_5_update_fb( &
 
     call c_f_pointer(arg7%data, info7, (/1/))
 
-    call op2_k_airfoil_5_update_wrapper( &
+    call op2_k_airfoil_5_update_wr( &
         dat0, &
         dat1, &
         dat2, &

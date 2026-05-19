@@ -1,5 +1,6 @@
-
 namespace op2_k2 {
+
+
 __device__ inline void adt_calc(const double *x1, const double *x2, const double *x3,
                      const double *x4, const double *q, double *adt) {
   double dx, dy, ri, u, v, c;
@@ -43,7 +44,6 @@ __global__ void op_cuda_airfoil_mpi_2_adt_calc(
 
     if (thread_id + start < end) {
         int n = thread_id + start;
-
         op2_k2::adt_calc(
             dat0 + map0[round32(set_size) * 0 + n] * 2,
             dat0 + map0[round32(set_size) * 1 + n] * 2,

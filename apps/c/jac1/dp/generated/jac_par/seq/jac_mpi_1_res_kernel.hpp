@@ -56,9 +56,9 @@ void op_par_loop_jac_mpi_1_res(
             (double *)arg1.data + map0[1] * 1,
             (double *)arg2.data + map0[0] * 1,
             (double *)arg3.data,
-            idx,
-            idx5,
-            idx6
+            &idx,
+            &idx5,
+            &idx6
         );
 
         if (n == set->size - 1) {

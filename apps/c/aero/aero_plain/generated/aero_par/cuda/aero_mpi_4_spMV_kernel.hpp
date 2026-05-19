@@ -1,6 +1,8 @@
-
 namespace op2_k4 {
-__device__ inline void spMV(double **v, const double *K, const double **p) {
+
+
+__device__ inline void spMV(double *v0, double *v1, double *v2, double *v3, const double *K,
+                 const double *p0, const double *p1, const double *p2, const double *p3) {
   //     double localsum = 0;
   //  for (int j=0; j<4; j++) {
   //         localsum = 0;
@@ -20,22 +22,22 @@ __device__ inline void spMV(double **v, const double *K, const double **p) {
   //         }
   //     }
   // }
-  v[0][0] += K[0] * p[0][0];
-  v[0][0] += K[1] * p[1][0];
-  v[1][0] += K[1] * p[0][0];
-  v[0][0] += K[2] * p[2][0];
-  v[2][0] += K[2] * p[0][0];
-  v[0][0] += K[3] * p[3][0];
-  v[3][0] += K[3] * p[0][0];
-  v[1][0] += K[4 + 1] * p[1][0];
-  v[1][0] += K[4 + 2] * p[2][0];
-  v[2][0] += K[4 + 2] * p[1][0];
-  v[1][0] += K[4 + 3] * p[3][0];
-  v[3][0] += K[4 + 3] * p[1][0];
-  v[2][0] += K[8 + 2] * p[2][0];
-  v[2][0] += K[8 + 3] * p[3][0];
-  v[3][0] += K[8 + 3] * p[2][0];
-  v[3][0] += K[15] * p[3][0];
+  v0[0] += K[0] * p0[0];
+  v0[0] += K[1] * p1[0];
+  v1[0] += K[1] * p0[0];
+  v0[0] += K[2] * p2[0];
+  v2[0] += K[2] * p0[0];
+  v0[0] += K[3] * p3[0];
+  v3[0] += K[3] * p0[0];
+  v1[0] += K[4 + 1] * p1[0];
+  v1[0] += K[4 + 2] * p2[0];
+  v2[0] += K[4 + 2] * p1[0];
+  v1[0] += K[4 + 3] * p3[0];
+  v3[0] += K[4 + 3] * p1[0];
+  v2[0] += K[8 + 2] * p2[0];
+  v2[0] += K[8 + 3] * p3[0];
+  v3[0] += K[8 + 3] * p2[0];
+  v3[0] += K[15] * p3[0];
 }
 }
 
@@ -53,52 +55,45 @@ __global__ void op_cuda_aero_mpi_4_spMV(
 
     if (thread_id + start < end) {
         int n = thread_id + start;
-
         double arg0_0_local[1];
         for (int d = 0; d < 1; ++d)
             arg0_0_local[d] = ZERO_double;
 
-        double arg0_1_local[1];
+        double arg1_1_local[1];
         for (int d = 0; d < 1; ++d)
-            arg0_1_local[d] = ZERO_double;
+            arg1_1_local[d] = ZERO_double;
 
-        double arg0_2_local[1];
+        double arg2_2_local[1];
         for (int d = 0; d < 1; ++d)
-            arg0_2_local[d] = ZERO_double;
+            arg2_2_local[d] = ZERO_double;
 
-        double arg0_3_local[1];
+        double arg3_3_local[1];
         for (int d = 0; d < 1; ++d)
-            arg0_3_local[d] = ZERO_double;
-
-        double *arg0_vec[4];
-        arg0_vec[0] = arg0_0_local;
-        arg0_vec[1] = arg0_1_local;
-        arg0_vec[2] = arg0_2_local;
-        arg0_vec[3] = arg0_3_local;
-
-        const double *arg2_vec[4];
-        arg2_vec[0] = dat2 + map0[round32(set_size) * 0 + n] * 1;
-        arg2_vec[1] = dat2 + map0[round32(set_size) * 1 + n] * 1;
-        arg2_vec[2] = dat2 + map0[round32(set_size) * 2 + n] * 1;
-        arg2_vec[3] = dat2 + map0[round32(set_size) * 3 + n] * 1;
+            arg3_3_local[d] = ZERO_double;
 
         op2_k4::spMV(
-            arg0_vec,
+            arg0_0_local,
+            arg1_1_local,
+            arg2_2_local,
+            arg3_3_local,
             dat1 + n * 16,
-            arg2_vec
+            dat2 + map0[round32(set_size) * 0 + n] * 1,
+            dat2 + map0[round32(set_size) * 1 + n] * 1,
+            dat2 + map0[round32(set_size) * 2 + n] * 1,
+            dat2 + map0[round32(set_size) * 3 + n] * 1
         );
 
         for (int d = 0; d < 1; ++d)
             atomicAdd(dat0 + map0[round32(set_size) * 0 + n] * 1 + d, arg0_0_local[d]);
 
         for (int d = 0; d < 1; ++d)
-            atomicAdd(dat0 + map0[round32(set_size) * 1 + n] * 1 + d, arg0_1_local[d]);
+            atomicAdd(dat0 + map0[round32(set_size) * 1 + n] * 1 + d, arg1_1_local[d]);
 
         for (int d = 0; d < 1; ++d)
-            atomicAdd(dat0 + map0[round32(set_size) * 2 + n] * 1 + d, arg0_2_local[d]);
+            atomicAdd(dat0 + map0[round32(set_size) * 2 + n] * 1 + d, arg2_2_local[d]);
 
         for (int d = 0; d < 1; ++d)
-            atomicAdd(dat0 + map0[round32(set_size) * 3 + n] * 1 + d, arg0_3_local[d]);
+            atomicAdd(dat0 + map0[round32(set_size) * 3 + n] * 1 + d, arg3_3_local[d]);
     }
 }
 
@@ -107,20 +102,26 @@ void op_par_loop_aero_mpi_4_spMV(
     op_set set,
     op_arg arg0,
     op_arg arg1,
-    op_arg arg2
+    op_arg arg2,
+    op_arg arg3,
+    op_arg arg4,
+    op_arg arg5,
+    op_arg arg6,
+    op_arg arg7,
+    op_arg arg8
 ) {
     int num_args_expanded = 9;
     op_arg args_expanded[9];
 
-    args_expanded[0] = op_arg_dat(arg0.dat, 0, arg0.map, 1, "double", 3);
-    args_expanded[1] = op_arg_dat(arg0.dat, 1, arg0.map, 1, "double", 3);
-    args_expanded[2] = op_arg_dat(arg0.dat, 2, arg0.map, 1, "double", 3);
-    args_expanded[3] = op_arg_dat(arg0.dat, 3, arg0.map, 1, "double", 3);
-    args_expanded[4] = arg1;
-    args_expanded[5] = op_arg_dat(arg2.dat, 0, arg2.map, 1, "double", 0);
-    args_expanded[6] = op_arg_dat(arg2.dat, 1, arg2.map, 1, "double", 0);
-    args_expanded[7] = op_arg_dat(arg2.dat, 2, arg2.map, 1, "double", 0);
-    args_expanded[8] = op_arg_dat(arg2.dat, 3, arg2.map, 1, "double", 0);
+    args_expanded[0] = arg0;
+    args_expanded[1] = arg1;
+    args_expanded[2] = arg2;
+    args_expanded[3] = arg3;
+    args_expanded[4] = arg4;
+    args_expanded[5] = arg5;
+    args_expanded[6] = arg6;
+    args_expanded[7] = arg7;
+    args_expanded[8] = arg8;
 
     double cpu_start, cpu_end, wall_start, wall_end;
     op_timing_realloc(4);
@@ -155,8 +156,8 @@ void op_par_loop_aero_mpi_4_spMV(
 
             op_cuda_aero_mpi_4_spMV<<<num_blocks, block_size>>>(
                 (double *)arg0.data_d,
-                (double *)arg1.data_d,
-                (double *)arg2.data_d,
+                (double *)arg4.data_d,
+                (double *)arg5.data_d,
                 arg0.map_data_d,
                 start,
                 end,

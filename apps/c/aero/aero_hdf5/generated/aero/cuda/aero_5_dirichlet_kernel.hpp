@@ -1,5 +1,6 @@
-
 namespace op2_k5 {
+
+
 __device__ inline void dirichlet(double *res) { *res = 0.0; }
 }
 
@@ -15,7 +16,6 @@ __global__ void op_cuda_aero_5_dirichlet(
 
     if (thread_id + start < end) {
         int n = thread_id + start;
-
         op2_k5::dirichlet(
             dat0 + map0[round32(set_size) * 0 + n] * 1
         );

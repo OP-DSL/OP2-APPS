@@ -1,18 +1,16 @@
-#include "hydra_const_list_c_cuda.cuh"
 
 #define INCBIN_STYLE INCBIN_STYLE_SNAKE
 #define INCBIN_PREFIX
 #include <extern/incbin.h>
 
+#include <cstdint>
 
-#define OP_F2C_PRELUDE OP_F2C_PRELUDE_8869869465
-#define OP_F2C_PARAMS OP_F2C_PARAMS_8869869465
 
-#define OP_F2C_PRELUDE_DATA OP_F2C_PRELUDE_8869869465_data
-#define OP_F2C_PARAMS_DATA OP_F2C_PARAMS_8869869465_data
 
+
+#define OP_F2C_PRELUDE OP_F2C_PRELUDE_2540736284
+#define OP_F2C_PRELUDE_DATA OP_F2C_PRELUDE_2540736284_data
 INCTXT(OP_F2C_PRELUDE, "op_f2c_prelude.h");
-INCTXT(OP_F2C_PARAMS, "hydra_const_list_params.h");
 
 #include <op_f2c_prelude.h>
 #include <op_f2c_helpers.h>

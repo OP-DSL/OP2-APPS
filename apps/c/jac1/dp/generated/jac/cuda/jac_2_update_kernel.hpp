@@ -1,5 +1,6 @@
-
 namespace op2_k2 {
+
+
 __device__ static inline double maxfun(double a, double b) {
    return a>b ? a : b;
 }
@@ -33,11 +34,12 @@ __global__ void op_cuda_jac_2_update(
     int thread_id = threadIdx.x + blockIdx.x * blockDim.x;
 
     for (int n = thread_id; n < set_size; n += blockDim.x * gridDim.x) {
+        int idx = n;
         op2_k2::update(
             dat0 + n * 1,
             dat1 + n * 1,
             dat2 + n * 1,
-            &n,
+            &idx,
             gbl4_local,
             gbl5_local
         );

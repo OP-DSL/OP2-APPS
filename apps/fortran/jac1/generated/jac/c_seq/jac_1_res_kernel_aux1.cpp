@@ -13,23 +13,23 @@ namespace f2c = op::f2c;
 namespace op2_m_jac_1_res_m {
 
 static void res(
-    f2c::Ptr<const float> _f2c_ptr_a,
-    f2c::Ptr<const float> _f2c_ptr_u,
-    f2c::Ptr<float> _f2c_ptr_du,
-    f2c::Ptr<const float> _f2c_ptr_beta
+    f2c::Ptr<const double> _f2c_ptr_a,
+    f2c::Ptr<const double> _f2c_ptr_u,
+    f2c::Ptr<double> _f2c_ptr_du,
+    f2c::Ptr<const double> _f2c_ptr_beta
 );
 
 
 static void res(
-    f2c::Ptr<const float> _f2c_ptr_a,
-    f2c::Ptr<const float> _f2c_ptr_u,
-    f2c::Ptr<float> _f2c_ptr_du,
-    f2c::Ptr<const float> _f2c_ptr_beta
+    f2c::Ptr<const double> _f2c_ptr_a,
+    f2c::Ptr<const double> _f2c_ptr_u,
+    f2c::Ptr<double> _f2c_ptr_du,
+    f2c::Ptr<const double> _f2c_ptr_beta
 ) {
-    const f2c::Span<const float, 1> a{_f2c_ptr_a, f2c::Extent{1, 1}};
-    const f2c::Span<const float, 1> u{_f2c_ptr_u, f2c::Extent{1, 1}};
-    const f2c::Span<float, 1> du{_f2c_ptr_du, f2c::Extent{1, 1}};
-    const f2c::Span<const float, 1> beta{_f2c_ptr_beta, f2c::Extent{1, 1}};
+    const f2c::Span<const double, 1> a{_f2c_ptr_a, f2c::Extent{1, 1}};
+    const f2c::Span<const double, 1> u{_f2c_ptr_u, f2c::Extent{1, 1}};
+    const f2c::Span<double, 1> du{_f2c_ptr_du, f2c::Extent{1, 1}};
+    const f2c::Span<const double, 1> beta{_f2c_ptr_beta, f2c::Extent{1, 1}};
 
     du(1) = du(1) + beta(1) * a(1) * u(1);
 }

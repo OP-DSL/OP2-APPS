@@ -13,33 +13,33 @@ namespace f2c = op::f2c;
 namespace op2_m_airfoil_5_update_m {
 
 static void update(
-    f2c::Ptr<const float> _f2c_ptr_qold,
-    f2c::Ptr<float> _f2c_ptr_q,
-    f2c::Ptr<float> _f2c_ptr_res,
-    const float adt,
-    f2c::Ptr<float> _f2c_ptr_rms,
-    float& maxerr,
+    f2c::Ptr<const double> _f2c_ptr_qold,
+    f2c::Ptr<double> _f2c_ptr_q,
+    f2c::Ptr<double> _f2c_ptr_res,
+    const double adt,
+    f2c::Ptr<double> _f2c_ptr_rms,
+    double& maxerr,
     const int idx,
     int& errloc
 );
 
 
 static void update(
-    f2c::Ptr<const float> _f2c_ptr_qold,
-    f2c::Ptr<float> _f2c_ptr_q,
-    f2c::Ptr<float> _f2c_ptr_res,
-    const float adt,
-    f2c::Ptr<float> _f2c_ptr_rms,
-    float& maxerr,
+    f2c::Ptr<const double> _f2c_ptr_qold,
+    f2c::Ptr<double> _f2c_ptr_q,
+    f2c::Ptr<double> _f2c_ptr_res,
+    const double adt,
+    f2c::Ptr<double> _f2c_ptr_rms,
+    double& maxerr,
     const int idx,
     int& errloc
 ) {
-    const f2c::Span<const float, 1> qold{_f2c_ptr_qold, f2c::Extent{1, 4}};
-    const f2c::Span<float, 1> q{_f2c_ptr_q, f2c::Extent{1, 4}};
-    const f2c::Span<float, 1> res{_f2c_ptr_res, f2c::Extent{1, 4}};
-    const f2c::Span<float, 1> rms{_f2c_ptr_rms, f2c::Extent{1, 2}};
-    float del;
-    float adti;
+    const f2c::Span<const double, 1> qold{_f2c_ptr_qold, f2c::Extent{1, 4}};
+    const f2c::Span<double, 1> q{_f2c_ptr_q, f2c::Extent{1, 4}};
+    const f2c::Span<double, 1> res{_f2c_ptr_res, f2c::Extent{1, 4}};
+    const f2c::Span<double, 1> rms{_f2c_ptr_rms, f2c::Extent{1, 2}};
+    double del;
+    double adti;
     int i;
 
     adti = 1.0 / adt;

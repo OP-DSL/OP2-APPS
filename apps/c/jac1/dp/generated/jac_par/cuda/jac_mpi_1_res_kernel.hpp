@@ -1,5 +1,6 @@
-
 namespace op2_k1 {
+
+
 __device__ inline void res(const double *A, const double *u, double *du,
                 const double *beta, const int *index, const int *idx_ppedge0,
                 const int *idx_ppedge1) {
@@ -23,7 +24,7 @@ __global__ void op_cuda_jac_mpi_1_res(
 
     if (thread_id + start < end) {
         int n = thread_id + start;
-
+        int idx = n;
         double arg2_0_local[1];
         for (int d = 0; d < 1; ++d)
             arg2_0_local[d] = ZERO_double;
@@ -33,7 +34,7 @@ __global__ void op_cuda_jac_mpi_1_res(
             dat1 + map0[round32(set_size) * 1 + n] * 1,
             arg2_0_local,
             gbl3,
-            &n,
+            &idx,
             &map0[round32(set_size) * 0 + n],
             &map0[round32(set_size) * 1 + n]
         );

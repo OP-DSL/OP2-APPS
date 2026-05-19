@@ -13,36 +13,36 @@ namespace f2c = op::f2c;
 namespace op2_m_airfoil_4_bres_calc_m {
 
 static void bres_calc(
-    f2c::Ptr<const float> _f2c_ptr_x1,
-    f2c::Ptr<const float> _f2c_ptr_x2,
-    f2c::Ptr<const float> _f2c_ptr_q1,
-    const float adt1,
-    f2c::Ptr<float> _f2c_ptr_res1,
+    f2c::Ptr<const double> _f2c_ptr_x1,
+    f2c::Ptr<const double> _f2c_ptr_x2,
+    f2c::Ptr<const double> _f2c_ptr_q1,
+    const double adt1,
+    f2c::Ptr<double> _f2c_ptr_res1,
     const int bound
 );
 
 
 static void bres_calc(
-    f2c::Ptr<const float> _f2c_ptr_x1,
-    f2c::Ptr<const float> _f2c_ptr_x2,
-    f2c::Ptr<const float> _f2c_ptr_q1,
-    const float adt1,
-    f2c::Ptr<float> _f2c_ptr_res1,
+    f2c::Ptr<const double> _f2c_ptr_x1,
+    f2c::Ptr<const double> _f2c_ptr_x2,
+    f2c::Ptr<const double> _f2c_ptr_q1,
+    const double adt1,
+    f2c::Ptr<double> _f2c_ptr_res1,
     const int bound
 ) {
-    const f2c::Span<const float, 1> x1{_f2c_ptr_x1, f2c::Extent{1, 2}};
-    const f2c::Span<const float, 1> x2{_f2c_ptr_x2, f2c::Extent{1, 2}};
-    const f2c::Span<const float, 1> q1{_f2c_ptr_q1, f2c::Extent{1, 4}};
-    const f2c::Span<float, 1> res1{_f2c_ptr_res1, f2c::Extent{1, 4}};
-    float dx;
-    float dy;
-    float mu;
-    float ri;
-    float p1;
-    float vol1;
-    float p2;
-    float vol2;
-    float f;
+    const f2c::Span<const double, 1> x1{_f2c_ptr_x1, f2c::Extent{1, 2}};
+    const f2c::Span<const double, 1> x2{_f2c_ptr_x2, f2c::Extent{1, 2}};
+    const f2c::Span<const double, 1> q1{_f2c_ptr_q1, f2c::Extent{1, 4}};
+    const f2c::Span<double, 1> res1{_f2c_ptr_res1, f2c::Extent{1, 4}};
+    double dx;
+    double dy;
+    double mu;
+    double ri;
+    double p1;
+    double vol1;
+    double p2;
+    double vol2;
+    double f;
 
     dx = x1(1) - x2(1);
     dy = x1(2) - x2(2);

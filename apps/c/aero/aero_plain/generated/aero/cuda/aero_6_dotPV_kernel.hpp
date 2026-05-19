@@ -1,5 +1,6 @@
-
 namespace op2_k6 {
+
+
 __device__ inline void dotPV(const double *p, const double *v, double *c) { *c += (*p) * (*v); }
 }
 

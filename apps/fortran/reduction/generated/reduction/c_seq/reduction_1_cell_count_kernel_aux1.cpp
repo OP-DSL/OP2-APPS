@@ -13,17 +13,16 @@ namespace f2c = op::f2c;
 namespace op2_m_reduction_1_cell_count_m {
 
 static void cell_count(
-    f2c::Ptr<float> _f2c_ptr_res,
-    f2c::Ptr<int> _f2c_ptr_cell_count_result
+    f2c::Ptr<double> _f2c_ptr_res,
+    int& cell_count_result
 );
 
 
 static void cell_count(
-    f2c::Ptr<float> _f2c_ptr_res,
-    f2c::Ptr<int> _f2c_ptr_cell_count_result
+    f2c::Ptr<double> _f2c_ptr_res,
+    int& cell_count_result
 ) {
-    const f2c::Span<float, 1> res{_f2c_ptr_res, f2c::Extent{1, 4}};
-    const f2c::Span<int, 1> cell_count_result{_f2c_ptr_cell_count_result, f2c::Extent{1, 1}};
+    const f2c::Span<double, 1> res{_f2c_ptr_res, f2c::Extent{1, 4}};
     int d;
 
     for (d = 1; d <= 4; ++d) {

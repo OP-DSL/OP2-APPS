@@ -23,7 +23,7 @@ SUBROUTINE save_soln(q, qold)
   END DO
 END SUBROUTINE
 
-subroutine op2_k_airfoil_1_save_soln_wrapper( &
+subroutine op2_k_airfoil_1_save_soln_wr( &
     dat0, &
     dat1, &
     n_exec, &
@@ -89,7 +89,7 @@ subroutine op2_k_airfoil_1_save_soln( &
     call c_f_pointer(arg0%data, dat0, (/4, getsetsizefromoparg(arg0)/))
     call c_f_pointer(arg1%data, dat1, (/4, getsetsizefromoparg(arg1)/))
 
-    call op2_k_airfoil_1_save_soln_wrapper( &
+    call op2_k_airfoil_1_save_soln_wr( &
         dat0, &
         dat1, &
         n_exec, &

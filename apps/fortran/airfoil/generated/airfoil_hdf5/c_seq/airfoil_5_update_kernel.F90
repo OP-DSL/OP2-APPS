@@ -127,7 +127,7 @@ SUBROUTINE update(qold, q, res, adt, rms, maxerr, idx, errloc)
   END DO
 END SUBROUTINE
 
-subroutine op2_k_airfoil_5_update_wrapper( &
+subroutine op2_k_airfoil_5_update_wr( &
     dat0, &
     dat1, &
     dat2, &
@@ -243,7 +243,7 @@ subroutine op2_k_airfoil_5_update_fb( &
 
     call c_f_pointer(arg7%data, info7, (/1/))
 
-    call op2_k_airfoil_5_update_wrapper( &
+    call op2_k_airfoil_5_update_wr( &
         dat0, &
         dat1, &
         dat2, &

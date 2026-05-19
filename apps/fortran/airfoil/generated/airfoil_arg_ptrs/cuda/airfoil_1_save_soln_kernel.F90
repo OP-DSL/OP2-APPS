@@ -29,7 +29,7 @@ SUBROUTINE save_soln(q, qold)
 END SUBROUTINE
 
 attributes(global) &
-subroutine op2_k_airfoil_1_save_soln_wrapper( &
+subroutine op2_k_airfoil_1_save_soln_wr( &
     dat0, &
     dat1, &
     start, &
@@ -129,15 +129,15 @@ subroutine op2_k_airfoil_1_save_soln_m( &
     arg0 = args(1)
     arg1 = args(2)
 
-    call c_f_pointer(arg0%data_d, dat0_d, (/4 * getsetsizefromoparg(arg0)/))
-    call c_f_pointer(arg1%data_d, dat1_d, (/4 * getsetsizefromoparg(arg1)/))
+    call c_f_pointer(arg0%data_d, dat0_d, (/4 * round32f(getsetsizefromoparg(arg0)) /))
+    call c_f_pointer(arg1%data_d, dat1_d, (/4 * round32f(getsetsizefromoparg(arg1)) /))
 
     call op_timing2_next("Computation")
     start = 0
     end = set%setptr%size
 
     call op_timing2_enter("Kernel")
-    call op2_k_airfoil_1_save_soln_wrapper<<<num_blocks, block_size>>>( &
+    call op2_k_airfoil_1_save_soln_wr<<<num_blocks, block_size>>>( &
         dat0_d, &
         dat1_d, &
         start, &
@@ -198,7 +198,7 @@ SUBROUTINE save_soln(q, qold)
   END DO
 END SUBROUTINE
 
-subroutine op2_k_airfoil_1_save_soln_wrapper( &
+subroutine op2_k_airfoil_1_save_soln_wr( &
     dat0, &
     dat1, &
     n_exec, &
@@ -264,7 +264,7 @@ subroutine op2_k_airfoil_1_save_soln_fb( &
     call c_f_pointer(arg0%data, dat0, (/4, getsetsizefromoparg(arg0)/))
     call c_f_pointer(arg1%data, dat1, (/4, getsetsizefromoparg(arg1)/))
 
-    call op2_k_airfoil_1_save_soln_wrapper( &
+    call op2_k_airfoil_1_save_soln_wr( &
         dat0, &
         dat1, &
         n_exec, &

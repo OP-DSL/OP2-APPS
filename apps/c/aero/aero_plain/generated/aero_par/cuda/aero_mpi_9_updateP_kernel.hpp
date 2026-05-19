@@ -1,5 +1,6 @@
-
 namespace op2_k9 {
+
+
 __device__ inline void updateP(const double *r, double *p, const double *beta) {
   *p = (*beta) * (*p) + (*r);
 }

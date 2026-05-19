@@ -1,18 +1,37 @@
-#include "hydra_const_list_c_hip.hip.h"
 
 #define INCBIN_STYLE INCBIN_STYLE_SNAKE
 #define INCBIN_PREFIX
 #include <extern/incbin.h>
 
+#include <cstdint>
 
-#define OP_F2C_PRELUDE OP_F2C_PRELUDE_5652344336
-#define OP_F2C_PARAMS OP_F2C_PARAMS_5652344336
+extern double op2_const_gam;
+extern double op2_const_gm1;
+extern double op2_const_cfl;
+extern double op2_const_eps;
+extern double op2_const_mach;
+extern double op2_const_alpha;
+extern double op2_const_qinf[4];
 
-#define OP_F2C_PRELUDE_DATA OP_F2C_PRELUDE_5652344336_data
-#define OP_F2C_PARAMS_DATA OP_F2C_PARAMS_5652344336_data
+static __constant__ double op2_const_gam_d;
+static __constant__ double op2_const_gm1_d;
+static __constant__ double op2_const_cfl_d;
+static __constant__ double op2_const_eps_d;
+static __constant__ double op2_const_mach_d;
+static __constant__ double op2_const_alpha_d;
+static __device__ double op2_const_qinf_d[4];
 
+static uint64_t  op2_const_gam_hash = 0;
+static uint64_t  op2_const_gm1_hash = 0;
+static uint64_t  op2_const_cfl_hash = 0;
+static uint64_t  op2_const_eps_hash = 0;
+static uint64_t  op2_const_mach_hash = 0;
+static uint64_t  op2_const_alpha_hash = 0;
+static uint64_t  op2_const_qinf_hash = 0;
+
+#define OP_F2C_PRELUDE OP_F2C_PRELUDE_2176699025
+#define OP_F2C_PRELUDE_DATA OP_F2C_PRELUDE_2176699025_data
 INCTXT(OP_F2C_PRELUDE, "op_f2c_prelude.h");
-INCTXT(OP_F2C_PARAMS, "hydra_const_list_params.h");
 
 #include <op_f2c_prelude.h>
 #include <op_f2c_helpers.h>

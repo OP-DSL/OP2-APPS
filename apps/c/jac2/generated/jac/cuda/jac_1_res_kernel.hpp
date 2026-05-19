@@ -1,5 +1,6 @@
-
 namespace op2_k1 {
+
+
 __device__ inline void res(const double *A, const float *u, float *du, const float *beta) {
   *du += (float)((*beta) * (*A) * (*u));
 }
@@ -20,7 +21,6 @@ __global__ void op_cuda_jac_1_res(
 
     if (thread_id + start < end) {
         int n = thread_id + start;
-
         float arg2_0_local[3];
         for (int d = 0; d < 3; ++d)
             arg2_0_local[d] = ZERO_float;

@@ -97,7 +97,7 @@ SUBROUTINE update(r, du, u, u_sum, u_max)
   u_max(1) = MAX(u_max(1), u(1))
 END SUBROUTINE
 
-subroutine op2_k_jac_2_update_wrapper( &
+subroutine op2_k_jac_2_update_wr( &
     dat0, &
     dat1, &
     dat2, &
@@ -190,7 +190,7 @@ subroutine op2_k_jac_2_update_fb( &
     call c_f_pointer(arg3%data, gbl3, (/1/))
     call c_f_pointer(arg4%data, gbl4, (/1/))
 
-    call op2_k_jac_2_update_wrapper( &
+    call op2_k_jac_2_update_wr( &
         dat0, &
         dat1, &
         dat2, &

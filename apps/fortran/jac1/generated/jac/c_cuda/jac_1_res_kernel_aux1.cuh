@@ -5,23 +5,23 @@ namespace op2_m_jac_1_res_m {
 double op2_gbl3;
 
 static __device__ void res(
-    f2c::Ptr<const float> _f2c_ptr_a,
-    f2c::Ptr<const float> _f2c_ptr_u,
-    f2c::Ptr<float> _f2c_ptr_du,
-    f2c::Ptr<const float> _f2c_ptr_beta
+    f2c::Ptr<const double> _f2c_ptr_a,
+    f2c::Ptr<const double> _f2c_ptr_u,
+    f2c::Ptr<double> _f2c_ptr_du,
+    f2c::Ptr<const double> _f2c_ptr_beta
 );
 
 
 static __device__ void res(
-    f2c::Ptr<const float> _f2c_ptr_a,
-    f2c::Ptr<const float> _f2c_ptr_u,
-    f2c::Ptr<float> _f2c_ptr_du,
-    f2c::Ptr<const float> _f2c_ptr_beta
+    f2c::Ptr<const double> _f2c_ptr_a,
+    f2c::Ptr<const double> _f2c_ptr_u,
+    f2c::Ptr<double> _f2c_ptr_du,
+    f2c::Ptr<const double> _f2c_ptr_beta
 ) {
-    const f2c::Span<const float, 1> a{_f2c_ptr_a, f2c::Extent{1, 1}};
-    const f2c::Span<const float, 1> u{_f2c_ptr_u, f2c::Extent{1, 1}};
-    const f2c::Span<float, 1> du{_f2c_ptr_du, f2c::Extent{1, 1}};
-    const f2c::Span<const float, 1> beta{_f2c_ptr_beta, f2c::Extent{1, 1}};
+    const f2c::Span<const double, 1> a{_f2c_ptr_a, f2c::Extent{1, 1}};
+    const f2c::Span<const double, 1> u{_f2c_ptr_u, f2c::Extent{1, 1}};
+    const f2c::Span<double, 1> du{_f2c_ptr_du, f2c::Extent{1, 1}};
+    const f2c::Span<const double, 1> beta{_f2c_ptr_beta, f2c::Extent{1, 1}};
 
     atomicAdd(&(du(1)), 0.0e0 + beta(1) * a(1) * u(1));
 }
@@ -54,7 +54,7 @@ void op2_k_jac_1_res_m_wrapper(
 
 
         res(
-            f2c::Ptr{dat0 + n * 1.data[0],
+            f2c::Ptr{dat0 + n * 1}.data[0],
             f2c::Ptr{dat1 + map0[1 * stride + n] * 1}.data[0],
             f2c::Ptr{dat2 + map0[0 * stride + n] * 1}.data[0],
             gbl3
@@ -67,23 +67,23 @@ const char op2_k_jac_1_res_m_src[] = R"_op2_k(
 namespace op2_m_jac_1_res_m {
 
 static __device__ void res(
-    f2c::Ptr<const float> _f2c_ptr_a,
-    f2c::Ptr<const float> _f2c_ptr_u,
-    f2c::Ptr<float> _f2c_ptr_du,
-    f2c::Ptr<const float> _f2c_ptr_beta
+    f2c::Ptr<const double> _f2c_ptr_a,
+    f2c::Ptr<const double> _f2c_ptr_u,
+    f2c::Ptr<double> _f2c_ptr_du,
+    f2c::Ptr<const double> _f2c_ptr_beta
 );
 
 
 static __device__ void res(
-    f2c::Ptr<const float> _f2c_ptr_a,
-    f2c::Ptr<const float> _f2c_ptr_u,
-    f2c::Ptr<float> _f2c_ptr_du,
-    f2c::Ptr<const float> _f2c_ptr_beta
+    f2c::Ptr<const double> _f2c_ptr_a,
+    f2c::Ptr<const double> _f2c_ptr_u,
+    f2c::Ptr<double> _f2c_ptr_du,
+    f2c::Ptr<const double> _f2c_ptr_beta
 ) {
-    const f2c::Span<const float, 1> a{_f2c_ptr_a, f2c::Extent{1, 1}};
-    const f2c::Span<const float, 1> u{_f2c_ptr_u, f2c::Extent{1, 1}};
-    const f2c::Span<float, 1> du{_f2c_ptr_du, f2c::Extent{1, 1}};
-    const f2c::Span<const float, 1> beta{_f2c_ptr_beta, f2c::Extent{1, 1}};
+    const f2c::Span<const double, 1> a{_f2c_ptr_a, f2c::Extent{1, 1}};
+    const f2c::Span<const double, 1> u{_f2c_ptr_u, f2c::Extent{1, 1}};
+    const f2c::Span<double, 1> du{_f2c_ptr_du, f2c::Extent{1, 1}};
+    const f2c::Span<const double, 1> beta{_f2c_ptr_beta, f2c::Extent{1, 1}};
 
     atomicAdd(&(du(1)), 0.0e0 + beta(1) * a(1) * u(1));
 }
@@ -114,7 +114,7 @@ void op2_k_jac_1_res_m_wrapper(
 
 
         res(
-            f2c::Ptr{dat0 + n * 1.data[0],
+            f2c::Ptr{dat0 + n * 1}.data[0],
             f2c::Ptr{dat1 + map0[1 * stride + n] * 1}.data[0],
             f2c::Ptr{dat2 + map0[0 * stride + n] * 1}.data[0],
             op2_gbl3_d

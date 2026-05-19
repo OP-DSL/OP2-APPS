@@ -42,9 +42,9 @@ void jac_1_res_wrapper(
                 dat1 + map0[n * map0_dim + 1] * 1,
                 arg2_0_local[lane],
                 gbl3,
-                arg4_local[lane],
-                arg5_0_local[lane],
-                arg6_1_local[lane]
+                &n,
+                &map0[n * map0_dim + 0],
+                &map0[n * map0_dim + 1]
             );
         }
 
@@ -63,9 +63,9 @@ void jac_1_res_wrapper(
             dat1 + map0[n * map0_dim + 1] * 1,
             dat2 + map0[n * map0_dim + 0] * 1,
             gbl3,
-            dat + n * ,
-            dat + map0[n * map0_dim + 0] * ,
-            dat + map0[n * map0_dim + 1] * 
+            &n,
+            &map0[n * map0_dim + 0],
+            &map0[n * map0_dim + 1]
         );
     }
 }

@@ -1,5 +1,6 @@
-
 namespace op2_k2 {
+
+
 __device__ inline void update(double *data, int *count) {
   data[0] = 0.0;
   (*count)++;

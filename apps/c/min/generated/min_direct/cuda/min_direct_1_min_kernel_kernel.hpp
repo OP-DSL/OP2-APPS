@@ -1,5 +1,6 @@
-
 namespace op2_k1 {
+
+
 __device__ void min_kernel(const int *d, int *min) {
     *min = std::min(*d, *min);
 }

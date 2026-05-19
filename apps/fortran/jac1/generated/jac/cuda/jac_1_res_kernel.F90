@@ -27,7 +27,7 @@ SUBROUTINE res(A, u, du, beta)
 END SUBROUTINE
 
 attributes(global) &
-subroutine op2_k_jac_1_res_wrapper( &
+subroutine op2_k_jac_1_res_wr( &
     dat0, &
     dat1, &
     dat2, &
@@ -152,9 +152,9 @@ subroutine op2_k_jac_1_res_m( &
     arg2 = args(3)
     arg3 = args(4)
 
-    call c_f_pointer(arg0%data_d, dat0_d, (/1 * getsetsizefromoparg(arg0)/))
-    call c_f_pointer(arg1%data_d, dat1_d, (/1 * getsetsizefromoparg(arg1)/))
-    call c_f_pointer(arg2%data_d, dat2_d, (/1 * getsetsizefromoparg(arg2)/))
+    call c_f_pointer(arg0%data_d, dat0_d, (/1 * round32f(getsetsizefromoparg(arg0)) /))
+    call c_f_pointer(arg1%data_d, dat1_d, (/1 * round32f(getsetsizefromoparg(arg1)) /))
+    call c_f_pointer(arg2%data_d, dat2_d, (/1 * round32f(getsetsizefromoparg(arg2)) /))
 
     call c_f_pointer(arg1%map_data_d, map0_d, (/set%setptr%size, getmapdimfromoparg(arg1)/))
 
@@ -179,7 +179,7 @@ subroutine op2_k_jac_1_res_m( &
             num_blocks = (end - start + (block_size - 1)) / block_size
             num_blocks = min(num_blocks, block_limit)
 
-            call op2_k_jac_1_res_wrapper<<<num_blocks, block_size>>>( &
+            call op2_k_jac_1_res_wr<<<num_blocks, block_size>>>( &
                 dat0_d, &
                 dat1_d, &
                 dat2_d, &
@@ -187,7 +187,7 @@ subroutine op2_k_jac_1_res_m( &
                 gbl3_d, &
                 start, &
                 end, &
-                set%setptr%size + set%setptr%exec_size &
+                round32f(set%setptr%size + set%setptr%exec_size) &
             )
         end if
     end do
@@ -232,7 +232,7 @@ SUBROUTINE res(A, u, du, beta)
   du(1) = du(1) + beta(1) * A(1) * u(1)
 END SUBROUTINE
 
-subroutine op2_k_jac_1_res_wrapper( &
+subroutine op2_k_jac_1_res_wr( &
     dat0, &
     dat1, &
     dat2, &
@@ -330,7 +330,7 @@ subroutine op2_k_jac_1_res_fb( &
 
     call c_f_pointer(arg3%data, gbl3, (/1/))
 
-    call op2_k_jac_1_res_wrapper( &
+    call op2_k_jac_1_res_wr( &
         dat0, &
         dat1, &
         dat2, &

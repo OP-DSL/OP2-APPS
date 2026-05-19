@@ -4,17 +4,16 @@ namespace op2_m_reduction_1_cell_count_m {
 
 
 static __device__ void cell_count(
-    f2c::Ptr<float> _f2c_ptr_res,
-    f2c::Ptr<int> _f2c_ptr_cell_count_result
+    f2c::Ptr<double> _f2c_ptr_res,
+    int& cell_count_result
 );
 
 
 static __device__ void cell_count(
-    f2c::Ptr<float> _f2c_ptr_res,
-    f2c::Ptr<int> _f2c_ptr_cell_count_result
+    f2c::Ptr<double> _f2c_ptr_res,
+    int& cell_count_result
 ) {
-    const f2c::Span<float, 1> res{_f2c_ptr_res, f2c::Extent{1, 4}};
-    const f2c::Span<int, 1> cell_count_result{_f2c_ptr_cell_count_result, f2c::Extent{1, 1}};
+    const f2c::Span<double, 1> res{_f2c_ptr_res, f2c::Extent{1, 4}};
     int d;
 
     for (d = 1; d <= 4; ++d) {
@@ -49,7 +48,7 @@ void op2_k_reduction_1_cell_count_m_wrapper(
 
 
         cell_count(
-            f2c::Ptr{dat0 + n * 4,
+            f2c::Ptr{dat0 + n * 4},
             f2c::Ptr{gbl1 + thread_id, stride_gbl}.data[0]
         );
     }
@@ -60,17 +59,16 @@ const char op2_k_reduction_1_cell_count_m_src[] = R"_op2_k(
 namespace op2_m_reduction_1_cell_count_m {
 
 static __device__ void cell_count(
-    f2c::Ptr<float> _f2c_ptr_res,
-    f2c::Ptr<int> _f2c_ptr_cell_count_result
+    f2c::Ptr<double> _f2c_ptr_res,
+    int& cell_count_result
 );
 
 
 static __device__ void cell_count(
-    f2c::Ptr<float> _f2c_ptr_res,
-    f2c::Ptr<int> _f2c_ptr_cell_count_result
+    f2c::Ptr<double> _f2c_ptr_res,
+    int& cell_count_result
 ) {
-    const f2c::Span<float, 1> res{_f2c_ptr_res, f2c::Extent{1, 4}};
-    const f2c::Span<int, 1> cell_count_result{_f2c_ptr_cell_count_result, f2c::Extent{1, 1}};
+    const f2c::Span<double, 1> res{_f2c_ptr_res, f2c::Extent{1, 4}};
     int d;
 
     for (d = 1; d <= 4; ++d) {
@@ -104,7 +102,7 @@ void op2_k_reduction_1_cell_count_m_wrapper(
 
 
         cell_count(
-            f2c::Ptr{dat0 + n * 4,
+            f2c::Ptr{dat0 + n * 4},
             f2c::Ptr{gbl1 + thread_id, stride_gbl}.data[0]
         );
     }
@@ -243,7 +241,7 @@ extern "C" void op2_k_reduction_1_cell_count_m_c(
     op_timing2_exit();
 
     op_timing2_enter("Finalise");
-    op_mpi_reduce(&arg1, arg1.data);
+    op_mpi_reduce(&arg1, (int *)arg1.data);
 
     op_mpi_set_dirtybit_cuda(n_args, args);
     if (exit_sync) CUDA_SAFE_CALL(hipStreamSynchronize(0));

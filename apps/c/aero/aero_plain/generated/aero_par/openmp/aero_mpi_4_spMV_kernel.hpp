@@ -1,5 +1,6 @@
 namespace op2_k4 {
-inline void spMV(double **v, const double *K, const double **p) {
+inline void spMV(double *v0, double *v1, double *v2, double *v3, const double *K,
+                 const double *p0, const double *p1, const double *p2, const double *p3) {
   //     double localsum = 0;
   //  for (int j=0; j<4; j++) {
   //         localsum = 0;
@@ -19,22 +20,22 @@ inline void spMV(double **v, const double *K, const double **p) {
   //         }
   //     }
   // }
-  v[0][0] += K[0] * p[0][0];
-  v[0][0] += K[1] * p[1][0];
-  v[1][0] += K[1] * p[0][0];
-  v[0][0] += K[2] * p[2][0];
-  v[2][0] += K[2] * p[0][0];
-  v[0][0] += K[3] * p[3][0];
-  v[3][0] += K[3] * p[0][0];
-  v[1][0] += K[4 + 1] * p[1][0];
-  v[1][0] += K[4 + 2] * p[2][0];
-  v[2][0] += K[4 + 2] * p[1][0];
-  v[1][0] += K[4 + 3] * p[3][0];
-  v[3][0] += K[4 + 3] * p[1][0];
-  v[2][0] += K[8 + 2] * p[2][0];
-  v[2][0] += K[8 + 3] * p[3][0];
-  v[3][0] += K[8 + 3] * p[2][0];
-  v[3][0] += K[15] * p[3][0];
+  v0[0] += K[0] * p0[0];
+  v0[0] += K[1] * p1[0];
+  v1[0] += K[1] * p0[0];
+  v0[0] += K[2] * p2[0];
+  v2[0] += K[2] * p0[0];
+  v0[0] += K[3] * p3[0];
+  v3[0] += K[3] * p0[0];
+  v1[0] += K[4 + 1] * p1[0];
+  v1[0] += K[4 + 2] * p2[0];
+  v2[0] += K[4 + 2] * p1[0];
+  v1[0] += K[4 + 3] * p3[0];
+  v3[0] += K[4 + 3] * p1[0];
+  v2[0] += K[8 + 2] * p2[0];
+  v2[0] += K[8 + 3] * p3[0];
+  v3[0] += K[8 + 3] * p2[0];
+  v3[0] += K[15] * p3[0];
 }
 }
 
@@ -57,9 +58,9 @@ void aero_mpi_4_spMV_wrapper(
     int block = start;
     for (; block + SIMD_LEN < end; block += SIMD_LEN) {
         alignas(SIMD_LEN * 8) double arg0_0_local[SIMD_LEN][1] = {0};
-        alignas(SIMD_LEN * 8) double arg0_1_local[SIMD_LEN][1] = {0};
-        alignas(SIMD_LEN * 8) double arg0_2_local[SIMD_LEN][1] = {0};
-        alignas(SIMD_LEN * 8) double arg0_3_local[SIMD_LEN][1] = {0};
+        alignas(SIMD_LEN * 8) double arg1_1_local[SIMD_LEN][1] = {0};
+        alignas(SIMD_LEN * 8) double arg2_2_local[SIMD_LEN][1] = {0};
+        alignas(SIMD_LEN * 8) double arg3_3_local[SIMD_LEN][1] = {0};
 
         for (int lane = 0; lane < SIMD_LEN; ++lane) {
             int n = block + lane;
@@ -70,24 +71,16 @@ void aero_mpi_4_spMV_wrapper(
         for (int lane = 0; lane < SIMD_LEN; ++lane) {
             int n = block + lane;
 
-            double *arg0_vec[] = {
+            op2_k4::spMV(
                 arg0_0_local[lane],
-                arg0_1_local[lane],
-                arg0_2_local[lane],
-                arg0_3_local[lane]
-            };
-
-            const double *arg2_vec[] = {
+                arg1_1_local[lane],
+                arg2_2_local[lane],
+                arg3_3_local[lane],
+                dat1 + n * 16,
                 dat2 + map0[n * map0_dim + 0] * 1,
                 dat2 + map0[n * map0_dim + 1] * 1,
                 dat2 + map0[n * map0_dim + 2] * 1,
                 dat2 + map0[n * map0_dim + 3] * 1
-            };
-
-            op2_k4::spMV(
-                arg0_vec,
-                dat1 + n * 16,
-                arg2_vec
             );
         }
 
@@ -99,38 +92,30 @@ void aero_mpi_4_spMV_wrapper(
             }
 
             for (int d = 0; d < 1; ++d) {
-                (dat0 + map0[n * map0_dim + 1] * 1)[d] += arg0_1_local[lane][d];
+                (dat0 + map0[n * map0_dim + 1] * 1)[d] += arg1_1_local[lane][d];
             }
 
             for (int d = 0; d < 1; ++d) {
-                (dat0 + map0[n * map0_dim + 2] * 1)[d] += arg0_2_local[lane][d];
+                (dat0 + map0[n * map0_dim + 2] * 1)[d] += arg2_2_local[lane][d];
             }
 
             for (int d = 0; d < 1; ++d) {
-                (dat0 + map0[n * map0_dim + 3] * 1)[d] += arg0_3_local[lane][d];
+                (dat0 + map0[n * map0_dim + 3] * 1)[d] += arg3_3_local[lane][d];
             }
         }
     }
 
     for (int n = block; n < end; ++n) {
-        double *arg0_vec[] = {
+        op2_k4::spMV(
             dat0 + map0[n * map0_dim + 0] * 1,
             dat0 + map0[n * map0_dim + 1] * 1,
             dat0 + map0[n * map0_dim + 2] * 1,
-            dat0 + map0[n * map0_dim + 3] * 1
-        };
-
-        const double *arg2_vec[] = {
+            dat0 + map0[n * map0_dim + 3] * 1,
+            dat1 + n * 16,
             dat2 + map0[n * map0_dim + 0] * 1,
             dat2 + map0[n * map0_dim + 1] * 1,
             dat2 + map0[n * map0_dim + 2] * 1,
             dat2 + map0[n * map0_dim + 3] * 1
-        };
-
-        op2_k4::spMV(
-            arg0_vec,
-            dat1 + n * 16,
-            arg2_vec
         );
     }
 }
@@ -140,20 +125,26 @@ void op_par_loop_aero_mpi_4_spMV(
     op_set set,
     op_arg arg0,
     op_arg arg1,
-    op_arg arg2
+    op_arg arg2,
+    op_arg arg3,
+    op_arg arg4,
+    op_arg arg5,
+    op_arg arg6,
+    op_arg arg7,
+    op_arg arg8
 ) {
     int num_args_expanded = 9;
     op_arg args_expanded[9];
 
-    args_expanded[0] = op_arg_dat(arg0.dat, 0, arg0.map, 1, "double", 3);
-    args_expanded[1] = op_arg_dat(arg0.dat, 1, arg0.map, 1, "double", 3);
-    args_expanded[2] = op_arg_dat(arg0.dat, 2, arg0.map, 1, "double", 3);
-    args_expanded[3] = op_arg_dat(arg0.dat, 3, arg0.map, 1, "double", 3);
-    args_expanded[4] = arg1;
-    args_expanded[5] = op_arg_dat(arg2.dat, 0, arg2.map, 1, "double", 0);
-    args_expanded[6] = op_arg_dat(arg2.dat, 1, arg2.map, 1, "double", 0);
-    args_expanded[7] = op_arg_dat(arg2.dat, 2, arg2.map, 1, "double", 0);
-    args_expanded[8] = op_arg_dat(arg2.dat, 3, arg2.map, 1, "double", 0);
+    args_expanded[0] = arg0;
+    args_expanded[1] = arg1;
+    args_expanded[2] = arg2;
+    args_expanded[3] = arg3;
+    args_expanded[4] = arg4;
+    args_expanded[5] = arg5;
+    args_expanded[6] = arg6;
+    args_expanded[7] = arg7;
+    args_expanded[8] = arg8;
 
     double cpu_start, cpu_end, wall_start, wall_end;
     op_timing_realloc(4);
@@ -196,8 +187,8 @@ void op_par_loop_aero_mpi_4_spMV(
 
             aero_mpi_4_spMV_wrapper(
                 (double *)arg0.data,
-                (double *)arg1.data,
-                (double *)arg2.data,
+                (double *)arg4.data,
+                (double *)arg5.data,
                 arg0.map_data,
                 arg0.map->dim,
                 offset,

@@ -1,5 +1,6 @@
-
 namespace op2_k1 {
+
+
 __device__ inline void res_calc(double *data, int *count) {
   data[0] = 0.0;
   (*count)++;
@@ -23,7 +24,6 @@ __global__ void op_cuda_reduction_mpi_1_res_calc(
 
     if (thread_id + start < end) {
         int n = thread_id + start;
-
         double arg0_0_local[4];
         for (int d = 0; d < 4; ++d)
             arg0_0_local[d] = ZERO_double;

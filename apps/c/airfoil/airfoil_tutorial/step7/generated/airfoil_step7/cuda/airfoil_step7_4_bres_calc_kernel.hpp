@@ -1,5 +1,6 @@
-
 namespace op2_k4 {
+
+
 __device__ inline void bres_calc(const double *x1, const double *x2, const double *q1,
                       const double *adt1, double *res1, const int *bound) {
   double dx, dy, mu, ri, p1, vol1, p2, vol2, f;
@@ -54,7 +55,6 @@ __global__ void op_cuda_airfoil_step7_4_bres_calc(
 
     if (thread_id + start < end) {
         int n = thread_id + start;
-
         double arg4_0_local[4];
         for (int d = 0; d < 4; ++d)
             arg4_0_local[d] = ZERO_double;

@@ -4,34 +4,34 @@ namespace op2_m_airfoil_2_adt_calc_m {
 
 
 static __device__ void adt_calc(
-    f2c::Ptr<const float> _f2c_ptr_x1,
-    f2c::Ptr<const float> _f2c_ptr_x2,
-    f2c::Ptr<const float> _f2c_ptr_x3,
-    f2c::Ptr<const float> _f2c_ptr_x4,
-    f2c::Ptr<const float> _f2c_ptr_q,
-    float& adt
+    f2c::Ptr<const double> _f2c_ptr_x1,
+    f2c::Ptr<const double> _f2c_ptr_x2,
+    f2c::Ptr<const double> _f2c_ptr_x3,
+    f2c::Ptr<const double> _f2c_ptr_x4,
+    f2c::Ptr<const double> _f2c_ptr_q,
+    double& adt
 );
 
 
 static __device__ void adt_calc(
-    f2c::Ptr<const float> _f2c_ptr_x1,
-    f2c::Ptr<const float> _f2c_ptr_x2,
-    f2c::Ptr<const float> _f2c_ptr_x3,
-    f2c::Ptr<const float> _f2c_ptr_x4,
-    f2c::Ptr<const float> _f2c_ptr_q,
-    float& adt
+    f2c::Ptr<const double> _f2c_ptr_x1,
+    f2c::Ptr<const double> _f2c_ptr_x2,
+    f2c::Ptr<const double> _f2c_ptr_x3,
+    f2c::Ptr<const double> _f2c_ptr_x4,
+    f2c::Ptr<const double> _f2c_ptr_q,
+    double& adt
 ) {
-    const f2c::Span<const float, 1> x1{_f2c_ptr_x1, f2c::Extent{1, 2}};
-    const f2c::Span<const float, 1> x2{_f2c_ptr_x2, f2c::Extent{1, 2}};
-    const f2c::Span<const float, 1> x3{_f2c_ptr_x3, f2c::Extent{1, 2}};
-    const f2c::Span<const float, 1> x4{_f2c_ptr_x4, f2c::Extent{1, 2}};
-    const f2c::Span<const float, 1> q{_f2c_ptr_q, f2c::Extent{1, 4}};
-    float dx;
-    float dy;
-    float ri;
-    float u;
-    float v;
-    float c;
+    const f2c::Span<const double, 1> x1{_f2c_ptr_x1, f2c::Extent{1, 2}};
+    const f2c::Span<const double, 1> x2{_f2c_ptr_x2, f2c::Extent{1, 2}};
+    const f2c::Span<const double, 1> x3{_f2c_ptr_x3, f2c::Extent{1, 2}};
+    const f2c::Span<const double, 1> x4{_f2c_ptr_x4, f2c::Extent{1, 2}};
+    const f2c::Span<const double, 1> q{_f2c_ptr_q, f2c::Extent{1, 4}};
+    double dx;
+    double dy;
+    double ri;
+    double u;
+    double v;
+    double c;
 
     ri = 1.0 / q(1);
     u = ri * q(2);
@@ -83,8 +83,8 @@ void op2_k_airfoil_2_adt_calc_m_wrapper(
             f2c::Ptr{dat0 + map0[1 * stride + n] * 2},
             f2c::Ptr{dat0 + map0[2 * stride + n] * 2},
             f2c::Ptr{dat0 + map0[3 * stride + n] * 2},
-            f2c::Ptr{dat1 + n * 4,
-            f2c::Ptr{dat2 + n * 1.data[0]
+            f2c::Ptr{dat1 + n * 4},
+            f2c::Ptr{dat2 + n * 1}.data[0]
         );
     }
 }
@@ -94,34 +94,34 @@ const char op2_k_airfoil_2_adt_calc_m_src[] = R"_op2_k(
 namespace op2_m_airfoil_2_adt_calc_m {
 
 static __device__ void adt_calc(
-    f2c::Ptr<const float> _f2c_ptr_x1,
-    f2c::Ptr<const float> _f2c_ptr_x2,
-    f2c::Ptr<const float> _f2c_ptr_x3,
-    f2c::Ptr<const float> _f2c_ptr_x4,
-    f2c::Ptr<const float> _f2c_ptr_q,
-    float& adt
+    f2c::Ptr<const double> _f2c_ptr_x1,
+    f2c::Ptr<const double> _f2c_ptr_x2,
+    f2c::Ptr<const double> _f2c_ptr_x3,
+    f2c::Ptr<const double> _f2c_ptr_x4,
+    f2c::Ptr<const double> _f2c_ptr_q,
+    double& adt
 );
 
 
 static __device__ void adt_calc(
-    f2c::Ptr<const float> _f2c_ptr_x1,
-    f2c::Ptr<const float> _f2c_ptr_x2,
-    f2c::Ptr<const float> _f2c_ptr_x3,
-    f2c::Ptr<const float> _f2c_ptr_x4,
-    f2c::Ptr<const float> _f2c_ptr_q,
-    float& adt
+    f2c::Ptr<const double> _f2c_ptr_x1,
+    f2c::Ptr<const double> _f2c_ptr_x2,
+    f2c::Ptr<const double> _f2c_ptr_x3,
+    f2c::Ptr<const double> _f2c_ptr_x4,
+    f2c::Ptr<const double> _f2c_ptr_q,
+    double& adt
 ) {
-    const f2c::Span<const float, 1> x1{_f2c_ptr_x1, f2c::Extent{1, 2}};
-    const f2c::Span<const float, 1> x2{_f2c_ptr_x2, f2c::Extent{1, 2}};
-    const f2c::Span<const float, 1> x3{_f2c_ptr_x3, f2c::Extent{1, 2}};
-    const f2c::Span<const float, 1> x4{_f2c_ptr_x4, f2c::Extent{1, 2}};
-    const f2c::Span<const float, 1> q{_f2c_ptr_q, f2c::Extent{1, 4}};
-    float dx;
-    float dy;
-    float ri;
-    float u;
-    float v;
-    float c;
+    const f2c::Span<const double, 1> x1{_f2c_ptr_x1, f2c::Extent{1, 2}};
+    const f2c::Span<const double, 1> x2{_f2c_ptr_x2, f2c::Extent{1, 2}};
+    const f2c::Span<const double, 1> x3{_f2c_ptr_x3, f2c::Extent{1, 2}};
+    const f2c::Span<const double, 1> x4{_f2c_ptr_x4, f2c::Extent{1, 2}};
+    const f2c::Span<const double, 1> q{_f2c_ptr_q, f2c::Extent{1, 4}};
+    double dx;
+    double dy;
+    double ri;
+    double u;
+    double v;
+    double c;
 
     ri = 1.0 / q(1);
     u = ri * q(2);
@@ -172,8 +172,8 @@ void op2_k_airfoil_2_adt_calc_m_wrapper(
             f2c::Ptr{dat0 + map0[1 * stride + n] * 2},
             f2c::Ptr{dat0 + map0[2 * stride + n] * 2},
             f2c::Ptr{dat0 + map0[3 * stride + n] * 2},
-            f2c::Ptr{dat1 + n * 4,
-            f2c::Ptr{dat2 + n * 1.data[0]
+            f2c::Ptr{dat1 + n * 4},
+            f2c::Ptr{dat2 + n * 1}.data[0]
         );
     }
 }
@@ -206,9 +206,9 @@ extern "C" void op2_k_airfoil_2_adt_calc_m_c(
                                     op2_k_airfoil_2_adt_calc_m_src);
 
     if (first_invocation) {
-        info.add_param("op2_const_gam_d", &gam, &op2_const_gam_d, &op2_const_gam_hash);
-        info.add_param("op2_const_cfl_d", &cfl, &op2_const_cfl_d, &op2_const_cfl_hash);
-        info.add_param("op2_const_gm1_d", &gm1, &op2_const_gm1_d, &op2_const_gm1_hash);
+        info.add_param("op2_const_cfl_d", &op2_const_cfl, &op2_const_cfl_d, &op2_const_cfl_hash);
+        info.add_param("op2_const_gam_d", &op2_const_gam, &op2_const_gam_d, &op2_const_gam_hash);
+        info.add_param("op2_const_gm1_d", &op2_const_gm1, &op2_const_gm1_d, &op2_const_gm1_hash);
 
         first_invocation = false;
     }

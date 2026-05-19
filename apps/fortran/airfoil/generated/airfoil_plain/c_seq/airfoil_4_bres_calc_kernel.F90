@@ -124,7 +124,7 @@ SUBROUTINE bres_calc(x1, x2, q1, adt1, res1, bound)
   res1(4) = res1(4) + f
 END SUBROUTINE
 
-subroutine op2_k_airfoil_4_bres_calc_wrapper( &
+subroutine op2_k_airfoil_4_bres_calc_wr( &
     dat0, &
     dat1, &
     dat2, &
@@ -235,7 +235,7 @@ subroutine op2_k_airfoil_4_bres_calc_fb( &
     call c_f_pointer(arg0%map_data, map0, (/getmapdimfromoparg(arg0), set%setptr%size/))
     call c_f_pointer(arg2%map_data, map1, (/getmapdimfromoparg(arg2), set%setptr%size/))
 
-    call op2_k_airfoil_4_bres_calc_wrapper( &
+    call op2_k_airfoil_4_bres_calc_wr( &
         dat0, &
         dat1, &
         dat2, &

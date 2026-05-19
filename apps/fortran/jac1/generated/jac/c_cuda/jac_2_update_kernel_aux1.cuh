@@ -4,26 +4,26 @@ namespace op2_m_jac_2_update_m {
 
 
 static __device__ void update(
-    f2c::Ptr<const float> _f2c_ptr_r,
-    f2c::Ptr<float> _f2c_ptr_du,
-    f2c::Ptr<float> _f2c_ptr_u,
-    f2c::Ptr<float> _f2c_ptr_u_sum,
-    f2c::Ptr<float> _f2c_ptr_u_max
+    f2c::Ptr<const double> _f2c_ptr_r,
+    f2c::Ptr<double> _f2c_ptr_du,
+    f2c::Ptr<double> _f2c_ptr_u,
+    f2c::Ptr<double> _f2c_ptr_u_sum,
+    f2c::Ptr<double> _f2c_ptr_u_max
 );
 
 
 static __device__ void update(
-    f2c::Ptr<const float> _f2c_ptr_r,
-    f2c::Ptr<float> _f2c_ptr_du,
-    f2c::Ptr<float> _f2c_ptr_u,
-    f2c::Ptr<float> _f2c_ptr_u_sum,
-    f2c::Ptr<float> _f2c_ptr_u_max
+    f2c::Ptr<const double> _f2c_ptr_r,
+    f2c::Ptr<double> _f2c_ptr_du,
+    f2c::Ptr<double> _f2c_ptr_u,
+    f2c::Ptr<double> _f2c_ptr_u_sum,
+    f2c::Ptr<double> _f2c_ptr_u_max
 ) {
-    const f2c::Span<const float, 1> r{_f2c_ptr_r, f2c::Extent{1, 1}};
-    const f2c::Span<float, 1> du{_f2c_ptr_du, f2c::Extent{1, 1}};
-    const f2c::Span<float, 1> u{_f2c_ptr_u, f2c::Extent{1, 1}};
-    const f2c::Span<float, 1> u_sum{_f2c_ptr_u_sum, f2c::Extent{1, 1}};
-    const f2c::Span<float, 1> u_max{_f2c_ptr_u_max, f2c::Extent{1, 1}};
+    const f2c::Span<const double, 1> r{_f2c_ptr_r, f2c::Extent{1, 1}};
+    const f2c::Span<double, 1> du{_f2c_ptr_du, f2c::Extent{1, 1}};
+    const f2c::Span<double, 1> u{_f2c_ptr_u, f2c::Extent{1, 1}};
+    const f2c::Span<double, 1> u_sum{_f2c_ptr_u_sum, f2c::Extent{1, 1}};
+    const f2c::Span<double, 1> u_max{_f2c_ptr_u_max, f2c::Extent{1, 1}};
 
     u(1) = u(1) + du(1) + op2_const_alpha_d * r(1);
     du(1) = 0.0f;
@@ -60,9 +60,9 @@ void op2_k_jac_2_update_m_wrapper(
 
 
         update(
-            f2c::Ptr{dat0 + n * 1.data[0],
-            f2c::Ptr{dat1 + n * 1.data[0],
-            f2c::Ptr{dat2 + n * 1.data[0],
+            f2c::Ptr{dat0 + n * 1}.data[0],
+            f2c::Ptr{dat1 + n * 1}.data[0],
+            f2c::Ptr{dat2 + n * 1}.data[0],
             f2c::Ptr{gbl3 + thread_id, stride_gbl}.data[0],
             f2c::Ptr{gbl4 + thread_id, stride_gbl}.data[0]
         );
@@ -74,26 +74,26 @@ const char op2_k_jac_2_update_m_src[] = R"_op2_k(
 namespace op2_m_jac_2_update_m {
 
 static __device__ void update(
-    f2c::Ptr<const float> _f2c_ptr_r,
-    f2c::Ptr<float> _f2c_ptr_du,
-    f2c::Ptr<float> _f2c_ptr_u,
-    f2c::Ptr<float> _f2c_ptr_u_sum,
-    f2c::Ptr<float> _f2c_ptr_u_max
+    f2c::Ptr<const double> _f2c_ptr_r,
+    f2c::Ptr<double> _f2c_ptr_du,
+    f2c::Ptr<double> _f2c_ptr_u,
+    f2c::Ptr<double> _f2c_ptr_u_sum,
+    f2c::Ptr<double> _f2c_ptr_u_max
 );
 
 
 static __device__ void update(
-    f2c::Ptr<const float> _f2c_ptr_r,
-    f2c::Ptr<float> _f2c_ptr_du,
-    f2c::Ptr<float> _f2c_ptr_u,
-    f2c::Ptr<float> _f2c_ptr_u_sum,
-    f2c::Ptr<float> _f2c_ptr_u_max
+    f2c::Ptr<const double> _f2c_ptr_r,
+    f2c::Ptr<double> _f2c_ptr_du,
+    f2c::Ptr<double> _f2c_ptr_u,
+    f2c::Ptr<double> _f2c_ptr_u_sum,
+    f2c::Ptr<double> _f2c_ptr_u_max
 ) {
-    const f2c::Span<const float, 1> r{_f2c_ptr_r, f2c::Extent{1, 1}};
-    const f2c::Span<float, 1> du{_f2c_ptr_du, f2c::Extent{1, 1}};
-    const f2c::Span<float, 1> u{_f2c_ptr_u, f2c::Extent{1, 1}};
-    const f2c::Span<float, 1> u_sum{_f2c_ptr_u_sum, f2c::Extent{1, 1}};
-    const f2c::Span<float, 1> u_max{_f2c_ptr_u_max, f2c::Extent{1, 1}};
+    const f2c::Span<const double, 1> r{_f2c_ptr_r, f2c::Extent{1, 1}};
+    const f2c::Span<double, 1> du{_f2c_ptr_du, f2c::Extent{1, 1}};
+    const f2c::Span<double, 1> u{_f2c_ptr_u, f2c::Extent{1, 1}};
+    const f2c::Span<double, 1> u_sum{_f2c_ptr_u_sum, f2c::Extent{1, 1}};
+    const f2c::Span<double, 1> u_max{_f2c_ptr_u_max, f2c::Extent{1, 1}};
 
     u(1) = u(1) + du(1) + op2_const_alpha_d * r(1);
     du(1) = 0.0f;
@@ -129,9 +129,9 @@ void op2_k_jac_2_update_m_wrapper(
 
 
         update(
-            f2c::Ptr{dat0 + n * 1.data[0],
-            f2c::Ptr{dat1 + n * 1.data[0],
-            f2c::Ptr{dat2 + n * 1.data[0],
+            f2c::Ptr{dat0 + n * 1}.data[0],
+            f2c::Ptr{dat1 + n * 1}.data[0],
+            f2c::Ptr{dat2 + n * 1}.data[0],
             f2c::Ptr{gbl3 + thread_id, stride_gbl}.data[0],
             f2c::Ptr{gbl4 + thread_id, stride_gbl}.data[0]
         );
@@ -183,7 +183,7 @@ extern "C" void op2_k_jac_2_update_m_c(
                                     op2_k_jac_2_update_m_src);
 
     if (first_invocation) {
-        info.add_param("op2_const_alpha_d", &alpha, &op2_const_alpha_d, &op2_const_alpha_hash);
+        info.add_param("op2_const_alpha_d", &op2_const_alpha, &op2_const_alpha_d, &op2_const_alpha_hash);
 
         first_invocation = false;
     }
@@ -301,8 +301,8 @@ extern "C" void op2_k_jac_2_update_m_c(
     op_timing2_exit();
 
     op_timing2_enter("Finalise");
-    op_mpi_reduce(&arg3, arg3.data);
-    op_mpi_reduce(&arg4, arg4.data);
+    op_mpi_reduce(&arg3, (double *)arg3.data);
+    op_mpi_reduce(&arg4, (double *)arg4.data);
 
     op_mpi_set_dirtybit_cuda(n_args, args);
     if (exit_sync) CUDA_SAFE_CALL(cudaStreamSynchronize(0));

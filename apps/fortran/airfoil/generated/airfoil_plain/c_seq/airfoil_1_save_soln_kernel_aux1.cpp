@@ -13,17 +13,17 @@ namespace f2c = op::f2c;
 namespace op2_m_airfoil_1_save_soln_m {
 
 static void save_soln(
-    f2c::Ptr<const float> _f2c_ptr_q,
-    f2c::Ptr<float> _f2c_ptr_qold
+    f2c::Ptr<const double> _f2c_ptr_q,
+    f2c::Ptr<double> _f2c_ptr_qold
 );
 
 
 static void save_soln(
-    f2c::Ptr<const float> _f2c_ptr_q,
-    f2c::Ptr<float> _f2c_ptr_qold
+    f2c::Ptr<const double> _f2c_ptr_q,
+    f2c::Ptr<double> _f2c_ptr_qold
 ) {
-    const f2c::Span<const float, 1> q{_f2c_ptr_q, f2c::Extent{1, 4}};
-    const f2c::Span<float, 1> qold{_f2c_ptr_qold, f2c::Extent{1, 4}};
+    const f2c::Span<const double, 1> q{_f2c_ptr_q, f2c::Extent{1, 4}};
+    const f2c::Span<double, 1> qold{_f2c_ptr_qold, f2c::Extent{1, 4}};
     int i;
 
     for (i = 1; i <= 4; ++i) {

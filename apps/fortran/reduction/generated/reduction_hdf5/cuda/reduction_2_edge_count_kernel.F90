@@ -24,8 +24,8 @@ contains
 attributes(device) &
 SUBROUTINE edge_count(res, edge_count_result)
   IMPLICIT NONE
-  REAL(KIND = 8), DIMENSION(4) :: res
-  INTEGER(KIND = 4), DIMENSION(1) :: edge_count_result
+  REAL(KIND = 8), DIMENSION(4), INTENT(OUT) :: res
+  INTEGER(KIND = 4), INTENT(OUT) :: edge_count_result
   INTEGER(KIND = 4) :: d
   DO d = 1, 4
     res(d) = 0.0
@@ -34,7 +34,7 @@ SUBROUTINE edge_count(res, edge_count_result)
 END SUBROUTINE
 
 attributes(global) &
-subroutine op2_k_reduction_2_edge_count_wrapper( &
+subroutine op2_k_reduction_2_edge_count_wr( &
     dat0, &
     map0, &
     gbl1, &
@@ -207,7 +207,7 @@ subroutine op2_k_reduction_2_edge_count_m( &
     arg0 = args(1)
     arg1 = args(2)
 
-    call c_f_pointer(arg0%data_d, dat0_d, (/4 * getsetsizefromoparg(arg0)/))
+    call c_f_pointer(arg0%data_d, dat0_d, (/4 * round32f(getsetsizefromoparg(arg0)) /))
 
     call c_f_pointer(arg0%map_data_d, map0_d, (/set%setptr%size, getmapdimfromoparg(arg0)/))
 
@@ -241,14 +241,14 @@ subroutine op2_k_reduction_2_edge_count_m( &
         num_blocks = (end - start + (block_size - 1)) / block_size
         num_blocks = min(num_blocks, block_limit)
 
-        call op2_k_reduction_2_edge_count_wrapper<<<num_blocks, block_size>>>( &
+        call op2_k_reduction_2_edge_count_wr<<<num_blocks, block_size>>>( &
             dat0_d, &
             map0_d, &
             gbl1_d, &
             start, &
             end, &
             plan_col_reord, &
-            set%setptr%size + set%setptr%exec_size &
+            round32f(set%setptr%size + set%setptr%exec_size) &
         )
 
         if (col == plan%ncolors_owned) then
@@ -302,8 +302,8 @@ contains
 
 SUBROUTINE edge_count(res, edge_count_result)
   IMPLICIT NONE
-  REAL(KIND = 8), DIMENSION(4) :: res
-  INTEGER(KIND = 4), DIMENSION(1) :: edge_count_result
+  REAL(KIND = 8), DIMENSION(4), INTENT(OUT) :: res
+  INTEGER(KIND = 4), INTENT(OUT) :: edge_count_result
   INTEGER(KIND = 4) :: d
   DO d = 1, 4
     res(d) = 0.0
@@ -311,7 +311,7 @@ SUBROUTINE edge_count(res, edge_count_result)
   edge_count_result = edge_count_result + 1
 END SUBROUTINE
 
-subroutine op2_k_reduction_2_edge_count_wrapper( &
+subroutine op2_k_reduction_2_edge_count_wr( &
     dat0, &
     map0, &
     gbl1, &
@@ -405,7 +405,7 @@ subroutine op2_k_reduction_2_edge_count_fb( &
 
     call c_f_pointer(arg1%data, gbl1, (/1/))
 
-    call op2_k_reduction_2_edge_count_wrapper( &
+    call op2_k_reduction_2_edge_count_wr( &
         dat0, &
         map0, &
         gbl1, &

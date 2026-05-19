@@ -7,7 +7,7 @@
 namespace op2_m_airfoil_mpi_5_update {
 
 inline void update(const double *qold, double *q, double *res,
-                   const double *adt, double *rms) {
+                   const double *adt, double *rms, double *maxerr, int *idx, int *errloc) {
   double del, adti;
 
   adti = 1.0f / (*adt);
@@ -16,7 +16,13 @@ inline void update(const double *qold, double *q, double *res,
     del = adti * res[n];
     q[n] = qold[n] - del;
     res[n] = 0.0f;
-    *rms += del * del;
+    double sqdel = del * del;
+    *rms += sqdel;
+
+    if (sqdel > *maxerr) {
+      *maxerr = sqdel;
+      *errloc = *idx;
+    }
   }
 }}
 
@@ -28,16 +34,22 @@ void op_par_loop_airfoil_mpi_5_update(
     op_arg arg1,
     op_arg arg2,
     op_arg arg3,
-    op_arg arg4
+    op_arg arg4,
+    op_arg arg5,
+    op_arg arg6,
+    op_arg arg7
 ) {
-    int n_args = 5;
-    op_arg args[5];
+    int n_args = 8;
+    op_arg args[8];
 
     args[0] = arg0;
     args[1] = arg1;
     args[2] = arg2;
     args[3] = arg3;
     args[4] = arg4;
+    args[5] = arg5;
+    args[6] = arg6;
+    args[7] = arg7;
 
     int n_exec = op_mpi_halo_exchanges(set, n_args, args);
 
@@ -45,13 +57,17 @@ void op_par_loop_airfoil_mpi_5_update(
 
     for (int n = 0; n < n_exec; ++n) {
 
+        int idx = n;
 
         op2_m_airfoil_mpi_5_update::update(
             (double *)arg0.data + n * 4,
             (double *)arg1.data + n * 4,
             (double *)arg2.data + n * 4,
             (double *)arg3.data + n * 1,
-            (double *)arg4.data
+            (double *)arg4.data,
+            (double *)arg5.data,
+            &idx,
+            (int *)arg7.data
         );
 
     }
@@ -61,6 +77,7 @@ void op_par_loop_airfoil_mpi_5_update(
         op_mpi_wait_all(n_args, args);
 
     op_mpi_reduce(&arg4, (double *)arg4.data);
+    op_mpi_reduce(&arg5, (double *)arg5.data);
 
     op_mpi_set_dirtybit(n_args, args);
 }

@@ -13,26 +13,26 @@ namespace f2c = op::f2c;
 namespace op2_m_jac_2_update_m {
 
 static void update(
-    f2c::Ptr<const float> _f2c_ptr_r,
-    f2c::Ptr<float> _f2c_ptr_du,
-    f2c::Ptr<float> _f2c_ptr_u,
-    f2c::Ptr<float> _f2c_ptr_u_sum,
-    f2c::Ptr<float> _f2c_ptr_u_max
+    f2c::Ptr<const double> _f2c_ptr_r,
+    f2c::Ptr<double> _f2c_ptr_du,
+    f2c::Ptr<double> _f2c_ptr_u,
+    f2c::Ptr<double> _f2c_ptr_u_sum,
+    f2c::Ptr<double> _f2c_ptr_u_max
 );
 
 
 static void update(
-    f2c::Ptr<const float> _f2c_ptr_r,
-    f2c::Ptr<float> _f2c_ptr_du,
-    f2c::Ptr<float> _f2c_ptr_u,
-    f2c::Ptr<float> _f2c_ptr_u_sum,
-    f2c::Ptr<float> _f2c_ptr_u_max
+    f2c::Ptr<const double> _f2c_ptr_r,
+    f2c::Ptr<double> _f2c_ptr_du,
+    f2c::Ptr<double> _f2c_ptr_u,
+    f2c::Ptr<double> _f2c_ptr_u_sum,
+    f2c::Ptr<double> _f2c_ptr_u_max
 ) {
-    const f2c::Span<const float, 1> r{_f2c_ptr_r, f2c::Extent{1, 1}};
-    const f2c::Span<float, 1> du{_f2c_ptr_du, f2c::Extent{1, 1}};
-    const f2c::Span<float, 1> u{_f2c_ptr_u, f2c::Extent{1, 1}};
-    const f2c::Span<float, 1> u_sum{_f2c_ptr_u_sum, f2c::Extent{1, 1}};
-    const f2c::Span<float, 1> u_max{_f2c_ptr_u_max, f2c::Extent{1, 1}};
+    const f2c::Span<const double, 1> r{_f2c_ptr_r, f2c::Extent{1, 1}};
+    const f2c::Span<double, 1> du{_f2c_ptr_du, f2c::Extent{1, 1}};
+    const f2c::Span<double, 1> u{_f2c_ptr_u, f2c::Extent{1, 1}};
+    const f2c::Span<double, 1> u_sum{_f2c_ptr_u_sum, f2c::Extent{1, 1}};
+    const f2c::Span<double, 1> u_max{_f2c_ptr_u_max, f2c::Extent{1, 1}};
 
     u(1) = u(1) + du(1) + alpha * r(1);
     du(1) = 0.0f;

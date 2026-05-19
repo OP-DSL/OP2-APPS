@@ -16,8 +16,8 @@ contains
 
 SUBROUTINE cell_count(res, cell_count_result)
   IMPLICIT NONE
-  REAL(KIND = 8), DIMENSION(4) :: res
-  INTEGER(KIND = 4), DIMENSION(1) :: cell_count_result
+  REAL(KIND = 8), DIMENSION(4), INTENT(OUT) :: res
+  INTEGER(KIND = 4), INTENT(OUT) :: cell_count_result
   INTEGER(KIND = 4) :: d
   DO d = 1, 4
     res(d) = 0.0
@@ -25,7 +25,7 @@ SUBROUTINE cell_count(res, cell_count_result)
   cell_count_result = cell_count_result + 1
 END SUBROUTINE
 
-subroutine op2_k_reduction_1_cell_count_wrapper( &
+subroutine op2_k_reduction_1_cell_count_wr( &
     dat0, &
     gbl1, &
     n_exec, &
@@ -94,7 +94,7 @@ subroutine op2_k_reduction_1_cell_count( &
 
     call c_f_pointer(arg1%data, gbl1, (/1/))
 
-    call op2_k_reduction_1_cell_count_wrapper( &
+    call op2_k_reduction_1_cell_count_wr( &
         dat0, &
         gbl1, &
         n_exec, &

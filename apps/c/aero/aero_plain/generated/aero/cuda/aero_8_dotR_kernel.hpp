@@ -1,5 +1,6 @@
-
 namespace op2_k8 {
+
+
 __device__ inline void dotR(const double *r, double *c) { *c += (*r) * (*r); }
 }
 

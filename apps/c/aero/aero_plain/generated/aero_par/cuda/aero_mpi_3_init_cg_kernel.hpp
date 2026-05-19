@@ -1,5 +1,6 @@
-
 namespace op2_k3 {
+
+
 __device__ inline void init_cg(const double *r, double *c, double *u, double *v, double *p) {
   *c += (*r) * (*r);
   *p = *r;

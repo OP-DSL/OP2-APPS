@@ -50,7 +50,7 @@ SUBROUTINE res_calc(x1, x2, q1, q2, adt1, adt2, res1, res2)
 END SUBROUTINE
 
 attributes(global) &
-subroutine op2_k_airfoil_3_res_calc_wrapper( &
+subroutine op2_k_airfoil_3_res_calc_wr( &
     dat0, &
     dat1, &
     dat2, &
@@ -198,10 +198,10 @@ subroutine op2_k_airfoil_3_res_calc_m( &
     arg6 = args(7)
     arg7 = args(8)
 
-    call c_f_pointer(arg0%data_d, dat0_d, (/2 * getsetsizefromoparg(arg0)/))
-    call c_f_pointer(arg2%data_d, dat1_d, (/4 * getsetsizefromoparg(arg2)/))
-    call c_f_pointer(arg4%data_d, dat2_d, (/1 * getsetsizefromoparg(arg4)/))
-    call c_f_pointer(arg6%data_d, dat3_d, (/4 * getsetsizefromoparg(arg6)/))
+    call c_f_pointer(arg0%data_d, dat0_d, (/2 * round32f(getsetsizefromoparg(arg0)) /))
+    call c_f_pointer(arg2%data_d, dat1_d, (/4 * round32f(getsetsizefromoparg(arg2)) /))
+    call c_f_pointer(arg4%data_d, dat2_d, (/1 * round32f(getsetsizefromoparg(arg4)) /))
+    call c_f_pointer(arg6%data_d, dat3_d, (/4 * round32f(getsetsizefromoparg(arg6)) /))
 
     call c_f_pointer(arg0%map_data_d, map0_d, (/set%setptr%size, getmapdimfromoparg(arg0)/))
     call c_f_pointer(arg2%map_data_d, map1_d, (/set%setptr%size, getmapdimfromoparg(arg2)/))
@@ -224,7 +224,7 @@ subroutine op2_k_airfoil_3_res_calc_m( &
             num_blocks = (end - start + (block_size - 1)) / block_size
             num_blocks = min(num_blocks, block_limit)
 
-            call op2_k_airfoil_3_res_calc_wrapper<<<num_blocks, block_size>>>( &
+            call op2_k_airfoil_3_res_calc_wr<<<num_blocks, block_size>>>( &
                 dat0_d, &
                 dat1_d, &
                 dat2_d, &
@@ -233,7 +233,7 @@ subroutine op2_k_airfoil_3_res_calc_m( &
                 map1_d, &
                 start, &
                 end, &
-                set%setptr%size + set%setptr%exec_size &
+                round32f(set%setptr%size + set%setptr%exec_size) &
             )
         end if
     end do
@@ -301,7 +301,7 @@ SUBROUTINE res_calc(x1, x2, q1, q2, adt1, adt2, res1, res2)
   res2(4) = res2(4) - f
 END SUBROUTINE
 
-subroutine op2_k_airfoil_3_res_calc_wrapper( &
+subroutine op2_k_airfoil_3_res_calc_wr( &
     dat0, &
     dat1, &
     dat2, &
@@ -416,7 +416,7 @@ subroutine op2_k_airfoil_3_res_calc_fb( &
     call c_f_pointer(arg0%map_data, map0, (/getmapdimfromoparg(arg0), set%setptr%size/))
     call c_f_pointer(arg2%map_data, map1, (/getmapdimfromoparg(arg2), set%setptr%size/))
 
-    call op2_k_airfoil_3_res_calc_wrapper( &
+    call op2_k_airfoil_3_res_calc_wr( &
         dat0, &
         dat1, &
         dat2, &

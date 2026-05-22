@@ -46,7 +46,7 @@ double gm1, gm1i, wtg1[2], xi1[2], Ng1[4], Ng1_xi[4], wtg2[4], Ng2[16],
 //
 
 #include "op_lib_cpp.h"
-
+#include <op_profile.h>
 #ifdef OPENACC
 #ifdef __cplusplus
 extern "C" {
@@ -78,6 +78,7 @@ void op_par_loop_aero_10_update(char const *, op_set, op_arg, op_arg, op_arg, op
 }
 #endif
 #endif
+
 
 //
 // kernel routines for parallel loops
@@ -295,8 +296,7 @@ int main(int argc, char **argv) {
 
   op_diagnostic_output();
 
-  double cpu_t1, cpu_t2, wall_t1, wall_t2;
-  op_timers(&cpu_t1, &wall_t1);
+  op_profile_start("Aero");
 
   // main fixpoint iteration loop
 
@@ -419,8 +419,7 @@ int main(int argc, char **argv) {
     }
   }
 
-  op_timers(&cpu_t2, &wall_t2);
-  op_timing_output();
-  op_printf("Max total runtime = %f\n", wall_t2 - wall_t1);
+  op_profile_end();
+  op_profile_output();
   op_exit();
 }

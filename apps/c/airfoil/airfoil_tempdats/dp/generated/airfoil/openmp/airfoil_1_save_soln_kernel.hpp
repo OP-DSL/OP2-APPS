@@ -1,3 +1,4 @@
+#include <op_profile.h>
 namespace op2_k1 {
 inline void save_soln(const double *q, double *qold) {
   for (int n = 0; n < 4; n++)
@@ -72,10 +73,15 @@ void op_par_loop_airfoil_1_save_soln(
 
     op_timers_core(&cpu_start, &wall_start);
 
+    op_profile_enter_kernel(name, "", "Direct");
+    op_profile_enter("MPI Exchanges");
+
     if (OP_diags > 2)
         printf(" kernel routine (direct): airfoil_1_save_soln\n");
 
     int set_size = op_mpi_halo_exchanges(set, num_args_expanded, args_expanded);
+
+    op_profile_next("Computation");
 
 
 #ifdef _OPENMP
@@ -98,7 +104,10 @@ void op_par_loop_airfoil_1_save_soln(
     }
 
 
+    op_profile_exit();
+
     op_mpi_set_dirtybit(num_args_expanded, args_expanded);
+    op_profile_exit();
 
     op_timers_core(&cpu_end, &wall_end);
     OP_kernels[1].time += wall_end - wall_start;

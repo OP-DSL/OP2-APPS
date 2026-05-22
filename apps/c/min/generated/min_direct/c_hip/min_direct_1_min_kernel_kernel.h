@@ -92,10 +92,10 @@ void op_par_loop_min_direct_1_min_kernel(
     args[0] = arg0;
     args[1] = arg1;
 
-    // op_timing2_enter_kernel("min_direct_1_min_kernel", "c_CUDA", "Direct");
-    // op_timing2_enter("Init");
+    op_profile_enter_kernel("min_direct_1_min_kernel", "c_CUDA", "Direct");
+    op_profile_enter("Init");
 
-    // op_timing2_enter("Kernel Info Setup");
+    op_profile_enter("Kernel Info Setup");
 
     static bool first_invocation = true;
     static op::f2c::KernelInfo info("op2_k_min_direct_1_min_kernel_wrapper",
@@ -117,19 +117,19 @@ void op_par_loop_min_direct_1_min_kernel(
         first_invocation = false;
     }
 
-    // op_timing2_next("MPI Exchanges");
+    op_profile_next("MPI Exchanges");
     int n_exec = op_mpi_halo_exchanges_grouped(set, n_args, args, 2);
 
     if (n_exec == 0) {
-        // op_timing2_exit();
-        // op_timing2_exit();
+        op_profile_exit();
+        op_profile_exit();
 
         op_mpi_wait_all_grouped(n_args, args, 2);
 
         op_mpi_reduce(&arg1, (int *)arg1.data);
 
         op_mpi_set_dirtybit_cuda(n_args, args);
-        // op_timing2_exit();
+        op_profile_exit();
         return;
     }
 
@@ -139,26 +139,26 @@ void op_par_loop_min_direct_1_min_kernel(
 
     static int* gbl1_ref_d = nullptr;
 
-    // op_timing2_next("Get Kernel");
+    op_profile_next("Get Kernel");
     auto *kernel_inst = info.get_kernel();
-    // op_timing2_exit();
+    op_profile_exit();
 
 
-    // op_timing2_enter("Prepare GBLs");
+    op_profile_enter("Prepare GBLs");
     prepareDeviceGbls(args, n_args, block_size * max_blocks);
     bool exit_sync = false;
 
     arg0 = args[0];
     arg1 = args[1];
 
-    // op_timing2_next("Update GBL Refs");
+    op_profile_next("Update GBL Refs");
     if (gbl1_ref_d == nullptr) {
         CUDA_SAFE_CALL(hipMalloc(&gbl1_ref_d, 1 * sizeof(int)));
     }
 
     CUDA_SAFE_CALL(hipMemcpyAsync(gbl1_ref_d, arg1.data, 1 * sizeof(int), hipMemcpyHostToDevice, 0));
 
-    // op_timing2_next("Init GBLs");
+    op_profile_next("Init GBLs");
 
     int stride_gbl = block_size * max_blocks;
     op2_k_min_direct_1_min_kernel_init_gbls<<<max_blocks, block_size>>>(
@@ -169,13 +169,13 @@ void op_par_loop_min_direct_1_min_kernel(
 
     CUDA_SAFE_CALL(hipPeekAtLastError());
 
-    // op_timing2_exit();
-    // op_timing2_next("Computation");
+    op_profile_exit();
+    op_profile_next("Computation");
 
     int start = 0;
     int end = set->size;
 
-    // op_timing2_enter("Kernel");
+    op_profile_enter("Kernel");
 
     int size = f2c::round32(set->size);
     void *kernel_args[] = {
@@ -196,19 +196,19 @@ void op_par_loop_min_direct_1_min_kernel(
 
     info.invoke(kernel_inst, num_blocks, block_size, kernel_args, kernel_args_jit);
 
-    // op_timing2_next("Process GBLs");
+    op_profile_next("Process GBLs");
     exit_sync = processDeviceGbls(args, n_args, block_size * max_blocks, block_size * max_blocks);
 
-    // op_timing2_exit();
+    op_profile_exit();
 
-    // op_timing2_exit();
+    op_profile_exit();
 
-    // op_timing2_enter("Finalise");
+    op_profile_enter("Finalise");
     op_mpi_reduce(&arg1, (int *)arg1.data);
 
     op_mpi_set_dirtybit_cuda(n_args, args);
     if (exit_sync) CUDA_SAFE_CALL(hipStreamSynchronize(0));
 
-    // op_timing2_exit();
-    // op_timing2_exit();
+    op_profile_exit();
+    op_profile_exit();
 }

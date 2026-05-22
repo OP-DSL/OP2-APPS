@@ -161,8 +161,6 @@ subroutine op2_k_airfoil_1_save_soln_m( &
     real(8), pointer, dimension(:, :) :: dat0
     real(8), pointer, dimension(:, :) :: dat1
 
-    real(8) :: start_time, end_time
-    real(4) :: transfer
 
     args(1) = arg0
     args(2) = arg1
@@ -170,8 +168,12 @@ subroutine op2_k_airfoil_1_save_soln_m( &
     num_dats_indirect = 0
     dats_indirect = (/-1, -1/)
 
-    call op_timers_core(start_time)
+    call op_profile_enter_kernel("airfoil_1_save_soln", "openmp", "Direct")
+
+    call op_profile_enter("MPI Exchanges")
     set_size = op_mpi_halo_exchanges(set%setcptr, size(args), args)
+
+    call op_profile_next("Computation")
 
     call c_f_pointer(arg0%data, dat0, (/4, getsetsizefromoparg(arg0)/))
     call c_f_pointer(arg1%data, dat1, (/4, getsetsizefromoparg(arg1)/))
@@ -186,17 +188,15 @@ subroutine op2_k_airfoil_1_save_soln_m( &
         dats_indirect &
     )
 
+    call op_profile_next("MPI Wait")
     if ((set_size .eq. 0) .or. (set_size .eq. set%setptr%core_size)) then
         call op_mpi_wait_all(size(args), args)
     end if
 
+    call op_profile_exit()
+
     call op_mpi_set_dirtybit(size(args), args)
-    call op_timers_core(end_time)
-
-    ! todo: review kernel transfer calculation
-    transfer = 0.0
-
-    call setkerneltime(1, name // c_null_char, end_time - start_time, transfer, 0.0, 1)
+    call op_profile_exit()
 end subroutine
 
 end module
@@ -282,12 +282,12 @@ subroutine op2_k_airfoil_1_save_soln_fb( &
     args(1) = arg0
     args(2) = arg1
 
-    call op_timing2_enter_kernel("airfoil_1_save_soln", "seq", "Direct")
+    call op_profile_enter_kernel("airfoil_1_save_soln", "seq", "Direct")
 
-    call op_timing2_enter("MPI Exchanges")
+    call op_profile_enter("MPI Exchanges")
     n_exec = op_mpi_halo_exchanges(set%setcptr, size(args), args)
 
-    call op_timing2_next("Computation")
+    call op_profile_next("Computation")
 
     call c_f_pointer(arg0%data, dat0, (/4, getsetsizefromoparg(arg0)/))
     call c_f_pointer(arg1%data, dat1, (/4, getsetsizefromoparg(arg1)/))
@@ -300,15 +300,15 @@ subroutine op2_k_airfoil_1_save_soln_fb( &
         args &
     )
 
-    call op_timing2_next("MPI Wait")
+    call op_profile_next("MPI Wait")
     if ((n_exec == 0) .or. (n_exec == set%setptr%core_size)) then
         call op_mpi_wait_all(size(args), args)
     end if
 
-    call op_timing2_exit()
+    call op_profile_exit()
 
     call op_mpi_set_dirtybit(size(args), args)
-    call op_timing2_exit()
+    call op_profile_exit()
 end subroutine
 
 end module

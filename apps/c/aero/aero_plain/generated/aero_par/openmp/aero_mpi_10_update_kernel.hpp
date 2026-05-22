@@ -1,3 +1,4 @@
+#include <op_profile.h>
 namespace op2_k10 {
 inline void update(double *phim, double *res, const double *u, double *rms) {
   *phim -= *u;
@@ -97,10 +98,15 @@ void op_par_loop_aero_mpi_10_update(
 
     op_timers_core(&cpu_start, &wall_start);
 
+    op_profile_enter_kernel(name, "", "Direct");
+    op_profile_enter("MPI Exchanges");
+
     if (OP_diags > 2)
         printf(" kernel routine (direct): aero_mpi_10_update\n");
 
     int set_size = op_mpi_halo_exchanges(set, num_args_expanded, args_expanded);
+
+    op_profile_next("Computation");
 
 
 #ifdef _OPENMP
@@ -137,8 +143,13 @@ void op_par_loop_aero_mpi_10_update(
             gbl3[d] += gbl3_local[thread * 64 + d];
     }
 
+    op_profile_next("MPI Reduce");
+
     op_mpi_reduce(&arg3, gbl3);
+    op_profile_exit();
+
     op_mpi_set_dirtybit(num_args_expanded, args_expanded);
+    op_profile_exit();
 
     op_timers_core(&cpu_end, &wall_end);
     OP_kernels[10].time += wall_end - wall_start;

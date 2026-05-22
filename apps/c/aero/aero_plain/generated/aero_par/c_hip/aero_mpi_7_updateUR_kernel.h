@@ -99,10 +99,10 @@ void op_par_loop_aero_mpi_7_updateUR(
     args[3] = arg3;
     args[4] = arg4;
 
-    // op_timing2_enter_kernel("aero_mpi_7_updateUR", "c_CUDA", "Direct");
-    // op_timing2_enter("Init");
+    op_profile_enter_kernel("aero_mpi_7_updateUR", "c_CUDA", "Direct");
+    op_profile_enter("Init");
 
-    // op_timing2_enter("Kernel Info Setup");
+    op_profile_enter("Kernel Info Setup");
 
     static bool first_invocation = true;
     static op::f2c::KernelInfo info("op2_k_aero_mpi_7_updateUR_wrapper",
@@ -122,18 +122,18 @@ void op_par_loop_aero_mpi_7_updateUR(
         first_invocation = false;
     }
 
-    // op_timing2_next("MPI Exchanges");
+    op_profile_next("MPI Exchanges");
     int n_exec = op_mpi_halo_exchanges_grouped(set, n_args, args, 2);
 
     if (n_exec == 0) {
-        // op_timing2_exit();
-        // op_timing2_exit();
+        op_profile_exit();
+        op_profile_exit();
 
         op_mpi_wait_all_grouped(n_args, args, 2);
 
 
         op_mpi_set_dirtybit_cuda(n_args, args);
-        // op_timing2_exit();
+        op_profile_exit();
         return;
     }
 
@@ -143,12 +143,12 @@ void op_par_loop_aero_mpi_7_updateUR(
 
 
 
-    // op_timing2_next("Get Kernel");
+    op_profile_next("Get Kernel");
     auto *kernel_inst = info.get_kernel();
-    // op_timing2_exit();
+    op_profile_exit();
 
 
-    // op_timing2_enter("Prepare GBLs");
+    op_profile_enter("Prepare GBLs");
     prepareDeviceGbls(args, n_args, block_size * max_blocks);
     bool exit_sync = false;
 
@@ -158,16 +158,16 @@ void op_par_loop_aero_mpi_7_updateUR(
     arg3 = args[3];
     arg4 = args[4];
 
-    // op_timing2_next("Update GBL Refs");
+    op_profile_next("Update GBL Refs");
 
 
-    // op_timing2_exit();
-    // op_timing2_next("Computation");
+    op_profile_exit();
+    op_profile_next("Computation");
 
     int start = 0;
     int end = set->size;
 
-    // op_timing2_enter("Kernel");
+    op_profile_enter("Kernel");
 
     int size = f2c::round32(set->size);
     void *kernel_args[] = {
@@ -193,18 +193,18 @@ void op_par_loop_aero_mpi_7_updateUR(
 
     info.invoke(kernel_inst, num_blocks, block_size, kernel_args, kernel_args_jit);
 
-    // op_timing2_next("Process GBLs");
+    op_profile_next("Process GBLs");
     exit_sync = processDeviceGbls(args, n_args, block_size * max_blocks, block_size * max_blocks);
 
-    // op_timing2_exit();
+    op_profile_exit();
 
-    // op_timing2_exit();
+    op_profile_exit();
 
-    // op_timing2_enter("Finalise");
+    op_profile_enter("Finalise");
 
     op_mpi_set_dirtybit_cuda(n_args, args);
     if (exit_sync) CUDA_SAFE_CALL(hipStreamSynchronize(0));
 
-    // op_timing2_exit();
-    // op_timing2_exit();
+    op_profile_exit();
+    op_profile_exit();
 }

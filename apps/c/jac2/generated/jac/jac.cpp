@@ -52,7 +52,7 @@ float alpha;
 //
 
 #include "op_lib_cpp.h"
-
+#include <op_profile.h>
 #ifdef OPENACC
 #ifdef __cplusplus
 extern "C" {
@@ -68,6 +68,7 @@ void op_par_loop_jac_2_update(char const *, op_set, op_arg, op_arg, op_arg, op_a
 }
 #endif
 #endif
+
 
 // jac header file
 
@@ -97,7 +98,6 @@ int main(int argc, char **argv) {
   op_init(argc, argv, 5);
 
   // timer
-  double cpu_t1, cpu_t2, wall_t1, wall_t2;
 
   int nnode, nedge, n, e;
   float dx;
@@ -187,7 +187,7 @@ int main(int argc, char **argv) {
   op_diagnostic_output();
 
   // initialise timers for total execution wall time
-  op_timers(&cpu_t1, &wall_t1);
+  op_profile_start("JAC2");
 
   // main iteration loop
 
@@ -211,7 +211,7 @@ int main(int argc, char **argv) {
     op_printf("\n u max/rms = %f %f \n\n", u_max, sqrt(u_sum / nnode));
   }
 
-  op_timers(&cpu_t2, &wall_t2);
+  op_profile_end();
 
   // print out results
   op_printf("\n  Results after %d iterations:\n\n", NITER);
@@ -234,10 +234,9 @@ int main(int argc, char **argv) {
     op_printf("\n");
   }
 
-  op_timing_output();
+  op_profile_output();
 
   // print total time for niter interations
-  op_printf("Max total runtime = %f\n", wall_t2 - wall_t1);
 
   int result = check_result<float>(u, NN, TOLERANCE);
   op_exit();

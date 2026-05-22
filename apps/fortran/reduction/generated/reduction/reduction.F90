@@ -14,12 +14,11 @@ PROGRAM reduction
   TYPE(op_set) :: edges, cells
   TYPE(op_map) :: pecell
   TYPE(op_dat) :: p_res, p_dummy
-  REAL(KIND = c_double) :: start_time, end_time
   INTEGER(KIND = 4) :: i, cell_count_result, edge_count_result
   INTEGER(KIND = 4) :: dummy_int
   REAL(KIND = 8) :: dummy_real
   CALL op_init_base(0, 0)
-  CALL op_timing2_start("Reduction")
+  CALL op_profile_start("Reduction")
   OPEN(UNIT = file_id, FILE = file_name)
   READ(file_id, *) nnode, ncell, nedge, dummy_int
   ALLOCATE(ecell(2 * nedge))
@@ -42,15 +41,12 @@ PROGRAM reduction
   DEALLOCATE(ecell)
   DEALLOCATE(res)
   CALL op_partition("PTSCOTCH", "KWAY", edges, pecell, p_dummy)
-  CALL op_timers(start_time)
   ncell_total = op_get_size(cells)
   nedge_total = op_get_size(edges)
   cell_count_result = 0
   edge_count_result = 0
   CALL op2_k_reduction_1_cell_count("cell_count", cells, op_arg_dat(p_res, - 1, OP_ID, 4, "real(8)", OP_RW), op_arg_gbl(cell_count_result, 1, "integer(4)", OP_INC))
   CALL op2_k_reduction_2_edge_count("edge_count", edges, op_arg_dat(p_res, 1, pecell, 4, "real(8)", OP_RW), op_arg_gbl(edge_count_result, 1, "integer(4)", OP_INC))
-  CALL op_timers(end_time)
-  CALL op_timing_output
   IF (op_is_root() == 1) THEN
     PRINT *
     PRINT *, "Direct reduction: cell count = ", cell_count_result, ", target = ", ncell_total
@@ -62,11 +58,10 @@ PROGRAM reduction
       PRINT *, "Test FAILED"
     END IF
     PRINT *
-    PRINT *, 'Time = ', end_time - start_time, 'seconds'
   END IF
-  CALL op_timing2_finish
+  CALL op_profile_end
   IF (op_is_root() == 1) PRINT *
-  CALL op_timing2_output
+  CALL op_profile_output
   CALL op_exit
   CONTAINS
   SUBROUTINE cell_count(res, cell_count_result)

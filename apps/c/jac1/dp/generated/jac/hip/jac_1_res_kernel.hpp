@@ -71,10 +71,15 @@ void op_par_loop_jac_1_res(
 
     op_timers_core(&cpu_start, &wall_start);
 
+    op_profile_enter_kernel(name, "", "Indirect");
+    op_profile_enter("MPI Exchanges");
+
     if (OP_diags > 2)
         printf(" kernel routine (indirect): jac_1_res\n");
 
     int set_size = op_mpi_halo_exchanges_grouped(set, num_args_expanded, args_expanded, 2);
+
+    op_profile_next("Computation");
 
 
     double *arg3_host_data = (double *)arg3.data;
@@ -103,8 +108,11 @@ void op_par_loop_jac_1_res(
 #endif
 
     for (int round = 0; round < 2; ++round ) {
-        if (round == 1)
+        if (round == 1) {
+            op_profile_next("MPI Wait");
             op_mpi_wait_all_grouped(num_args_expanded, args_expanded, 2);
+            op_profile_next("Computation");
+        }
 
         int start = round == 0 ? 0 : set->core_size;
         int end = round == 0 ? set->core_size : set->size + set->exec_size;
@@ -127,8 +135,11 @@ void op_par_loop_jac_1_res(
 
     arg3.data = (char *)arg3_host_data;
 
+    op_profile_exit();
+
     op_mpi_set_dirtybit_cuda(num_args_expanded, args_expanded);
     cutilSafeCall(hipDeviceSynchronize());
+    op_profile_exit();
 
     op_timers_core(&cpu_end, &wall_end);
     OP_kernels[1].time += wall_end - wall_start;

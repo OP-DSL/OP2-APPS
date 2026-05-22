@@ -60,6 +60,8 @@ void op2_k_reduction_2_edge_count_m_wrapper(
 const char op2_k_reduction_2_edge_count_m_src[] = R"_op2_k(
 namespace op2_m_reduction_2_edge_count_m {
 
+using int64_t = long long int;
+
 static __device__ void edge_count(
     f2c::Ptr<double> _f2c_ptr_res,
     int& edge_count_result
@@ -138,10 +140,10 @@ extern "C" void op2_k_reduction_2_edge_count_m_c(
     int n_args = 2;
     op_arg args[2];
 
-    op_timing2_enter_kernel("reduction_2_edge_count", "c_CUDA", "Indirect (colouring)");
-    op_timing2_enter("Init");
+    op_profile_enter_kernel("reduction_2_edge_count", "c_CUDA", "Indirect (colouring)");
+    op_profile_enter("Init");
 
-    op_timing2_enter("Kernel Info Setup");
+    op_profile_enter("Kernel Info Setup");
 
     static bool first_invocation = true;
     static op::f2c::KernelInfo info("op2_k_reduction_2_edge_count_m_wrapper",
@@ -156,19 +158,19 @@ extern "C" void op2_k_reduction_2_edge_count_m_c(
     args[0] = arg0;
     args[1] = arg1;
 
-    op_timing2_next("MPI Exchanges");
+    op_profile_next("MPI Exchanges");
     int n_exec = op_mpi_halo_exchanges_grouped(set, n_args, args, 2);
 
     if (n_exec == 0) {
-        op_timing2_exit();
-        op_timing2_exit();
+        op_profile_exit();
+        op_profile_exit();
 
         op_mpi_wait_all_grouped(n_args, args, 2);
 
         op_mpi_reduce(&arg1, (int *)arg1.data);
 
         op_mpi_set_dirtybit_cuda(n_args, args);
-        op_timing2_exit();
+        op_profile_exit();
         return;
     }
 
@@ -177,14 +179,14 @@ extern "C" void op2_k_reduction_2_edge_count_m_c(
 
 
 
-    op_timing2_next("Get Kernel");
+    op_profile_next("Get Kernel");
     auto *kernel_inst = info.get_kernel();
-    op_timing2_exit();
+    op_profile_exit();
 
     int n_dats_indirect = 1;
     std::array<int, 2> dats_indirect = {0, -1};
 
-    op_timing2_enter("Plan");
+    op_profile_enter("Plan");
 
 #ifdef OP_PART_SIZE_2
     int part_size = OP_PART_SIZE_2;
@@ -216,19 +218,19 @@ extern "C" void op2_k_reduction_2_edge_count_m_c(
     }
 
     max_blocks = std::min(max_blocks, block_limit);
-    op_timing2_exit();
+    op_profile_exit();
 
 
-    op_timing2_enter("Prepare GBLs");
+    op_profile_enter("Prepare GBLs");
     prepareDeviceGbls(args, n_args, block_size * max_blocks);
     bool exit_sync = false;
 
     arg0 = args[0];
     arg1 = args[1];
 
-    op_timing2_next("Update GBL Refs");
+    op_profile_next("Update GBL Refs");
 
-    op_timing2_next("Init GBLs");
+    op_profile_next("Init GBLs");
 
     int stride_gbl = block_size * max_blocks;
     op2_k_reduction_2_edge_count_m_init_gbls<<<max_blocks, block_size>>>(
@@ -238,16 +240,16 @@ extern "C" void op2_k_reduction_2_edge_count_m_c(
 
     CUDA_SAFE_CALL(hipPeekAtLastError());
 
-    op_timing2_exit();
-    op_timing2_next("Computation");
+    op_profile_exit();
+    op_profile_next("Computation");
 
-    op_timing2_enter("Kernel");
+    op_profile_enter("Kernel");
 
     for (int col = 0; col < plan->ncolors; ++col) {
         if (col == plan->ncolors_core) {
-            op_timing2_next("MPI Wait");
+            op_profile_next("MPI Wait");
             op_mpi_wait_all_grouped(n_args, args, 2);
-            op_timing2_next("Kernel");
+            op_profile_next("Kernel");
         }
 
         int start = plan->col_offsets[0][col];
@@ -282,22 +284,22 @@ extern "C" void op2_k_reduction_2_edge_count_m_c(
         info.invoke(kernel_inst, num_blocks, block_size, kernel_args, kernel_args_jit);
 
         if (col == plan->ncolors_owned - 1) {
-            op_timing2_next("Process GBLs");
+            op_profile_next("Process GBLs");
             exit_sync = processDeviceGbls(args, n_args, block_size * max_blocks, block_size * max_blocks);
-            op_timing2_next("Kernel");
+            op_profile_next("Kernel");
         }
     }
 
-    op_timing2_exit();
+    op_profile_exit();
 
-    op_timing2_exit();
+    op_profile_exit();
 
-    op_timing2_enter("Finalise");
+    op_profile_enter("Finalise");
     op_mpi_reduce(&arg1, (int *)arg1.data);
 
     op_mpi_set_dirtybit_cuda(n_args, args);
     if (exit_sync) CUDA_SAFE_CALL(hipStreamSynchronize(0));
 
-    op_timing2_exit();
-    op_timing2_exit();
+    op_profile_exit();
+    op_profile_exit();
 }

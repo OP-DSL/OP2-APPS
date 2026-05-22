@@ -48,7 +48,7 @@
 //
 
 #include "op_lib_cpp.h"
-
+#include <op_profile.h>
 #ifdef OPENACC
 #ifdef __cplusplus
 extern "C" {
@@ -64,6 +64,7 @@ void op_par_loop_reduction_2_update(char const *, op_set, op_arg, op_arg);
 }
 #endif
 #endif
+
 
 //
 // kernel routines for parallel loops
@@ -84,7 +85,6 @@ int main(int argc, char **argv) {
   int nnode, ncell, nedge, nbedge;
 
   // timer
-  double cpu_t1, cpu_t2, wall_t1, wall_t2;
 
   // read in airfoil grid
 
@@ -161,7 +161,7 @@ int main(int argc, char **argv) {
   op_diagnostic_output();
 
   // initialise timers for total execution wall time
-  op_timers(&cpu_t1, &wall_t1);
+  op_profile_start("Reduction");
 
   // indirect reduction
   count1 = 0;
@@ -189,10 +189,8 @@ int main(int argc, char **argv) {
   else
     op_printf("Reduction application FAILED\n");
 
-  op_timers(&cpu_t2, &wall_t2);
-  op_timing_output();
-
-  op_printf("Max total runtime = %f\n", wall_t2 - wall_t1);
+  op_profile_end();
+  op_profile_output();
 
   op_exit();
 

@@ -64,10 +64,15 @@ void op_par_loop_aero_mpi_3_init_cg(
 
     op_timers_core(&cpu_start, &wall_start);
 
+    op_profile_enter_kernel(name, "", "Direct");
+    op_profile_enter("MPI Exchanges");
+
     if (OP_diags > 2)
         printf(" kernel routine (direct): aero_mpi_3_init_cg\n");
 
     int set_size = op_mpi_halo_exchanges_grouped(set, num_args_expanded, args_expanded, 2);
+
+    op_profile_next("Computation");
 
 
     double *arg1_host_data = (double *)arg1.data;
@@ -121,11 +126,16 @@ void op_par_loop_aero_mpi_3_init_cg(
             arg1_host_data[d] += ((double *)arg1.data)[b * 1 + d];
     }
 
+    op_profile_next("MPI Reduce");
+
     arg1.data = (char *)arg1_host_data;
     op_mpi_reduce(&arg1, arg1_host_data);
 
+    op_profile_exit();
+
     op_mpi_set_dirtybit_cuda(num_args_expanded, args_expanded);
     cutilSafeCall(hipDeviceSynchronize());
+    op_profile_exit();
 
     op_timers_core(&cpu_end, &wall_end);
     OP_kernels[3].time += wall_end - wall_start;

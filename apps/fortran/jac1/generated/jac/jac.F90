@@ -38,7 +38,7 @@ PROGRAM jac
   DEALLOCATE(du)
   alpha = 1.0
   CALL op_decl_const_alpha(alpha, 1)
-  CALL op_timing2_start("JAC")
+  CALL op_profile_start("JAC")
   beta = 1.0
   DO i = 1, niter
     CALL op2_k_jac_1_res("res", edges, op_arg_dat(p_A, - 1, OP_ID, 1, "real(8)", OP_READ), op_arg_dat(p_u, 2, ppedge, 1, "real(8)", OP_READ), op_arg_dat(p_du, 1, ppedge, 1, "real(8)", OP_INC), op_arg_gbl(beta, 1, "real(8)", OP_READ))
@@ -47,9 +47,9 @@ PROGRAM jac
     CALL op2_k_jac_2_update("update", nodes, op_arg_dat(p_r, - 1, OP_ID, 1, "real(8)", OP_READ), op_arg_dat(p_du, - 1, OP_ID, 1, "real(8)", OP_RW), op_arg_dat(p_u, - 1, OP_ID, 1, "real(8)", OP_RW), op_arg_gbl(u_sum, 1, "real(8)", OP_INC), op_arg_gbl(u_max, 1, "real(8)", OP_MAX))
     WRITE(*, "(1X, A, F7.4, A, F10.8)") "u max = ", u_max, "; u rms = ", SQRT(u_sum / nnode)
   END DO
-  CALL op_timing2_finish
+  CALL op_profile_end
   PRINT *
-  CALL op_timing2_output
+  CALL op_profile_output
   ALLOCATE(u(nnode))
   CALL op_fetch_data(p_u, u)
   PRINT *

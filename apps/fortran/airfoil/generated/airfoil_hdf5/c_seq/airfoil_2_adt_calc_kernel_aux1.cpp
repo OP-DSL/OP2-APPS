@@ -2,7 +2,7 @@
 
 #include <op_f2c_prelude.h>
 #include <op_lib_cpp.h>
-#include <op_timing2.h>
+#include <op_profile.h>
 
 #include <cstdint>
 #include <cmath>
@@ -83,12 +83,12 @@ extern "C" void op2_k_airfoil_2_adt_calc_m_c(
     args[4] = arg4;
     args[5] = arg5;
 
-    op_timing2_enter_kernel("airfoil_2_adt_calc", "c_seq", "Indirect");
+    op_profile_enter_kernel("airfoil_2_adt_calc", "c_seq", "Indirect");
 
-    op_timing2_enter("MPI Exchanges");
+    op_profile_enter("MPI Exchanges");
     int n_exec = op_mpi_halo_exchanges(set, n_args, args);
 
-    op_timing2_next("Computation");
+    op_profile_next("Computation");
 
 
 
@@ -99,9 +99,9 @@ extern "C" void op2_k_airfoil_2_adt_calc_m_c(
 
     for (int n = 0; n < n_exec; ++n) {
         if (n == set->core_size) {
-            op_timing2_next("MPI Wait");
+            op_profile_next("MPI Wait");
             op_mpi_wait_all(n_args, args);
-            op_timing2_next("Computation");
+            op_profile_next("Computation");
         }
 
         int *map0 = arg0.map_data + n * arg0.map->dim;
@@ -123,12 +123,12 @@ extern "C" void op2_k_airfoil_2_adt_calc_m_c(
     if (n_exec < set->size) {
     }
 
-    op_timing2_next("MPI Wait");
+    op_profile_next("MPI Wait");
     if (n_exec == 0 || n_exec == set->core_size)
         op_mpi_wait_all(n_args, args);
 
-    op_timing2_exit();
+    op_profile_exit();
 
     op_mpi_set_dirtybit(n_args, args);
-    op_timing2_exit();
+    op_profile_exit();
 }

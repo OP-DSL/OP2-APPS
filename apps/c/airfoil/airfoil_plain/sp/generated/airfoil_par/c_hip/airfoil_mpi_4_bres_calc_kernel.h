@@ -189,10 +189,10 @@ void op_par_loop_airfoil_mpi_4_bres_calc(
     args[4] = arg4;
     args[5] = arg5;
 
-    // op_timing2_enter_kernel("airfoil_mpi_4_bres_calc", "c_CUDA", "Indirect (atomics)");
-    // op_timing2_enter("Init");
+    op_profile_enter_kernel("airfoil_mpi_4_bres_calc", "c_CUDA", "Indirect (atomics)");
+    op_profile_enter("Init");
 
-    // op_timing2_enter("Kernel Info Setup");
+    op_profile_enter("Kernel Info Setup");
 
     static bool first_invocation = true;
     static op::f2c::KernelInfo info("op2_k_airfoil_mpi_4_bres_calc_wrapper",
@@ -211,25 +211,25 @@ void op_par_loop_airfoil_mpi_4_bres_calc(
     max_blocks = std::min(max_blocks, block_limit);
 
     if (first_invocation) {
-        info.add_param("op2_const_eps_d", &eps, &op2_const_eps_d, &op2_const_eps_hash);
-        info.add_param("op2_const_qinf_d", qinf, sizeof(op2_const_qinf_d) / sizeof(qinf[0]), op2_const_qinf_d, &op2_const_qinf_hash);
         info.add_param("op2_const_gm1_d", &gm1, &op2_const_gm1_d, &op2_const_gm1_hash);
+        info.add_param("op2_const_qinf_d", qinf, sizeof(op2_const_qinf_d) / sizeof(qinf[0]), op2_const_qinf_d, &op2_const_qinf_hash);
+        info.add_param("op2_const_eps_d", &eps, &op2_const_eps_d, &op2_const_eps_hash);
 
         first_invocation = false;
     }
 
-    // op_timing2_next("MPI Exchanges");
+    op_profile_next("MPI Exchanges");
     int n_exec = op_mpi_halo_exchanges_grouped(set, n_args, args, 2);
 
     if (n_exec == 0) {
-        // op_timing2_exit();
-        // op_timing2_exit();
+        op_profile_exit();
+        op_profile_exit();
 
         op_mpi_wait_all_grouped(n_args, args, 2);
 
 
         op_mpi_set_dirtybit_cuda(n_args, args);
-        // op_timing2_exit();
+        op_profile_exit();
         return;
     }
 
@@ -238,12 +238,12 @@ void op_par_loop_airfoil_mpi_4_bres_calc(
 
 
 
-    // op_timing2_next("Get Kernel");
+    op_profile_next("Get Kernel");
     auto *kernel_inst = info.get_kernel();
-    // op_timing2_exit();
+    op_profile_exit();
 
 
-    // op_timing2_enter("Prepare GBLs");
+    op_profile_enter("Prepare GBLs");
     prepareDeviceGbls(args, n_args, block_size * max_blocks);
     bool exit_sync = false;
 
@@ -254,19 +254,19 @@ void op_par_loop_airfoil_mpi_4_bres_calc(
     arg4 = args[4];
     arg5 = args[5];
 
-    // op_timing2_next("Update GBL Refs");
+    op_profile_next("Update GBL Refs");
 
 
-    // op_timing2_exit();
-    // op_timing2_next("Computation");
+    op_profile_exit();
+    op_profile_next("Computation");
 
-    // op_timing2_enter("Kernel");
+    op_profile_enter("Kernel");
 
     for (int round = 1; round < sections.size(); ++round) {
         if (round == 2) {
-            // op_timing2_next("MPI Wait");
+            op_profile_next("MPI Wait");
             op_mpi_wait_all_grouped(n_args, args, 2);
-            // op_timing2_next("Kernel");
+            op_profile_next("Kernel");
         }
 
         int start = sections[round - 1];
@@ -308,15 +308,15 @@ void op_par_loop_airfoil_mpi_4_bres_calc(
 
     }
 
-    // op_timing2_exit();
+    op_profile_exit();
 
-    // op_timing2_exit();
+    op_profile_exit();
 
-    // op_timing2_enter("Finalise");
+    op_profile_enter("Finalise");
 
     op_mpi_set_dirtybit_cuda(n_args, args);
     if (exit_sync) CUDA_SAFE_CALL(hipStreamSynchronize(0));
 
-    // op_timing2_exit();
-    // op_timing2_exit();
+    op_profile_exit();
+    op_profile_exit();
 }

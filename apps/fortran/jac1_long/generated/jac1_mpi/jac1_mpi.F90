@@ -116,8 +116,8 @@ PROGRAM jac_distributed
   alpha = 1.0_8
   CALL op_decl_const_alpha(alpha, 1)
   CALL op_partition("PARMETIS", "KWAY", edges, ppedge, p_u)
-  CALL op_timing2_start("Jacobi")
-  CALL op_timing2_enter("Main computation")
+  CALL op_profile_start("Jacobi")
+  CALL op_profile_enter("Main computation")
   beta = 1.0_8
   DO iter = 1, niter
     CALL op2_k_jac1_mpi_1_res_kernel("res_kernel", edges, op_arg_dat(p_A, - 1, OP_ID, 1, "real(8)", OP_READ), op_arg_dat(p_u, 2, ppedge, 1, "real(8)", OP_READ), op_arg_dat(p_du, 1, ppedge, 1, "real(8)", OP_INC), op_arg_gbl(beta, 1, "real(8)", OP_READ))
@@ -128,8 +128,8 @@ PROGRAM jac_distributed
       WRITE(*, "(4X, I0, E16.7, 4X, A, E16.7)") iter, u_max, "u rms = ", SQRT(u_sum / DBLE(g_nnode))
     END IF
   END DO
-  CALL op_timing2_finish
-  CALL op_timing2_output
+  CALL op_profile_end
+  CALL op_profile_output
   IF (.NOT. ALLOCATED(u)) ALLOCATE(u(nnode), STAT = ierr)
   IF (ierr /= 0) STOP 'Allocation failed for u (fetch)'
   CALL op_fetch_data(p_u, u)

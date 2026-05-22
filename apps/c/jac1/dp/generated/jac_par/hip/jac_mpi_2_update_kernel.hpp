@@ -79,10 +79,15 @@ void op_par_loop_jac_mpi_2_update(
 
     op_timers_core(&cpu_start, &wall_start);
 
+    op_profile_enter_kernel(name, "", "Direct");
+    op_profile_enter("MPI Exchanges");
+
     if (OP_diags > 2)
         printf(" kernel routine (direct): jac_mpi_2_update\n");
 
     int set_size = op_mpi_halo_exchanges_grouped(set, num_args_expanded, args_expanded, 2);
+
+    op_profile_next("Computation");
 
 
     double *arg4_host_data = (double *)arg4.data;
@@ -153,14 +158,19 @@ void op_par_loop_jac_mpi_2_update(
             arg5_host_data[d] = MAX(arg5_host_data[d], ((double *)arg5.data)[b * 1 + d]);
     }
 
+    op_profile_next("MPI Reduce");
+
     arg4.data = (char *)arg4_host_data;
     op_mpi_reduce(&arg4, arg4_host_data);
 
     arg5.data = (char *)arg5_host_data;
     op_mpi_reduce(&arg5, arg5_host_data);
 
+    op_profile_exit();
+
     op_mpi_set_dirtybit_cuda(num_args_expanded, args_expanded);
     cutilSafeCall(hipDeviceSynchronize());
+    op_profile_exit();
 
     op_timers_core(&cpu_end, &wall_end);
     OP_kernels[2].time += wall_end - wall_start;

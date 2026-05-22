@@ -89,15 +89,15 @@ subroutine op2_k_airfoil_1_save_soln_m( &
     args(1) = arg0
     args(2) = arg1
 
-    call op_timing2_enter_kernel("airfoil_1_save_soln", "CUDA", "Direct")
-    call op_timing2_enter("Init")
+    call op_profile_enter_kernel("airfoil_1_save_soln", "CUDA", "Direct")
+    call op_profile_enter("Init")
 
-    call op_timing2_enter("MPI Exchanges")
+    call op_profile_enter("MPI Exchanges")
     n_exec = op_mpi_halo_exchanges_grouped(set%setcptr, size(args), args, 2)
 
     if (n_exec == 0) then
-        call op_timing2_exit()
-        call op_timing2_exit()
+        call op_profile_exit()
+        call op_profile_exit()
 
         call op_mpi_wait_all_grouped(size(args), args, 2)
         call op_mpi_set_dirtybit_cuda(size(args), args)
@@ -107,12 +107,12 @@ subroutine op2_k_airfoil_1_save_soln_m( &
             print *, cudaGetErrorString(err)
         end if
 
-        call op_timing2_exit()
+        call op_profile_exit()
         return
     end if
 
-    call op_timing2_next("Update consts")
-    call op_timing2_exit()
+    call op_profile_next("Update consts")
+    call op_profile_exit()
 
     call setGblIncAtomic(logical(.false., c_bool))
     block_size = getBlockSize(name // c_null_char, set%setptr%size)
@@ -122,9 +122,9 @@ subroutine op2_k_airfoil_1_save_soln_m( &
     num_blocks = min(num_blocks, block_limit)
     max_blocks = num_blocks
 
-    call op_timing2_enter("Prepare GBLs")
+    call op_profile_enter("Prepare GBLs")
     call prepareDeviceGbls(args, size(args), block_size * max_blocks)
-    call op_timing2_exit()
+    call op_profile_exit()
 
     arg0 = args(1)
     arg1 = args(2)
@@ -132,11 +132,11 @@ subroutine op2_k_airfoil_1_save_soln_m( &
     call c_f_pointer(arg0%data_d, dat0_d, (/4 * round32f(getsetsizefromoparg(arg0)) /))
     call c_f_pointer(arg1%data_d, dat1_d, (/4 * round32f(getsetsizefromoparg(arg1)) /))
 
-    call op_timing2_next("Computation")
+    call op_profile_next("Computation")
     start = 0
     end = set%setptr%size
 
-    call op_timing2_enter("Kernel")
+    call op_profile_enter("Kernel")
     call op2_k_airfoil_1_save_soln_wr<<<num_blocks, block_size>>>( &
         dat0_d, &
         dat1_d, &
@@ -145,7 +145,7 @@ subroutine op2_k_airfoil_1_save_soln_m( &
         set%setptr%size &
     )
 
-    call op_timing2_next("Process GBLs")
+    call op_profile_next("Process GBLs")
     err = cudaDeviceSynchronize()
 
     if (err /= 0) then
@@ -155,10 +155,10 @@ subroutine op2_k_airfoil_1_save_soln_m( &
 
     call processDeviceGbls(args, size(args), block_size * max_blocks, block_size * max_blocks)
 
-    call op_timing2_exit()
-    call op_timing2_exit()
+    call op_profile_exit()
+    call op_profile_exit()
 
-    call op_timing2_enter("Finalise")
+    call op_profile_enter("Finalise")
     call op_mpi_set_dirtybit_cuda(size(args), args)
 
     err = cudaDeviceSynchronize()
@@ -167,8 +167,8 @@ subroutine op2_k_airfoil_1_save_soln_m( &
         print *, cudaGetErrorString(err)
     end if
 
-    call op_timing2_exit()
-    call op_timing2_exit()
+    call op_profile_exit()
+    call op_profile_exit()
 end subroutine
 
 end module
@@ -254,12 +254,12 @@ subroutine op2_k_airfoil_1_save_soln_fb( &
     args(1) = arg0
     args(2) = arg1
 
-    call op_timing2_enter_kernel("airfoil_1_save_soln", "seq", "Direct")
+    call op_profile_enter_kernel("airfoil_1_save_soln", "seq", "Direct")
 
-    call op_timing2_enter("MPI Exchanges")
+    call op_profile_enter("MPI Exchanges")
     n_exec = op_mpi_halo_exchanges(set%setcptr, size(args), args)
 
-    call op_timing2_next("Computation")
+    call op_profile_next("Computation")
 
     call c_f_pointer(arg0%data, dat0, (/4, getsetsizefromoparg(arg0)/))
     call c_f_pointer(arg1%data, dat1, (/4, getsetsizefromoparg(arg1)/))
@@ -272,15 +272,15 @@ subroutine op2_k_airfoil_1_save_soln_fb( &
         args &
     )
 
-    call op_timing2_next("MPI Wait")
+    call op_profile_next("MPI Wait")
     if ((n_exec == 0) .or. (n_exec == set%setptr%core_size)) then
         call op_mpi_wait_all(size(args), args)
     end if
 
-    call op_timing2_exit()
+    call op_profile_exit()
 
     call op_mpi_set_dirtybit(size(args), args)
-    call op_timing2_exit()
+    call op_profile_exit()
 end subroutine
 
 end module

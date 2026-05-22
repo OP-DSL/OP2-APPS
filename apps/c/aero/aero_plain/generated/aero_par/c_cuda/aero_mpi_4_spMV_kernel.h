@@ -243,10 +243,10 @@ void op_par_loop_aero_mpi_4_spMV(
     args[7] = arg7;
     args[8] = arg8;
 
-    // op_timing2_enter_kernel("aero_mpi_4_spMV", "c_CUDA", "Indirect (atomics)");
-    // op_timing2_enter("Init");
+    op_profile_enter_kernel("aero_mpi_4_spMV", "c_CUDA", "Indirect (atomics)");
+    op_profile_enter("Init");
 
-    // op_timing2_enter("Kernel Info Setup");
+    op_profile_enter("Kernel Info Setup");
 
     static bool first_invocation = true;
     static op::f2c::KernelInfo info("op2_k_aero_mpi_4_spMV_wrapper",
@@ -269,18 +269,18 @@ void op_par_loop_aero_mpi_4_spMV(
         first_invocation = false;
     }
 
-    // op_timing2_next("MPI Exchanges");
+    op_profile_next("MPI Exchanges");
     int n_exec = op_mpi_halo_exchanges_grouped(set, n_args, args, 2);
 
     if (n_exec == 0) {
-        // op_timing2_exit();
-        // op_timing2_exit();
+        op_profile_exit();
+        op_profile_exit();
 
         op_mpi_wait_all_grouped(n_args, args, 2);
 
 
         op_mpi_set_dirtybit_cuda(n_args, args);
-        // op_timing2_exit();
+        op_profile_exit();
         return;
     }
 
@@ -289,12 +289,12 @@ void op_par_loop_aero_mpi_4_spMV(
 
 
 
-    // op_timing2_next("Get Kernel");
+    op_profile_next("Get Kernel");
     auto *kernel_inst = info.get_kernel();
-    // op_timing2_exit();
+    op_profile_exit();
 
 
-    // op_timing2_enter("Prepare GBLs");
+    op_profile_enter("Prepare GBLs");
     prepareDeviceGbls(args, n_args, block_size * max_blocks);
     bool exit_sync = false;
 
@@ -308,19 +308,19 @@ void op_par_loop_aero_mpi_4_spMV(
     arg7 = args[7];
     arg8 = args[8];
 
-    // op_timing2_next("Update GBL Refs");
+    op_profile_next("Update GBL Refs");
 
 
-    // op_timing2_exit();
-    // op_timing2_next("Computation");
+    op_profile_exit();
+    op_profile_next("Computation");
 
-    // op_timing2_enter("Kernel");
+    op_profile_enter("Kernel");
 
     for (int round = 1; round < sections.size(); ++round) {
         if (round == 2) {
-            // op_timing2_next("MPI Wait");
+            op_profile_next("MPI Wait");
             op_mpi_wait_all_grouped(n_args, args, 2);
-            // op_timing2_next("Kernel");
+            op_profile_next("Kernel");
         }
 
         int start = sections[round - 1];
@@ -356,15 +356,15 @@ void op_par_loop_aero_mpi_4_spMV(
 
     }
 
-    // op_timing2_exit();
+    op_profile_exit();
 
-    // op_timing2_exit();
+    op_profile_exit();
 
-    // op_timing2_enter("Finalise");
+    op_profile_enter("Finalise");
 
     op_mpi_set_dirtybit_cuda(n_args, args);
     if (exit_sync) CUDA_SAFE_CALL(cudaStreamSynchronize(0));
 
-    // op_timing2_exit();
-    // op_timing2_exit();
+    op_profile_exit();
+    op_profile_exit();
 }

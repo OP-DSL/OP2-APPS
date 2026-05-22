@@ -4,7 +4,7 @@
 #include <sys/time.h>
 
 #include "op_lib_cpp.h"
-
+#include <op_profile.h>
 #ifdef OPENACC
 #ifdef __cplusplus
 extern "C" {
@@ -26,6 +26,7 @@ void op_par_loop_airfoil_5_update(char const *, op_set, op_arg, op_arg, op_arg, 
 }
 #endif
 #endif
+
 
 /* Problem mesh and iterations */
 #define FILE_NAME_PATH "new_grid.h5"
@@ -55,7 +56,6 @@ int main(int argc, char **argv) {
   double rms;
 
   // timer
-  double cpu_t1, cpu_t2, wall_t1, wall_t2;
 
   // Load unstructured mesh
   op_printf("***** Load mesh and initialization *****\n");
@@ -108,7 +108,7 @@ int main(int argc, char **argv) {
   op_partition("BLOCK", "ANY", edges, pecell, p_x);
 
   //start timer
-  op_timers(&cpu_t1, &wall_t1);
+  op_profile_start("Airfoil");
 
   // main time-marching loop
   op_printf("***** Start Main iteration *************\n");
@@ -180,12 +180,8 @@ int main(int argc, char **argv) {
   }
 
   //end timer
-  op_timers(&cpu_t2, &wall_t2);
-
-  // compute and print wall time
-  double walltime = wall_t2 - wall_t1;
-
-  op_printf(" Wall time %lf \n", walltime);
+  op_profile_end();
+  op_profile_output();
 
   //Finalising the OP2 library
   op_exit();

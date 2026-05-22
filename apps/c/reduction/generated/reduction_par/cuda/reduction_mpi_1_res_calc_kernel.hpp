@@ -61,10 +61,15 @@ void op_par_loop_reduction_mpi_1_res_calc(
 
     op_timers_core(&cpu_start, &wall_start);
 
+    op_profile_enter_kernel(name, "", "Indirect");
+    op_profile_enter("MPI Exchanges");
+
     if (OP_diags > 2)
         printf(" kernel routine (indirect): reduction_mpi_1_res_calc\n");
 
     int set_size = op_mpi_halo_exchanges_grouped(set, num_args_expanded, args_expanded, 2);
+
+    op_profile_next("Computation");
 
 
     int *arg1_host_data = (int *)arg1.data;
@@ -100,8 +105,11 @@ void op_par_loop_reduction_mpi_1_res_calc(
     mvReductArraysToDevice(reduction_bytes);
 
     for (int round = 0; round < 3; ++round ) {
-        if (round == 1)
+        if (round == 1) {
+            op_profile_next("MPI Wait");
             op_mpi_wait_all_grouped(num_args_expanded, args_expanded, 2);
+            op_profile_next("Computation");
+        }
 
         int start = round == 0 ? 0 : (round == 1 ? set->core_size : set->size);
         int end = round == 0 ? set->core_size : (round == 1 ? set->size : set->size + set->exec_size);
@@ -128,11 +136,16 @@ void op_par_loop_reduction_mpi_1_res_calc(
             arg1_host_data[d] += ((int *)arg1.data)[b * 1 + d];
     }
 
+    op_profile_next("MPI Reduce");
+
     arg1.data = (char *)arg1_host_data;
     op_mpi_reduce(&arg1, arg1_host_data);
 
+    op_profile_exit();
+
     op_mpi_set_dirtybit_cuda(num_args_expanded, args_expanded);
     cutilSafeCall(cudaDeviceSynchronize());
+    op_profile_exit();
 
     op_timers_core(&cpu_end, &wall_end);
     OP_kernels[1].time += wall_end - wall_start;

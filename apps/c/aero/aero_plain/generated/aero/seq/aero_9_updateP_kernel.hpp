@@ -1,4 +1,5 @@
 #include <op_lib_cpp.h>
+#include <op_profile.h>
 
 #include <cstdint>
 #include <cmath>
@@ -25,7 +26,12 @@ void op_par_loop_aero_9_updateP(
     args[1] = arg1;
     args[2] = arg2;
 
+    op_profile_enter_kernel("aero_9_updateP", "seq", "Direct");
+
+    op_profile_enter("MPI Exchanges");
     int n_exec = op_mpi_halo_exchanges(set, n_args, args);
+
+    op_profile_next("Computation");
 
 
 
@@ -41,9 +47,13 @@ void op_par_loop_aero_9_updateP(
     }
 
 
+    op_profile_next("MPI Wait");
     if (n_exec == 0 || n_exec == set->core_size)
         op_mpi_wait_all(n_args, args);
 
 
+    op_profile_exit();
+
     op_mpi_set_dirtybit(n_args, args);
+    op_profile_exit();
 }

@@ -1,3 +1,4 @@
+#include <op_profile.h>
 namespace op2_k7 {
 inline void updateUR(double *u, double *r, const double *p, double *v,
                      const double *alpha) {
@@ -104,10 +105,15 @@ void op_par_loop_aero_7_updateUR(
 
     op_timers_core(&cpu_start, &wall_start);
 
+    op_profile_enter_kernel(name, "", "Direct");
+    op_profile_enter("MPI Exchanges");
+
     if (OP_diags > 2)
         printf(" kernel routine (direct): aero_7_updateUR\n");
 
     int set_size = op_mpi_halo_exchanges(set, num_args_expanded, args_expanded);
+
+    op_profile_next("Computation");
 
 
 #ifdef _OPENMP
@@ -133,7 +139,10 @@ void op_par_loop_aero_7_updateUR(
     }
 
 
+    op_profile_exit();
+
     op_mpi_set_dirtybit(num_args_expanded, args_expanded);
+    op_profile_exit();
 
     op_timers_core(&cpu_end, &wall_end);
     OP_kernels[7].time += wall_end - wall_start;

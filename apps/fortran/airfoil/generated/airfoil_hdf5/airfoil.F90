@@ -22,7 +22,7 @@ PROGRAM airfoil
   TYPE(op_dat) :: p_bound, p_x, p_q, p_qold, p_adt, p_res
   REAL(KIND = 8) :: diff
   CALL op_init_base(0, 0)
-  CALL op_timing2_start("Airfoil")
+  CALL op_profile_start("Airfoil")
   CALL op_print("Declaring OP2 sets (HDF5)")
   CALL op_decl_set_hdf5(nnode, nodes, file_name_h5, "nodes")
   CALL op_decl_set_hdf5(nedge, edges, file_name_h5, "edges")
@@ -49,7 +49,7 @@ PROGRAM airfoil
   CALL op_decl_const_alpha(alpha, 1)
   CALL op_decl_const_qinf(qinf, 4)
   CALL op_partition("PARMETIS", "KWAY", edges, pecell, p_x)
-  CALL op_timing2_enter("Main computation")
+  CALL op_profile_enter("Main computation")
   CALL op_decl_dat_temp(cells, 4, "real(8)", p_res, "p_res")
   ncell_total = op_get_size(cells)
   DO iter = 1, niter
@@ -69,9 +69,9 @@ PROGRAM airfoil
     END IF
   END DO
   iter = op_free_dat_temp(p_res)
-  CALL op_timing2_finish
+  CALL op_profile_end
   IF (op_is_root() == 1) PRINT *
-  CALL op_timing2_output
+  CALL op_profile_output
   IF (op_is_root() == 1 .AND. niter == 1000 .AND. ncell_total == 720000) THEN
     diff = ABS((100.0_8 * (rms(2) / 0.0001060114637578_8)) - 100.0_8)
     WRITE(*, "(A, I0, A, E16.7, A)") " Test problem with ", ncell_total, " cells is within ", diff, "% of the expected solution"

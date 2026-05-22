@@ -55,7 +55,7 @@ double gam, gm1, cfl, eps, mach, alpha, qinf[4];
 //
 
 #include "op_lib_cpp.h"
-
+#include <op_profile.h>
 #ifdef OPENACC
 #ifdef __cplusplus
 extern "C" {
@@ -77,6 +77,7 @@ void op_par_loop_airfoil_5_update(char const *, op_set, op_arg, op_arg, op_arg, 
 }
 #endif
 #endif
+
 
 //
 // kernel routines for parallel loops
@@ -105,7 +106,6 @@ int main(int argc, char **argv) {
   double rms;
 
   // timer
-  double cpu_t1, cpu_t2, wall_t1, wall_t2;
 
   // set constants and initialise flow field and residual
   op_printf("initialising flow field \n");
@@ -180,7 +180,7 @@ int main(int argc, char **argv) {
   int g_ncell = op_get_size(cells);
 
   // initialise timers for total execution wall time
-  op_timers(&cpu_t1, &wall_t1);
+  op_profile_start("Airfoil");
 
   // main time-marching loop
 
@@ -262,7 +262,7 @@ int main(int argc, char **argv) {
     }
   }
 
-  op_timers(&cpu_t2, &wall_t2);
+  op_profile_end();
 
   // write given op_dat's indicated segment of data to a memory block in the
   // order it was originally
@@ -284,7 +284,6 @@ int main(int argc, char **argv) {
   // compress using
   // ~/hdf5/bin/h5repack -f GZIP=9 new_grid.h5 new_grid_pack.h5
 
-  op_timing_output();
-  op_printf("Max total runtime = %f\n", wall_t2 - wall_t1);
+  op_profile_output();
   op_exit();
 }

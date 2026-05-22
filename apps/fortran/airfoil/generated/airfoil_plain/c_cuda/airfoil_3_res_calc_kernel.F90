@@ -163,9 +163,9 @@ subroutine op2_k_airfoil_3_res_calc_wr( &
 
     do n = 1, n_exec
         if (n == set%setptr%core_size + 1) then
-            call op_timing2_next("MPI Wait")
+            call op_profile_next("MPI Wait")
             call op_mpi_wait_all(size(args), args)
-            call op_timing2_next("Computation")
+            call op_profile_next("Computation")
         end if
 
         call res_calc( &
@@ -232,12 +232,12 @@ subroutine op2_k_airfoil_3_res_calc_fb( &
     args(7) = arg6
     args(8) = arg7
 
-    call op_timing2_enter_kernel("airfoil_3_res_calc", "seq", "Indirect")
+    call op_profile_enter_kernel("airfoil_3_res_calc", "seq", "Indirect")
 
-    call op_timing2_enter("MPI Exchanges")
+    call op_profile_enter("MPI Exchanges")
     n_exec = op_mpi_halo_exchanges(set%setcptr, size(args), args)
 
-    call op_timing2_next("Computation")
+    call op_profile_next("Computation")
 
     call c_f_pointer(arg0%data, dat0, (/2, getsetsizefromoparg(arg0)/))
     call c_f_pointer(arg2%data, dat1, (/4, getsetsizefromoparg(arg2)/))
@@ -259,15 +259,15 @@ subroutine op2_k_airfoil_3_res_calc_fb( &
         args &
     )
 
-    call op_timing2_next("MPI Wait")
+    call op_profile_next("MPI Wait")
     if ((n_exec == 0) .or. (n_exec == set%setptr%core_size)) then
         call op_mpi_wait_all(size(args), args)
     end if
 
-    call op_timing2_exit()
+    call op_profile_exit()
 
     call op_mpi_set_dirtybit(size(args), args)
-    call op_timing2_exit()
+    call op_profile_exit()
 end subroutine
 
 end module

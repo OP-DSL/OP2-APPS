@@ -1,3 +1,4 @@
+#include <op_profile.h>
 namespace op2_k2 {
 static inline double maxfun(double a, double b) {
    return a>b ? a : b;
@@ -119,10 +120,15 @@ void op_par_loop_jac_2_update(
 
     op_timers_core(&cpu_start, &wall_start);
 
+    op_profile_enter_kernel(name, "", "Direct");
+    op_profile_enter("MPI Exchanges");
+
     if (OP_diags > 2)
         printf(" kernel routine (direct): jac_2_update\n");
 
     int set_size = op_mpi_halo_exchanges(set, num_args_expanded, args_expanded);
+
+    op_profile_next("Computation");
 
 
 #ifdef _OPENMP
@@ -172,9 +178,14 @@ void op_par_loop_jac_2_update(
             gbl5[d] = MAX(gbl5[d], gbl5_local[thread * 64 + d]);
     }
 
+    op_profile_next("MPI Reduce");
+
     op_mpi_reduce(&arg4, gbl4);
     op_mpi_reduce(&arg5, gbl5);
+    op_profile_exit();
+
     op_mpi_set_dirtybit(num_args_expanded, args_expanded);
+    op_profile_exit();
 
     op_timers_core(&cpu_end, &wall_end);
     OP_kernels[2].time += wall_end - wall_start;

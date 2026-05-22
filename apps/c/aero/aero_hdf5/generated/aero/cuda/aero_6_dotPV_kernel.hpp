@@ -51,10 +51,15 @@ void op_par_loop_aero_6_dotPV(
 
     op_timers_core(&cpu_start, &wall_start);
 
+    op_profile_enter_kernel(name, "", "Direct");
+    op_profile_enter("MPI Exchanges");
+
     if (OP_diags > 2)
         printf(" kernel routine (direct): aero_6_dotPV\n");
 
     int set_size = op_mpi_halo_exchanges_grouped(set, num_args_expanded, args_expanded, 2);
+
+    op_profile_next("Computation");
 
 
     double *arg2_host_data = (double *)arg2.data;
@@ -106,11 +111,16 @@ void op_par_loop_aero_6_dotPV(
             arg2_host_data[d] += ((double *)arg2.data)[b * 1 + d];
     }
 
+    op_profile_next("MPI Reduce");
+
     arg2.data = (char *)arg2_host_data;
     op_mpi_reduce(&arg2, arg2_host_data);
 
+    op_profile_exit();
+
     op_mpi_set_dirtybit_cuda(num_args_expanded, args_expanded);
     cutilSafeCall(cudaDeviceSynchronize());
+    op_profile_exit();
 
     op_timers_core(&cpu_end, &wall_end);
     OP_kernels[6].time += wall_end - wall_start;

@@ -57,7 +57,7 @@ float alpha;
 
 #include "op_lib_mpi.h"
 #include "op_lib_cpp.h"
-
+#include <op_profile.h>
 #ifdef OPENACC
 #ifdef __cplusplus
 extern "C" {
@@ -73,6 +73,7 @@ void op_par_loop_jac_mpi_2_update(char const *, op_set, op_arg, op_arg, op_arg, 
 }
 #endif
 #endif
+
 
 // jac header file
 
@@ -187,7 +188,6 @@ int main(int argc, char **argv) {
   MPI_Comm_size(MPI_COMM_WORLD, &comm_size);
 
   // timer
-  double cpu_t1, cpu_t2, wall_t1, wall_t2;
 
   /**------------------------BEGIN I/O and PARTITIONING ---------------------**/
   int g_nnode, g_nedge, g_n, g_e;
@@ -314,7 +314,7 @@ int main(int argc, char **argv) {
   op_partition("PTSCOTCH", "KWAY", NULL, NULL, NULL);
 
   // initialise timers for total execution wall time
-  op_timers(&cpu_t1, &wall_t1);
+  op_profile_start("JAC2");
 
   // main iteration loop
 
@@ -338,15 +338,14 @@ int main(int argc, char **argv) {
     op_printf("\n u max/rms = %f %f \n\n", u_max, sqrt(u_sum / nnode));
   }
 
-  op_timers(&cpu_t2, &wall_t2);
+  op_profile_end();
 
   op_fetch_data(p_u, u);
   op_print_dat_to_txtfile(p_u, "out_grid_mpi.dat");
 
-  op_timing_output();
+  op_profile_output();
 
   // print total time for niter interations
-  op_printf("Max total runtime = %f\n", wall_t2 - wall_t1);
 
   float *ug = (float *)malloc(sizeof(float) * op_get_size(nodes) * 2);
   op_fetch_data_idx(p_u, ug, 0, op_get_size(nodes) - 1);

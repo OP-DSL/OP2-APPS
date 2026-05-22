@@ -1,3 +1,4 @@
+#include <op_profile.h>
 namespace op2_k5 {
 inline void dirichlet(double *res) { *res = 0.0; }
 }
@@ -66,10 +67,15 @@ void op_par_loop_aero_mpi_5_dirichlet(
 
     op_timers_core(&cpu_start, &wall_start);
 
+    op_profile_enter_kernel(name, "", "Indirect");
+    op_profile_enter("MPI Exchanges");
+
     if (OP_diags > 2)
         printf(" kernel routine (indirect): aero_mpi_5_dirichlet\n");
 
     int set_size = op_mpi_halo_exchanges(set, num_args_expanded, args_expanded);
+
+    op_profile_next("Computation");
 
     int num_dats_indirect = 1;
     int dats_indirect[1] = {0};
@@ -86,8 +92,11 @@ void op_par_loop_aero_mpi_5_dirichlet(
 
     int block_offset = 0;
     for (int col = 0; col < plan->ncolors; ++col) {
-        if (col == plan->ncolors_core)
+        if (col == plan->ncolors_core) {
+            op_profile_next("MPI Wait");
             op_mpi_wait_all(num_args_expanded, args_expanded);
+            op_profile_next("Computation");
+        }
 
         int num_blocks = plan->ncolblk[col];
 
@@ -109,10 +118,14 @@ void op_par_loop_aero_mpi_5_dirichlet(
         block_offset += num_blocks;
     }
 
+    op_profile_next("MPI Wait");
     if (set_size == set->core_size)
         op_mpi_wait_all(num_args_expanded, args_expanded);
 
+    op_profile_exit();
+
     op_mpi_set_dirtybit(num_args_expanded, args_expanded);
+    op_profile_exit();
 
     op_timers_core(&cpu_end, &wall_end);
     OP_kernels[5].time += wall_end - wall_start;

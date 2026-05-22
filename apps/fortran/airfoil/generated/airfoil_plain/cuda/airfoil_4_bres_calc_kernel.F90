@@ -146,15 +146,15 @@ subroutine op2_k_airfoil_4_bres_calc_m( &
     args(5) = arg4
     args(6) = arg5
 
-    call op_timing2_enter_kernel("airfoil_4_bres_calc", "CUDA", "Indirect (atomics)")
-    call op_timing2_enter("Init")
+    call op_profile_enter_kernel("airfoil_4_bres_calc", "CUDA", "Indirect (atomics)")
+    call op_profile_enter("Init")
 
-    call op_timing2_enter("MPI Exchanges")
+    call op_profile_enter("MPI Exchanges")
     n_exec = op_mpi_halo_exchanges_grouped(set%setcptr, size(args), args, 2)
 
     if (n_exec == 0) then
-        call op_timing2_exit()
-        call op_timing2_exit()
+        call op_profile_exit()
+        call op_profile_exit()
 
         call op_mpi_wait_all_grouped(size(args), args, 2)
         call op_mpi_set_dirtybit_cuda(size(args), args)
@@ -164,16 +164,16 @@ subroutine op2_k_airfoil_4_bres_calc_m( &
             print *, cudaGetErrorString(err)
         end if
 
-        call op_timing2_exit()
+        call op_profile_exit()
         return
     end if
 
-    call op_timing2_next("Update consts")
-    call op_update_const_cuda_gm1()
+    call op_profile_next("Update consts")
     call op_update_const_cuda_qinf()
     call op_update_const_cuda_eps()
+    call op_update_const_cuda_gm1()
 
-    call op_timing2_exit()
+    call op_profile_exit()
 
     call setGblIncAtomic(logical(.false., c_bool))
     block_size = getBlockSize(name // c_null_char, set%setptr%size)
@@ -183,9 +183,9 @@ subroutine op2_k_airfoil_4_bres_calc_m( &
         set%setptr%size + set%setptr%exec_size - set%setptr%core_size) - 1 + (block_size - 1)) / block_size
     max_blocks = min(max_blocks, block_limit)
 
-    call op_timing2_enter("Prepare GBLs")
+    call op_profile_enter("Prepare GBLs")
     call prepareDeviceGbls(args, size(args), block_size * max_blocks)
-    call op_timing2_exit()
+    call op_profile_exit()
 
     arg0 = args(1)
     arg1 = args(2)
@@ -203,15 +203,15 @@ subroutine op2_k_airfoil_4_bres_calc_m( &
     call c_f_pointer(arg0%map_data_d, map0_d, (/set%setptr%size, getmapdimfromoparg(arg0)/))
     call c_f_pointer(arg2%map_data_d, map1_d, (/set%setptr%size, getmapdimfromoparg(arg2)/))
 
-    call op_timing2_next("Computation")
+    call op_profile_next("Computation")
     sections = (/0, set%setptr%core_size, set%setptr%size + set%setptr%exec_size, 0/)
 
-    call op_timing2_enter("Kernel")
+    call op_profile_enter("Kernel")
     do round = 1, 2
         if (round == 2) then
-            call op_timing2_next("MPI Wait")
+            call op_profile_next("MPI Wait")
             call op_mpi_wait_all_grouped(size(args), args, 2)
-            call op_timing2_next("Kernel")
+            call op_profile_next("Kernel")
         end if
 
         start = sections(round)
@@ -236,10 +236,10 @@ subroutine op2_k_airfoil_4_bres_calc_m( &
         end if
     end do
 
-    call op_timing2_exit()
-    call op_timing2_exit()
+    call op_profile_exit()
+    call op_profile_exit()
 
-    call op_timing2_enter("Finalise")
+    call op_profile_enter("Finalise")
     call op_mpi_set_dirtybit_cuda(size(args), args)
 
     err = cudaDeviceSynchronize()
@@ -248,8 +248,8 @@ subroutine op2_k_airfoil_4_bres_calc_m( &
         print *, cudaGetErrorString(err)
     end if
 
-    call op_timing2_exit()
-    call op_timing2_exit()
+    call op_profile_exit()
+    call op_profile_exit()
 end subroutine
 
 end module
@@ -334,9 +334,9 @@ subroutine op2_k_airfoil_4_bres_calc_wr( &
 
     do n = 1, n_exec
         if (n == set%setptr%core_size + 1) then
-            call op_timing2_next("MPI Wait")
+            call op_profile_next("MPI Wait")
             call op_mpi_wait_all(size(args), args)
-            call op_timing2_next("Computation")
+            call op_profile_next("Computation")
         end if
 
         call bres_calc( &
@@ -396,12 +396,12 @@ subroutine op2_k_airfoil_4_bres_calc_fb( &
     args(5) = arg4
     args(6) = arg5
 
-    call op_timing2_enter_kernel("airfoil_4_bres_calc", "seq", "Indirect")
+    call op_profile_enter_kernel("airfoil_4_bres_calc", "seq", "Indirect")
 
-    call op_timing2_enter("MPI Exchanges")
+    call op_profile_enter("MPI Exchanges")
     n_exec = op_mpi_halo_exchanges(set%setcptr, size(args), args)
 
-    call op_timing2_next("Computation")
+    call op_profile_next("Computation")
 
     call c_f_pointer(arg0%data, dat0, (/2, getsetsizefromoparg(arg0)/))
     call c_f_pointer(arg2%data, dat1, (/4, getsetsizefromoparg(arg2)/))
@@ -425,15 +425,15 @@ subroutine op2_k_airfoil_4_bres_calc_fb( &
         args &
     )
 
-    call op_timing2_next("MPI Wait")
+    call op_profile_next("MPI Wait")
     if ((n_exec == 0) .or. (n_exec == set%setptr%core_size)) then
         call op_mpi_wait_all(size(args), args)
     end if
 
-    call op_timing2_exit()
+    call op_profile_exit()
 
     call op_mpi_set_dirtybit(size(args), args)
-    call op_timing2_exit()
+    call op_profile_exit()
 end subroutine
 
 end module

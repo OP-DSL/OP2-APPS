@@ -9,6 +9,7 @@ __constant__ double qinf_d[4];
 #include "op_lib_cpp.h"
 #include "op_cuda_rt_support.h"
 #include "op_cuda_reduction.h"
+#include <op_profile.h>
 
 #ifndef MAX_CONST_SIZE
 #define MAX_CONST_SIZE 128

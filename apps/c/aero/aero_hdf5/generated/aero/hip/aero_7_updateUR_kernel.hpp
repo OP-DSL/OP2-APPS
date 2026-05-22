@@ -57,10 +57,15 @@ void op_par_loop_aero_7_updateUR(
 
     op_timers_core(&cpu_start, &wall_start);
 
+    op_profile_enter_kernel(name, "", "Direct");
+    op_profile_enter("MPI Exchanges");
+
     if (OP_diags > 2)
         printf(" kernel routine (direct): aero_7_updateUR\n");
 
     int set_size = op_mpi_halo_exchanges_grouped(set, num_args_expanded, args_expanded, 2);
+
+    op_profile_next("Computation");
 
 
     double *arg4_host_data = (double *)arg4.data;
@@ -103,8 +108,11 @@ void op_par_loop_aero_7_updateUR(
 
     arg4.data = (char *)arg4_host_data;
 
+    op_profile_exit();
+
     op_mpi_set_dirtybit_cuda(num_args_expanded, args_expanded);
     cutilSafeCall(hipDeviceSynchronize());
+    op_profile_exit();
 
     op_timers_core(&cpu_end, &wall_end);
     OP_kernels[7].time += wall_end - wall_start;

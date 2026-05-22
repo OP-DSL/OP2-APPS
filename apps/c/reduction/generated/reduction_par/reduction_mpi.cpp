@@ -51,7 +51,7 @@
 
 #include "op_lib_mpi.h"
 #include "op_lib_cpp.h"
-
+#include <op_profile.h>
 #ifdef OPENACC
 #ifdef __cplusplus
 extern "C" {
@@ -67,6 +67,7 @@ void op_par_loop_reduction_mpi_2_update(char const *, op_set, op_arg, op_arg);
 }
 #endif
 #endif
+
 
 //
 // kernel routines for parallel loops
@@ -155,7 +156,6 @@ int main(int argc, char **argv) {
   MPI_Comm_size(MPI_COMM_WORLD, &comm_size);
 
   // timer
-  double cpu_t1, cpu_t2, wall_t1, wall_t2;
 
   int *becell, *ecell, *bound, *bedge, *edge, *cell;
   double *x, *q, *qold, *adt, *res;
@@ -164,7 +164,7 @@ int main(int argc, char **argv) {
 
   /**------------------------BEGIN I/O and PARTITIONING -------------------**/
 
-  op_timers(&cpu_t1, &wall_t1);
+  op_profile_start("Reduction");
 
   /* read in grid from disk on root processor */
   FILE *fp;
@@ -283,9 +283,6 @@ int main(int argc, char **argv) {
     free(g_res);
   }
 
-  op_timers(&cpu_t2, &wall_t2);
-  op_printf("Max total file read time = %f\n", wall_t2 - wall_t1);
-
   /**------------------------END I/O and PARTITIONING -----------------------**/
 
   op_set edges = op_decl_set(nedge, "edges");
@@ -302,7 +299,6 @@ int main(int argc, char **argv) {
   op_diagnostic_output();
 
   // initialise timers for total execution wall time
-  op_timers(&cpu_t1, &wall_t1);
 
   // indirect reduction
   count = 0;
@@ -325,10 +321,9 @@ int main(int argc, char **argv) {
   else
     op_printf("direct reduction PASSED\n");
 
-  op_timers(&cpu_t2, &wall_t2);
+  op_profile_end();
 
-  op_timing_output();
-  op_printf("Max total runtime = %f\n", wall_t2 - wall_t1);
+  op_profile_output();
 
   op_exit();
 

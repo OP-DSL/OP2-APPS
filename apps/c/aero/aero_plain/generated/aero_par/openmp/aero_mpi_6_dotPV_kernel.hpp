@@ -1,3 +1,4 @@
+#include <op_profile.h>
 namespace op2_k6 {
 inline void dotPV(const double *p, const double *v, double *c) { *c += (*p) * (*v); }
 }
@@ -74,10 +75,15 @@ void op_par_loop_aero_mpi_6_dotPV(
 
     op_timers_core(&cpu_start, &wall_start);
 
+    op_profile_enter_kernel(name, "", "Direct");
+    op_profile_enter("MPI Exchanges");
+
     if (OP_diags > 2)
         printf(" kernel routine (direct): aero_mpi_6_dotPV\n");
 
     int set_size = op_mpi_halo_exchanges(set, num_args_expanded, args_expanded);
+
+    op_profile_next("Computation");
 
 
 #ifdef _OPENMP
@@ -113,8 +119,13 @@ void op_par_loop_aero_mpi_6_dotPV(
             gbl2[d] += gbl2_local[thread * 64 + d];
     }
 
+    op_profile_next("MPI Reduce");
+
     op_mpi_reduce(&arg2, gbl2);
+    op_profile_exit();
+
     op_mpi_set_dirtybit(num_args_expanded, args_expanded);
+    op_profile_exit();
 
     op_timers_core(&cpu_end, &wall_end);
     OP_kernels[6].time += wall_end - wall_start;

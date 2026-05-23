@@ -8,12 +8,12 @@
 #include <extern/incbin.h>
 
 // Note: OP_F2C_PARAMS unused in C++ backend (can be simply extended if needed)
-// #define OP_F2C_PARAMS OP_F2C_PARAMS_2512382987
-// #define OP_F2C_PARAMS_DATA OP_F2C_PARAMS_2512382987_data
+// #define OP_F2C_PARAMS OP_F2C_PARAMS_6726877860
+// #define OP_F2C_PARAMS_DATA OP_F2C_PARAMS_6726877860_data
 // INCTXT(OP_F2C_PARAMS, "op2_const_list_params.h");
 
-#define OP_F2C_PRELUDE OP_F2C_PRELUDE_2512382987
-#define OP_F2C_PRELUDE_DATA OP_F2C_PRELUDE_2512382987_data
+#define OP_F2C_PRELUDE OP_F2C_PRELUDE_6726877860
+#define OP_F2C_PRELUDE_DATA OP_F2C_PRELUDE_6726877860_data
 INCTXT(OP_F2C_PRELUDE, "op_f2c_prelude.h");
 
 

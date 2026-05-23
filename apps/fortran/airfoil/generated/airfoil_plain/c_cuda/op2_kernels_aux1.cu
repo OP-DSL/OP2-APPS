@@ -29,8 +29,8 @@ static uint64_t  op2_const_mach_hash = 0;
 static uint64_t  op2_const_alpha_hash = 0;
 static uint64_t  op2_const_qinf_hash = 0;
 
-#define OP_F2C_PRELUDE OP_F2C_PRELUDE_6679146524
-#define OP_F2C_PRELUDE_DATA OP_F2C_PRELUDE_6679146524_data
+#define OP_F2C_PRELUDE OP_F2C_PRELUDE_3875437085
+#define OP_F2C_PRELUDE_DATA OP_F2C_PRELUDE_3875437085_data
 INCTXT(OP_F2C_PRELUDE, "op_f2c_prelude.h");
 
 #include <op_f2c_prelude.h>

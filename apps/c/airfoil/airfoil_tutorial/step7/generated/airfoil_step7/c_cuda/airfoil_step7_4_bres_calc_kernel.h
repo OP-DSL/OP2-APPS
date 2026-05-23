@@ -211,8 +211,8 @@ void op_par_loop_airfoil_step7_4_bres_calc(
     max_blocks = std::min(max_blocks, block_limit);
 
     if (first_invocation) {
-        info.add_param("op2_const_gm1_d", &gm1, &op2_const_gm1_d, &op2_const_gm1_hash);
         info.add_param("op2_const_eps_d", &eps, &op2_const_eps_d, &op2_const_eps_hash);
+        info.add_param("op2_const_gm1_d", &gm1, &op2_const_gm1_d, &op2_const_gm1_hash);
         info.add_param("op2_const_qinf_d", qinf, sizeof(op2_const_qinf_d) / sizeof(qinf[0]), op2_const_qinf_d, &op2_const_qinf_hash);
 
         first_invocation = false;

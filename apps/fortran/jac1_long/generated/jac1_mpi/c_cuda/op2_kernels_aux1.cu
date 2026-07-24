@@ -11,8 +11,8 @@ static __constant__ double op2_const_alpha_d;
 
 static uint64_t  op2_const_alpha_hash = 0;
 
-#define OP_F2C_PRELUDE OP_F2C_PRELUDE_7719279372
-#define OP_F2C_PRELUDE_DATA OP_F2C_PRELUDE_7719279372_data
+#define OP_F2C_PRELUDE OP_F2C_PRELUDE_6660231050
+#define OP_F2C_PRELUDE_DATA OP_F2C_PRELUDE_6660231050_data
 INCTXT(OP_F2C_PRELUDE, "op_f2c_prelude.h");
 
 #include <op_f2c_prelude.h>

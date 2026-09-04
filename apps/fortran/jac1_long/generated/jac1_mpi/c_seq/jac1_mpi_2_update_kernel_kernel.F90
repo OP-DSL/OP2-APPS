@@ -1,3 +1,77 @@
+module op2_m_jac1_mpi_2_update_kernel_m
+
+    use iso_c_binding
+
+    use op2_fortran_declarations
+    use op2_fortran_rt_support
+
+    implicit none
+
+    private
+    public :: op2_k_jac1_mpi_2_update_kernel_m
+
+    interface
+
+        subroutine op2_k_jac1_mpi_2_update_kernel_m_c( &
+            set, &
+            arg0, &
+            arg1, &
+            arg2, &
+            arg3, &
+            arg4 &
+        ) bind(C, name='op2_k_jac1_mpi_2_update_kernel_m_c')
+
+            use iso_c_binding
+            use op2_fortran_declarations
+
+            type(c_ptr), value :: set
+
+            type(op_arg), value :: arg0
+            type(op_arg), value :: arg1
+            type(op_arg), value :: arg2
+            type(op_arg), value :: arg3
+            type(op_arg), value :: arg4
+
+        end subroutine
+
+    end interface
+
+contains
+
+subroutine op2_k_jac1_mpi_2_update_kernel_m( &
+    name, &
+    set, &
+    arg0, &
+    arg1, &
+    arg2, &
+    arg3, &
+    arg4 &
+)
+    implicit none
+
+    ! parameters
+    character(kind=c_char, len=*) :: name
+    type(op_set) :: set
+
+    type(op_arg) :: arg0
+    type(op_arg) :: arg1
+    type(op_arg) :: arg2
+    type(op_arg) :: arg3
+    type(op_arg) :: arg4
+
+    call op2_k_jac1_mpi_2_update_kernel_m_c( &
+        set%setcptr, &
+        arg0, &
+        arg1, &
+        arg2, &
+        arg3, &
+        arg4 &
+    )
+
+end subroutine
+
+end module
+
 module op2_m_jac1_mpi_2_update_kernel_fb
 
     use iso_c_binding
@@ -157,6 +231,7 @@ module op2_m_jac1_mpi_2_update_kernel
     use op2_fortran_rt_support
 
     use op2_m_jac1_mpi_2_update_kernel_fb
+    use op2_m_jac1_mpi_2_update_kernel_m
 
     implicit none
 
@@ -183,16 +258,28 @@ subroutine op2_k_jac1_mpi_2_update_kernel( &
     type(op_arg) :: arg3
     type(op_arg) :: arg4
 
-    call op_check_fallback_mode("jac1_mpi_2_update_kernel")
-    call op2_k_jac1_mpi_2_update_kernel_fb( &
-        name, &
-        set, &
-        arg0, &
-        arg1, &
-        arg2, &
-        arg3, &
-        arg4 &
-    )
+    if (op_check_whitelist("jac1_mpi_2_update_kernel")) then
+        call op2_k_jac1_mpi_2_update_kernel_m( &
+            name, &
+            set, &
+            arg0, &
+            arg1, &
+            arg2, &
+            arg3, &
+            arg4 &
+        )
+    else
+        call op_check_fallback_mode("jac1_mpi_2_update_kernel")
+        call op2_k_jac1_mpi_2_update_kernel_fb( &
+            name, &
+            set, &
+            arg0, &
+            arg1, &
+            arg2, &
+            arg3, &
+            arg4 &
+        )
+    end if
 
 end subroutine
 

@@ -5,25 +5,21 @@ namespace op2_m_jac_1_res_m {
 double op2_gbl3;
 
 static __device__ void res(
-    f2c::Ptr<const double> _f2c_ptr_a,
-    f2c::Ptr<const double> _f2c_ptr_u,
-    f2c::Ptr<double> _f2c_ptr_du,
-    f2c::Ptr<const double> _f2c_ptr_beta
+    const double a,
+    const double u,
+    double& du,
+    const double beta
 );
 
 
 static __device__ void res(
-    f2c::Ptr<const double> _f2c_ptr_a,
-    f2c::Ptr<const double> _f2c_ptr_u,
-    f2c::Ptr<double> _f2c_ptr_du,
-    f2c::Ptr<const double> _f2c_ptr_beta
+    const double a,
+    const double u,
+    double& du,
+    const double beta
 ) {
-    const f2c::Span<const double, 1> a{_f2c_ptr_a, f2c::Extent{1, 1}};
-    const f2c::Span<const double, 1> u{_f2c_ptr_u, f2c::Extent{1, 1}};
-    const f2c::Span<double, 1> du{_f2c_ptr_du, f2c::Extent{1, 1}};
-    const f2c::Span<const double, 1> beta{_f2c_ptr_beta, f2c::Extent{1, 1}};
 
-    atomicAdd(&(du(1)), 0.0e0 + beta(1) * a(1) * u(1));
+    atomicAdd(&(du), 0.0e0 + beta * a * u);
 }
 
 }
@@ -43,10 +39,10 @@ void op2_k_jac_1_res_m_wrapper(
     using namespace op2_m_jac_1_res_m;
     int thread_id = threadIdx.x + blockIdx.x * blockDim.x;
 
-    int zero_int = 0;
-    bool zero_bool = 0;
-    float zero_float = 0;
-    double zero_double = 0;
+    [[maybe_unused]] int zero_int = 0;
+    [[maybe_unused]] bool zero_bool = 0;
+    [[maybe_unused]] float zero_float = 0;
+    [[maybe_unused]] double zero_double = 0;
 
     for (int i = thread_id + start; i < end; i += blockDim.x * gridDim.x) {
         int n = i;
@@ -69,25 +65,21 @@ namespace op2_m_jac_1_res_m {
 using int64_t = long long int;
 
 static __device__ void res(
-    f2c::Ptr<const double> _f2c_ptr_a,
-    f2c::Ptr<const double> _f2c_ptr_u,
-    f2c::Ptr<double> _f2c_ptr_du,
-    f2c::Ptr<const double> _f2c_ptr_beta
+    const double a,
+    const double u,
+    double& du,
+    const double beta
 );
 
 
 static __device__ void res(
-    f2c::Ptr<const double> _f2c_ptr_a,
-    f2c::Ptr<const double> _f2c_ptr_u,
-    f2c::Ptr<double> _f2c_ptr_du,
-    f2c::Ptr<const double> _f2c_ptr_beta
+    const double a,
+    const double u,
+    double& du,
+    const double beta
 ) {
-    const f2c::Span<const double, 1> a{_f2c_ptr_a, f2c::Extent{1, 1}};
-    const f2c::Span<const double, 1> u{_f2c_ptr_u, f2c::Extent{1, 1}};
-    const f2c::Span<double, 1> du{_f2c_ptr_du, f2c::Extent{1, 1}};
-    const f2c::Span<const double, 1> beta{_f2c_ptr_beta, f2c::Extent{1, 1}};
 
-    atomicAdd(&(du(1)), 0.0e0 + beta(1) * a(1) * u(1));
+    atomicAdd(&(du), 0.0e0 + beta * a * u);
 }
 
 }
@@ -105,10 +97,10 @@ void op2_k_jac_1_res_m_wrapper(
     using namespace op2_m_jac_1_res_m;
     int thread_id = threadIdx.x + blockIdx.x * blockDim.x;
 
-    int zero_int = 0;
-    bool zero_bool = 0;
-    float zero_float = 0;
-    double zero_double = 0;
+    [[maybe_unused]] int zero_int = 0;
+    [[maybe_unused]] bool zero_bool = 0;
+    [[maybe_unused]] float zero_float = 0;
+    [[maybe_unused]] double zero_double = 0;
 
     for (int i = thread_id + start; i < end; i += blockDim.x * gridDim.x) {
         int n = i;

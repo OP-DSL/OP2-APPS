@@ -8,33 +8,33 @@ extern double mach;
 extern double alpha;
 extern double qinf[4];
 
-static __constant__ double op2_const_gam_d;
-static __constant__ double op2_const_gm1_d;
-static __constant__ double op2_const_cfl_d;
-static __constant__ double op2_const_eps_d;
-static __constant__ double op2_const_mach_d;
-static __constant__ double op2_const_alpha_d;
-static __device__ double op2_const_qinf_d[4];
+[[maybe_unused]] static __constant__ double op2_const_gam_d;
+[[maybe_unused]] static __constant__ double op2_const_gm1_d;
+[[maybe_unused]] static __constant__ double op2_const_cfl_d;
+[[maybe_unused]] static __constant__ double op2_const_eps_d;
+[[maybe_unused]] static __constant__ double op2_const_mach_d;
+[[maybe_unused]] static __constant__ double op2_const_alpha_d;
+[[maybe_unused]] static __device__ double op2_const_qinf_d[4];
 
-static uint64_t  op2_const_gam_hash = 0;
-static uint64_t  op2_const_gm1_hash = 0;
-static uint64_t  op2_const_cfl_hash = 0;
-static uint64_t  op2_const_eps_hash = 0;
-static uint64_t  op2_const_mach_hash = 0;
-static uint64_t  op2_const_alpha_hash = 0;
-static uint64_t  op2_const_qinf_hash = 0;
+[[maybe_unused]] static uint64_t op2_const_gam_hash = 0;
+[[maybe_unused]] static uint64_t op2_const_gm1_hash = 0;
+[[maybe_unused]] static uint64_t op2_const_cfl_hash = 0;
+[[maybe_unused]] static uint64_t op2_const_eps_hash = 0;
+[[maybe_unused]] static uint64_t op2_const_mach_hash = 0;
+[[maybe_unused]] static uint64_t op2_const_alpha_hash = 0;
+[[maybe_unused]] static uint64_t op2_const_qinf_hash = 0;
 
 #define INCBIN_STYLE INCBIN_STYLE_SNAKE
 #define INCBIN_PREFIX
 #include <extern/incbin.h>
 
 // Note: OP_F2C_PARAMS unused in C++ backend (can be simply extended if needed)
-// #define OP_F2C_PARAMS OP_F2C_PARAMS_7958253020
-// #define OP_F2C_PARAMS_DATA OP_F2C_PARAMS_7958253020_data
+// #define OP_F2C_PARAMS OP_F2C_PARAMS_4823904292
+// #define OP_F2C_PARAMS_DATA OP_F2C_PARAMS_4823904292_data
 // INCTXT(OP_F2C_PARAMS, "op2_const_list_params.h");
 
-#define OP_F2C_PRELUDE OP_F2C_PRELUDE_7958253020
-#define OP_F2C_PRELUDE_DATA OP_F2C_PRELUDE_7958253020_data
+#define OP_F2C_PRELUDE OP_F2C_PRELUDE_4823904292
+#define OP_F2C_PRELUDE_DATA OP_F2C_PRELUDE_4823904292_data
 INCTXT(OP_F2C_PRELUDE, "op_f2c_prelude.h");
 
 

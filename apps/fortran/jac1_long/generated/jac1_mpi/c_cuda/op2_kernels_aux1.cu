@@ -7,12 +7,12 @@
 
 extern double op2_const_alpha;
 
-static __constant__ double op2_const_alpha_d;
+[[maybe_unused]] static __constant__ double op2_const_alpha_d;
 
-static uint64_t  op2_const_alpha_hash = 0;
+[[maybe_unused]] static uint64_t op2_const_alpha_hash = 0;
 
-#define OP_F2C_PRELUDE OP_F2C_PRELUDE_4217114769
-#define OP_F2C_PRELUDE_DATA OP_F2C_PRELUDE_4217114769_data
+#define OP_F2C_PRELUDE OP_F2C_PRELUDE_9083143139
+#define OP_F2C_PRELUDE_DATA OP_F2C_PRELUDE_9083143139_data
 INCTXT(OP_F2C_PRELUDE, "op_f2c_prelude.h");
 
 #include <op_f2c_prelude.h>
@@ -37,3 +37,4 @@ void setGblIncAtomic(bool enable);
 }
 
 #include "jac1_mpi_1_res_kernel_kernel_aux1.cuh"
+#include "jac1_mpi_2_update_kernel_kernel_aux1.cuh"

@@ -27,10 +27,9 @@ PROGRAM jac_distributed
   INTEGER(KIND = idx_k) :: nedge_local, edge_counter
   INTEGER(KIND = idx_k) :: local_idx, global_idx, i, j, i2, j2, neighbor_global_idx
   INTEGER :: pass
-  CALL MPI_Init(ierr)
-  CALL MPI_Comm_rank(MPI_COMM_WORLD, my_rank, ierr)
-  CALL MPI_Comm_size(MPI_COMM_WORLD, comm_size, ierr)
   CALL op_init(2)
+  CALL op_mpi_rank(my_rank)
+  comm_size = op_mpi_size()
   g_nnode = (nn - 1) * (nn - 1)
   IF (my_rank == 0) THEN
     PRINT *, "Global number of nodes = ", g_nnode
@@ -123,7 +122,7 @@ PROGRAM jac_distributed
     CALL op2_k_jac1_mpi_1_res_kernel("res_kernel", edges, op_arg_dat(p_A, - 1, OP_ID, 1, "real(8)", OP_READ), op_arg_dat(p_u, 2, ppedge, 1, "real(8)", OP_READ), op_arg_dat(p_du, 1, ppedge, 1, "real(8)", OP_INC), op_arg_gbl(beta, 1, "real(8)", OP_READ))
     u_sum = 0.0_8
     u_max = 0.0_8
-    CALL op2_k_jac1_mpi_2_update_kernel("update_kernel", nodes, op_arg_dat(p_r, - 1, OP_ID, 1, "real(8)", OP_READ), op_arg_dat(p_du, - 1, OP_ID, 1, "real(8)", OP_RW), op_arg_dat(p_u, - 1, OP_ID, 1, "real(8)", OP_INC), op_arg_gbl(u_sum, 1, "real(8)", OP_INC), op_arg_gbl(u_max, 1, "real(8)", OP_MAX))
+    CALL op2_k_jac1_mpi_2_update_kernel("update_kernel", nodes, op_arg_dat(p_r, - 1, OP_ID, 1, "real(8)", OP_READ), op_arg_dat(p_du, - 1, OP_ID, 1, "real(8)", OP_RW), op_arg_dat(p_u, - 1, OP_ID, 1, "real(8)", OP_RW), op_arg_gbl(u_sum, 1, "real(8)", OP_INC), op_arg_gbl(u_max, 1, "real(8)", OP_MAX))
     IF (my_rank == 0) THEN
       WRITE(*, "(4X, I0, E16.7, 4X, A, E16.7)") iter, u_max, "u rms = ", SQRT(u_sum / DBLE(g_nnode))
     END IF
@@ -134,7 +133,7 @@ PROGRAM jac_distributed
   IF (ierr /= 0) STOP 'Allocation failed for u (fetch)'
   CALL op_fetch_data(p_u, u)
   validation_result = distributed_check_result(u, nn, node_start, nnode, tolerance, my_rank)
-  CALL MPI_Barrier(MPI_COMM_WORLD, ierr)
+  CALL op_barrier
   CALL op_exit
   IF (ALLOCATED(u)) DEALLOCATE(u)
   IF (ALLOCATED(pp)) DEALLOCATE(pp)

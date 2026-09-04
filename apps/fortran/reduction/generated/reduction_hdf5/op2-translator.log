@@ -1,0 +1,37 @@
+2026-09-04 14:04:32,403 DEBUG    fortran: Using packaged fpp for Fortran parsing: /home/runner/work/OP2-Common/OP2-Common/OP2-Common/translator-v2/fpp/fpp
+2026-09-04 14:04:32,403 INFO     __main__: Parsing files:
+    reduction.F90
+2026-09-04 14:04:32,452 INFO     __main__: Validating...
+2026-09-04 14:04:32,454 INFO     __main__: Translation scheme: Fortran/seq
+2026-09-04 14:04:32,494 INFO     __main__: Generated loop host 1 of 2: reduction_1_cell_count
+2026-09-04 14:04:32,496 INFO     __main__: Generated loop host 2 of 2: reduction_2_edge_count
+2026-09-04 14:04:32,499 INFO     __main__: Generated consts file: generated/reduction_hdf5/seq/op2_consts.F90
+2026-09-04 14:04:32,502 INFO     __main__: Generated master kernel file: generated/reduction_hdf5/seq/op2_kernels.F90
+2026-09-04 14:04:32,502 INFO     __main__: Translation scheme: Fortran/c_seq
+2026-09-04 14:04:32,539 INFO     __main__: Generated loop host 1 of 2: reduction_1_cell_count
+2026-09-04 14:04:32,542 INFO     __main__: Generated loop host 2 of 2: reduction_2_edge_count
+2026-09-04 14:04:32,544 INFO     __main__: Generated master kernel file: generated/reduction_hdf5/c_seq/op2_kernels.F90
+2026-09-04 14:04:32,545 INFO     __main__: Translation scheme: Fortran/cuda
+2026-09-04 14:04:32,610 INFO     __main__: Generated loop host 1 of 2: reduction_1_cell_count
+2026-09-04 14:04:32,613 INFO     __main__: Generated loop host 2 of 2: reduction_2_edge_count
+2026-09-04 14:04:32,617 INFO     __main__: Generated consts file: generated/reduction_hdf5/cuda/op2_consts.F90
+2026-09-04 14:04:32,620 INFO     __main__: Generated master kernel file: generated/reduction_hdf5/cuda/op2_kernels.F90
+2026-09-04 14:04:32,620 WARNING  __main__: No scheme registered for Fortran/hip
+2026-09-04 14:04:32,620 INFO     __main__: Translation scheme: Fortran/c_cuda
+2026-09-04 14:04:32,697 INFO     __main__: Generated loop host 1 of 2: reduction_1_cell_count
+2026-09-04 14:04:32,700 INFO     __main__: Generated loop host 2 of 2: reduction_2_edge_count
+2026-09-04 14:04:32,704 INFO     __main__: Generated consts file: generated/reduction_hdf5/c_cuda/op2_consts.F90
+2026-09-04 14:04:32,716 INFO     __main__: Generated master kernel file: generated/reduction_hdf5/c_cuda/op2_kernels.F90
+2026-09-04 14:04:32,716 INFO     __main__: Generated master kernel file: generated/reduction_hdf5/c_cuda/op2_kernels_aux1.cu
+2026-09-04 14:04:32,716 INFO     __main__: Translation scheme: Fortran/c_hip
+2026-09-04 14:04:32,792 INFO     __main__: Generated loop host 1 of 2: reduction_1_cell_count
+2026-09-04 14:04:32,795 INFO     __main__: Generated loop host 2 of 2: reduction_2_edge_count
+2026-09-04 14:04:32,799 INFO     __main__: Generated consts file: generated/reduction_hdf5/c_hip/op2_consts.F90
+2026-09-04 14:04:32,809 INFO     __main__: Generated master kernel file: generated/reduction_hdf5/c_hip/op2_kernels.F90
+2026-09-04 14:04:32,809 INFO     __main__: Generated master kernel file: generated/reduction_hdf5/c_hip/op2_kernels_aux1.hip.cpp
+2026-09-04 14:04:32,809 INFO     __main__: Translation scheme: Fortran/openmp
+2026-09-04 14:04:32,876 INFO     __main__: Generated loop host 1 of 2: reduction_1_cell_count
+2026-09-04 14:04:32,880 INFO     __main__: Generated loop host 2 of 2: reduction_2_edge_count
+2026-09-04 14:04:32,883 INFO     __main__: Generated consts file: generated/reduction_hdf5/openmp/op2_consts.F90
+2026-09-04 14:04:32,885 INFO     __main__: Generated master kernel file: generated/reduction_hdf5/openmp/op2_kernels.F90
+2026-09-04 14:04:32,887 INFO     __main__: Translated program 1 of 1: generated/reduction_hdf5/reduction.F90

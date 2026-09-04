@@ -1,3 +1,6 @@
+#include "jac_1_res_kernel.F90"
+#include "jac_2_update_kernel.F90"
+
 module op2_kernels
 
     use iso_c_binding

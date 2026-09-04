@@ -2,21 +2,21 @@
 
 extern float alpha;
 
-static __constant__ float op2_const_alpha_d;
+[[maybe_unused]] static __constant__ float op2_const_alpha_d;
 
-static uint64_t  op2_const_alpha_hash = 0;
+[[maybe_unused]] static uint64_t op2_const_alpha_hash = 0;
 
 #define INCBIN_STYLE INCBIN_STYLE_SNAKE
 #define INCBIN_PREFIX
 #include <extern/incbin.h>
 
 // Note: OP_F2C_PARAMS unused in C++ backend (can be simply extended if needed)
-// #define OP_F2C_PARAMS OP_F2C_PARAMS_5348740000
-// #define OP_F2C_PARAMS_DATA OP_F2C_PARAMS_5348740000_data
+// #define OP_F2C_PARAMS OP_F2C_PARAMS_5618160122
+// #define OP_F2C_PARAMS_DATA OP_F2C_PARAMS_5618160122_data
 // INCTXT(OP_F2C_PARAMS, "op2_const_list_params.h");
 
-#define OP_F2C_PRELUDE OP_F2C_PRELUDE_5348740000
-#define OP_F2C_PRELUDE_DATA OP_F2C_PRELUDE_5348740000_data
+#define OP_F2C_PRELUDE OP_F2C_PRELUDE_5618160122
+#define OP_F2C_PRELUDE_DATA OP_F2C_PRELUDE_5618160122_data
 INCTXT(OP_F2C_PRELUDE, "op_f2c_prelude.h");
 
 

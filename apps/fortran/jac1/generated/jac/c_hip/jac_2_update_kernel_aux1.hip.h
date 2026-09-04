@@ -4,31 +4,26 @@ namespace op2_m_jac_2_update_m {
 
 
 static __device__ void update(
-    f2c::Ptr<const double> _f2c_ptr_r,
-    f2c::Ptr<double> _f2c_ptr_du,
-    f2c::Ptr<double> _f2c_ptr_u,
-    f2c::Ptr<double> _f2c_ptr_u_sum,
-    f2c::Ptr<double> _f2c_ptr_u_max
+    const double r,
+    double& du,
+    double& u,
+    double& u_sum,
+    double& u_max
 );
 
 
 static __device__ void update(
-    f2c::Ptr<const double> _f2c_ptr_r,
-    f2c::Ptr<double> _f2c_ptr_du,
-    f2c::Ptr<double> _f2c_ptr_u,
-    f2c::Ptr<double> _f2c_ptr_u_sum,
-    f2c::Ptr<double> _f2c_ptr_u_max
+    const double r,
+    double& du,
+    double& u,
+    double& u_sum,
+    double& u_max
 ) {
-    const f2c::Span<const double, 1> r{_f2c_ptr_r, f2c::Extent{1, 1}};
-    const f2c::Span<double, 1> du{_f2c_ptr_du, f2c::Extent{1, 1}};
-    const f2c::Span<double, 1> u{_f2c_ptr_u, f2c::Extent{1, 1}};
-    const f2c::Span<double, 1> u_sum{_f2c_ptr_u_sum, f2c::Extent{1, 1}};
-    const f2c::Span<double, 1> u_max{_f2c_ptr_u_max, f2c::Extent{1, 1}};
 
-    u(1) = u(1) + du(1) + op2_const_alpha_d * r(1);
-    du(1) = 0.0f;
-    u_sum(1) = u_sum(1) + f2c::pow(u(1), 2);
-    u_max(1) = f2c::max(u_max(1), u(1));
+    u = u + du + op2_const_alpha_d * r;
+    du = 0.0f;
+    u_sum = u_sum + f2c::pow(u, 2);
+    u_max = f2c::max(u_max, u);
 }
 
 }
@@ -49,10 +44,10 @@ void op2_k_jac_2_update_m_wrapper(
     using namespace op2_m_jac_2_update_m;
     int thread_id = threadIdx.x + blockIdx.x * blockDim.x;
 
-    int zero_int = 0;
-    bool zero_bool = 0;
-    float zero_float = 0;
-    double zero_double = 0;
+    [[maybe_unused]] int zero_int = 0;
+    [[maybe_unused]] bool zero_bool = 0;
+    [[maybe_unused]] float zero_float = 0;
+    [[maybe_unused]] double zero_double = 0;
 
     for (int i = thread_id + start; i < end; i += blockDim.x * gridDim.x) {
         int n = i;
@@ -76,31 +71,26 @@ namespace op2_m_jac_2_update_m {
 using int64_t = long long int;
 
 static __device__ void update(
-    f2c::Ptr<const double> _f2c_ptr_r,
-    f2c::Ptr<double> _f2c_ptr_du,
-    f2c::Ptr<double> _f2c_ptr_u,
-    f2c::Ptr<double> _f2c_ptr_u_sum,
-    f2c::Ptr<double> _f2c_ptr_u_max
+    const double r,
+    double& du,
+    double& u,
+    double& u_sum,
+    double& u_max
 );
 
 
 static __device__ void update(
-    f2c::Ptr<const double> _f2c_ptr_r,
-    f2c::Ptr<double> _f2c_ptr_du,
-    f2c::Ptr<double> _f2c_ptr_u,
-    f2c::Ptr<double> _f2c_ptr_u_sum,
-    f2c::Ptr<double> _f2c_ptr_u_max
+    const double r,
+    double& du,
+    double& u,
+    double& u_sum,
+    double& u_max
 ) {
-    const f2c::Span<const double, 1> r{_f2c_ptr_r, f2c::Extent{1, 1}};
-    const f2c::Span<double, 1> du{_f2c_ptr_du, f2c::Extent{1, 1}};
-    const f2c::Span<double, 1> u{_f2c_ptr_u, f2c::Extent{1, 1}};
-    const f2c::Span<double, 1> u_sum{_f2c_ptr_u_sum, f2c::Extent{1, 1}};
-    const f2c::Span<double, 1> u_max{_f2c_ptr_u_max, f2c::Extent{1, 1}};
 
-    u(1) = u(1) + du(1) + op2_const_alpha_d * r(1);
-    du(1) = 0.0f;
-    u_sum(1) = u_sum(1) + f2c::pow(u(1), 2);
-    u_max(1) = f2c::max(u_max(1), u(1));
+    u = u + du + op2_const_alpha_d * r;
+    du = 0.0f;
+    u_sum = u_sum + f2c::pow(u, 2);
+    u_max = f2c::max(u_max, u);
 }
 
 }
@@ -120,10 +110,10 @@ void op2_k_jac_2_update_m_wrapper(
     using namespace op2_m_jac_2_update_m;
     int thread_id = threadIdx.x + blockIdx.x * blockDim.x;
 
-    int zero_int = 0;
-    bool zero_bool = 0;
-    float zero_float = 0;
-    double zero_double = 0;
+    [[maybe_unused]] int zero_int = 0;
+    [[maybe_unused]] bool zero_bool = 0;
+    [[maybe_unused]] float zero_float = 0;
+    [[maybe_unused]] double zero_double = 0;
 
     for (int i = thread_id + start; i < end; i += blockDim.x * gridDim.x) {
         int n = i;

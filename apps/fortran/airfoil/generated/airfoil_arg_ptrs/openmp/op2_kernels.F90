@@ -1,5 +1,11 @@
 #define UNUSED(x) if (.false.) print *, SHAPE(x)
 
+#include "airfoil_1_save_soln_kernel.F90"
+#include "airfoil_2_adt_calc_kernel.F90"
+#include "airfoil_3_res_calc_kernel.F90"
+#include "airfoil_4_bres_calc_kernel.F90"
+#include "airfoil_5_update_kernel.F90"
+
 module op2_kernels
 
     use iso_c_binding

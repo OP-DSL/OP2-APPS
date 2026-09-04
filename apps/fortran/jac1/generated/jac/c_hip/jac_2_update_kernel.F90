@@ -90,11 +90,11 @@ contains
 
 SUBROUTINE update(r, du, u, u_sum, u_max)
   IMPLICIT NONE
-  REAL(KIND = 8), DIMENSION(1) :: r, du, u, u_sum, u_max
-  u(1) = u(1) + du(1) + op2_const_alpha * r(1)
-  du(1) = 0.0
-  u_sum(1) = u_sum(1) + u(1) ** 2
-  u_max(1) = MAX(u_max(1), u(1))
+  REAL(KIND = 8) :: r, du, u, u_sum, u_max
+  u = u + du + op2_const_alpha * r
+  du = 0.0
+  u_sum = u_sum + u ** 2
+  u_max = MAX(u_max, u)
 END SUBROUTINE
 
 subroutine op2_k_jac_2_update_wr( &

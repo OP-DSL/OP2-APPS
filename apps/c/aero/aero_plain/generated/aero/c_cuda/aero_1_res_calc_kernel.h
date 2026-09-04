@@ -3,7 +3,7 @@ namespace op2_m_aero_1_res_calc {
 
 __device__ inline void res_calc(const double *x0, const double *x1, const double *x2, const double *x3,
                      const double *phim0, const double *phim1, const double *phim2, const double *phim3,
-                     double *K, /*double *Kt,*/ double *res0, double *res1, double *res2, double *res3) {
+                     double *K, double *res0, double *res1, double *res2, double *res3) {
   double x[4][2], phim[4];
   x[0][0] = x0[0]; x[1][0] = x1[0]; x[2][0] = x2[0]; x[3][0] = x3[0];
   x[0][1] = x0[1]; x[1][1] = x1[1]; x[2][1] = x2[1]; x[3][1] = x3[1];
@@ -14,7 +14,7 @@ __device__ inline void res_calc(const double *x0, const double *x1, const double
       K[j * 4 + k] = 0;
     }
   }
-  for (int i = 0; i < 4; i++) { // for each gauss point
+  for (int i = 0; i < 4; i++) {
     double det_x_xi = 0;
     double N_x[8];
 
@@ -50,7 +50,7 @@ __device__ inline void res_calc(const double *x0, const double *x1, const double
       N_x[j] /= det_x_xi;
 
     double wt1 = op2_const_wtg2_d[i] * det_x_xi;
-    // double wt2 = wtg2[i]*det_x_xi/r;
+
 
     double u[2] = {0.0, 0.0};
     for (int j = 0; j < 4; j++) {
@@ -59,7 +59,7 @@ __device__ inline void res_calc(const double *x0, const double *x1, const double
     }
 
     double Dk = 1.0 + 0.5 * op2_const_gm1_d * (op2_const_m2_d - (u[0] * u[0] + u[1] * u[1]));
-    double rho = pow(Dk, op2_const_gm1i_d); // wow this might be problematic -> go to log?
+    double rho = pow(Dk, op2_const_gm1i_d);
     double rc2 = rho / Dk;
 
     res0[0] += wt1 * rho * (u[0] * N_x[0] + u[1] * N_x[4 + 0]);
@@ -92,10 +92,10 @@ void op2_k_aero_1_res_calc_wrapper(
 ) {
     int thread_id = threadIdx.x + blockIdx.x * blockDim.x;
 
-    int zero_int = 0;
-    bool zero_bool = 0;
-    float zero_float = 0;
-    double zero_double = 0;
+    [[maybe_unused]] int zero_int = 0;
+    [[maybe_unused]] bool zero_bool = 0;
+    [[maybe_unused]] float zero_float = 0;
+    [[maybe_unused]] double zero_double = 0;
 
     double arg9_0_local[1];
     for (int d = 0; d < 1; ++d)
@@ -154,7 +154,7 @@ namespace op2_m_aero_1_res_calc {
 
 __device__ inline void res_calc(const double *x0, const double *x1, const double *x2, const double *x3,
                      const double *phim0, const double *phim1, const double *phim2, const double *phim3,
-                     double *K, /*double *Kt,*/ double *res0, double *res1, double *res2, double *res3) {
+                     double *K, double *res0, double *res1, double *res2, double *res3) {
   double x[4][2], phim[4];
   x[0][0] = x0[0]; x[1][0] = x1[0]; x[2][0] = x2[0]; x[3][0] = x3[0];
   x[0][1] = x0[1]; x[1][1] = x1[1]; x[2][1] = x2[1]; x[3][1] = x3[1];
@@ -165,7 +165,7 @@ __device__ inline void res_calc(const double *x0, const double *x1, const double
       K[j * 4 + k] = 0;
     }
   }
-  for (int i = 0; i < 4; i++) { // for each gauss point
+  for (int i = 0; i < 4; i++) {
     double det_x_xi = 0;
     double N_x[8];
 
@@ -201,7 +201,7 @@ __device__ inline void res_calc(const double *x0, const double *x1, const double
       N_x[j] /= det_x_xi;
 
     double wt1 = op2_const_wtg2_d[i] * det_x_xi;
-    // double wt2 = wtg2[i]*det_x_xi/r;
+
 
     double u[2] = {0.0, 0.0};
     for (int j = 0; j < 4; j++) {
@@ -210,7 +210,7 @@ __device__ inline void res_calc(const double *x0, const double *x1, const double
     }
 
     double Dk = 1.0 + 0.5 * op2_const_gm1_d * (op2_const_m2_d - (u[0] * u[0] + u[1] * u[1]));
-    double rho = pow(Dk, op2_const_gm1i_d); // wow this might be problematic -> go to log?
+    double rho = pow(Dk, op2_const_gm1i_d);
     double rc2 = rho / Dk;
 
     res0[0] += wt1 * rho * (u[0] * N_x[0] + u[1] * N_x[4 + 0]);
@@ -242,10 +242,10 @@ void op2_k_aero_1_res_calc_wrapper(
 ) {
     int thread_id = threadIdx.x + blockIdx.x * blockDim.x;
 
-    int zero_int = 0;
-    bool zero_bool = 0;
-    float zero_float = 0;
-    double zero_double = 0;
+    [[maybe_unused]] int zero_int = 0;
+    [[maybe_unused]] bool zero_bool = 0;
+    [[maybe_unused]] float zero_float = 0;
+    [[maybe_unused]] double zero_double = 0;
 
     double arg9_0_local[1];
     for (int d = 0; d < 1; ++d)
@@ -359,11 +359,11 @@ void op_par_loop_aero_1_res_calc(
     max_blocks = std::min(max_blocks, block_limit);
 
     if (first_invocation) {
-        info.add_param("op2_const_m2_d", &m2, &op2_const_m2_d, &op2_const_m2_hash);
         info.add_param("op2_const_Ng2_xi_d", Ng2_xi, sizeof(op2_const_Ng2_xi_d) / sizeof(Ng2_xi[0]), op2_const_Ng2_xi_d, &op2_const_Ng2_xi_hash);
         info.add_param("op2_const_wtg2_d", wtg2, sizeof(op2_const_wtg2_d) / sizeof(wtg2[0]), op2_const_wtg2_d, &op2_const_wtg2_hash);
         info.add_param("op2_const_gm1_d", &gm1, &op2_const_gm1_d, &op2_const_gm1_hash);
         info.add_param("op2_const_gm1i_d", &gm1i, &op2_const_gm1i_d, &op2_const_gm1i_hash);
+        info.add_param("op2_const_m2_d", &m2, &op2_const_m2_d, &op2_const_m2_hash);
 
         first_invocation = false;
     }

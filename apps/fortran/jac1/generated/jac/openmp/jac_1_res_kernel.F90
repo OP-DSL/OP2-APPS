@@ -21,16 +21,14 @@ contains
 
 SUBROUTINE res_simd(A, u, du, beta)
   IMPLICIT NONE
-  REAL(KIND = 8), DIMENSION(1) :: A, beta
-  REAL(KIND = 8), DIMENSION(*) :: u
-  REAL(KIND = 8), DIMENSION(*) :: du
-  du(op2_s(1, SIMD_LEN)) = du(op2_s(1, SIMD_LEN)) + beta(1) * A(1) * u(op2_s(1, SIMD_LEN))
+  REAL(KIND = 8) :: A, u, du, beta
+  du = du + beta * A * u
 END SUBROUTINE
 
 SUBROUTINE res(A, u, du, beta)
   IMPLICIT NONE
-  REAL(KIND = 8), DIMENSION(1) :: A, u, du, beta
-  du(1) = du(1) + beta(1) * A(1) * u(1)
+  REAL(KIND = 8) :: A, u, du, beta
+  du = du + beta * A * u
 END SUBROUTINE
 
 subroutine res_wrapper2( &
@@ -300,8 +298,8 @@ contains
 
 SUBROUTINE res(A, u, du, beta)
   IMPLICIT NONE
-  REAL(KIND = 8), DIMENSION(1) :: A, u, du, beta
-  du(1) = du(1) + beta(1) * A(1) * u(1)
+  REAL(KIND = 8) :: A, u, du, beta
+  du = du + beta * A * u
 END SUBROUTINE
 
 subroutine op2_k_jac_1_res_wr( &

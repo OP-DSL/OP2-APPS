@@ -13,24 +13,24 @@ extern double op2_const_mach;
 extern double op2_const_alpha;
 extern double op2_const_qinf[4];
 
-static __constant__ double op2_const_gam_d;
-static __constant__ double op2_const_gm1_d;
-static __constant__ double op2_const_cfl_d;
-static __constant__ double op2_const_eps_d;
-static __constant__ double op2_const_mach_d;
-static __constant__ double op2_const_alpha_d;
-static __device__ double op2_const_qinf_d[4];
+[[maybe_unused]] static __constant__ double op2_const_gam_d;
+[[maybe_unused]] static __constant__ double op2_const_gm1_d;
+[[maybe_unused]] static __constant__ double op2_const_cfl_d;
+[[maybe_unused]] static __constant__ double op2_const_eps_d;
+[[maybe_unused]] static __constant__ double op2_const_mach_d;
+[[maybe_unused]] static __constant__ double op2_const_alpha_d;
+[[maybe_unused]] static __device__ double op2_const_qinf_d[4];
 
-static uint64_t  op2_const_gam_hash = 0;
-static uint64_t  op2_const_gm1_hash = 0;
-static uint64_t  op2_const_cfl_hash = 0;
-static uint64_t  op2_const_eps_hash = 0;
-static uint64_t  op2_const_mach_hash = 0;
-static uint64_t  op2_const_alpha_hash = 0;
-static uint64_t  op2_const_qinf_hash = 0;
+[[maybe_unused]] static uint64_t op2_const_gam_hash = 0;
+[[maybe_unused]] static uint64_t op2_const_gm1_hash = 0;
+[[maybe_unused]] static uint64_t op2_const_cfl_hash = 0;
+[[maybe_unused]] static uint64_t op2_const_eps_hash = 0;
+[[maybe_unused]] static uint64_t op2_const_mach_hash = 0;
+[[maybe_unused]] static uint64_t op2_const_alpha_hash = 0;
+[[maybe_unused]] static uint64_t op2_const_qinf_hash = 0;
 
-#define OP_F2C_PRELUDE OP_F2C_PRELUDE_8834216421
-#define OP_F2C_PRELUDE_DATA OP_F2C_PRELUDE_8834216421_data
+#define OP_F2C_PRELUDE OP_F2C_PRELUDE_6141685776
+#define OP_F2C_PRELUDE_DATA OP_F2C_PRELUDE_6141685776_data
 INCTXT(OP_F2C_PRELUDE, "op_f2c_prelude.h");
 
 #include <op_f2c_prelude.h>

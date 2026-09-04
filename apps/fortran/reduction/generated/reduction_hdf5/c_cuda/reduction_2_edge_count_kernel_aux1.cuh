@@ -39,10 +39,10 @@ void op2_k_reduction_2_edge_count_m_wrapper(
     using namespace op2_m_reduction_2_edge_count_m;
     int thread_id = threadIdx.x + blockIdx.x * blockDim.x;
 
-    int zero_int = 0;
-    bool zero_bool = 0;
-    float zero_float = 0;
-    double zero_double = 0;
+    [[maybe_unused]] int zero_int = 0;
+    [[maybe_unused]] bool zero_bool = 0;
+    [[maybe_unused]] float zero_float = 0;
+    [[maybe_unused]] double zero_double = 0;
 
     for (int i = thread_id + start; i < end; i += blockDim.x * gridDim.x) {
         int n = col_reord[i];
@@ -97,10 +97,10 @@ void op2_k_reduction_2_edge_count_m_wrapper(
     using namespace op2_m_reduction_2_edge_count_m;
     int thread_id = threadIdx.x + blockIdx.x * blockDim.x;
 
-    int zero_int = 0;
-    bool zero_bool = 0;
-    float zero_float = 0;
-    double zero_double = 0;
+    [[maybe_unused]] int zero_int = 0;
+    [[maybe_unused]] bool zero_bool = 0;
+    [[maybe_unused]] float zero_float = 0;
+    [[maybe_unused]] double zero_double = 0;
 
     for (int i = thread_id + start; i < end; i += blockDim.x * gridDim.x) {
         int n = col_reord[i];

@@ -1,0 +1,23 @@
+2026-09-04 14:02:29,567 INFO     __main__: Parsing files:
+    min_direct.cpp
+2026-09-04 14:02:31,890 INFO     __main__: Validating...
+2026-09-04 14:02:31,890 INFO     __main__: Translation scheme: C++/seq
+2026-09-04 14:02:31,918 INFO     __main__: Generated loop host 1 of 1: min_direct_1_min_kernel
+2026-09-04 14:02:31,923 INFO     __main__: Generated master kernel file: generated/min_direct/seq/op2_kernels.cpp
+2026-09-04 14:02:31,923 WARNING  __main__: No scheme registered for C++/c_seq
+2026-09-04 14:02:31,923 INFO     __main__: Translation scheme: C++/cuda
+2026-09-04 14:02:31,997 INFO     __main__: Generated loop host 1 of 1: min_direct_1_min_kernel
+2026-09-04 14:02:32,000 INFO     __main__: Generated master kernel file: generated/min_direct/cuda/op2_kernels.cu
+2026-09-04 14:02:32,000 INFO     __main__: Translation scheme: C++/hip
+2026-09-04 14:02:32,062 INFO     __main__: Generated loop host 1 of 1: min_direct_1_min_kernel
+2026-09-04 14:02:32,066 INFO     __main__: Generated master kernel file: generated/min_direct/hip/op2_kernels.cpp
+2026-09-04 14:02:32,066 INFO     __main__: Translation scheme: C++/c_cuda
+2026-09-04 14:02:32,143 INFO     __main__: Generated loop host 1 of 1: min_direct_1_min_kernel
+2026-09-04 14:02:32,148 INFO     __main__: Generated master kernel file: generated/min_direct/c_cuda/op2_kernels.cu
+2026-09-04 14:02:32,148 INFO     __main__: Translation scheme: C++/c_hip
+2026-09-04 14:02:32,224 INFO     __main__: Generated loop host 1 of 1: min_direct_1_min_kernel
+2026-09-04 14:02:32,229 INFO     __main__: Generated master kernel file: generated/min_direct/c_hip/op2_kernels.cpp
+2026-09-04 14:02:32,229 INFO     __main__: Translation scheme: C++/openmp
+2026-09-04 14:02:32,275 INFO     __main__: Generated loop host 1 of 1: min_direct_1_min_kernel
+2026-09-04 14:02:32,277 INFO     __main__: Generated master kernel file: generated/min_direct/openmp/op2_kernels.cpp
+2026-09-04 14:02:32,278 INFO     __main__: Translated program 1 of 1: generated/min_direct/min_direct.cpp

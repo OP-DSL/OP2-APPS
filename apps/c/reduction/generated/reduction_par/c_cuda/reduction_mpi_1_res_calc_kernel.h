@@ -21,10 +21,10 @@ void op2_k_reduction_mpi_1_res_calc_wrapper(
 ) {
     int thread_id = threadIdx.x + blockIdx.x * blockDim.x;
 
-    int zero_int = 0;
-    bool zero_bool = 0;
-    float zero_float = 0;
-    double zero_double = 0;
+    [[maybe_unused]] int zero_int = 0;
+    [[maybe_unused]] bool zero_bool = 0;
+    [[maybe_unused]] float zero_float = 0;
+    [[maybe_unused]] double zero_double = 0;
 
     double arg0_0_local[4];
     for (int d = 0; d < 4; ++d)
@@ -65,10 +65,10 @@ void op2_k_reduction_mpi_1_res_calc_wrapper(
 ) {
     int thread_id = threadIdx.x + blockIdx.x * blockDim.x;
 
-    int zero_int = 0;
-    bool zero_bool = 0;
-    float zero_float = 0;
-    double zero_double = 0;
+    [[maybe_unused]] int zero_int = 0;
+    [[maybe_unused]] bool zero_bool = 0;
+    [[maybe_unused]] float zero_float = 0;
+    [[maybe_unused]] double zero_double = 0;
 
     double arg0_0_local[4];
     for (int d = 0; d < 4; ++d)

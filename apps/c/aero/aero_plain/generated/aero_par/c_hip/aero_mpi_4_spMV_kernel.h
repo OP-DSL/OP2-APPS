@@ -3,25 +3,25 @@ namespace op2_m_aero_mpi_4_spMV {
 
 __device__ inline void spMV(double *v0, double *v1, double *v2, double *v3, const double *K,
                  const double *p0, const double *p1, const double *p2, const double *p3) {
-  //     double localsum = 0;
-  //  for (int j=0; j<4; j++) {
-  //         localsum = 0;
-  //         for (int k = 0; k<4; k++) {
-  //                 localsum += OP2_STRIDE(K, (j*4+k)] * p[k][0];
-  //         }
-  //         v[j][0] += localsum;
-  //     }
-  // }
-  //
-  //  for (int j=0; j<4; j++) {
-  //    v[j][0] += OP2_STRIDE(K, (j*4+j)] * p[j][0];
-  //         for (int k = j+1; k<4; k++) {
-  //      double mult = OP2_STRIDE(K, (j*4+k)];
-  //             v[j][0] += mult * p[k][0];
-  //      v[k][0] += mult * p[j][0];
-  //         }
-  //     }
-  // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   v0[0] += K[0] * p0[0];
   v0[0] += K[1] * p1[0];
   v1[0] += K[1] * p0[0];
@@ -53,10 +53,10 @@ void op2_k_aero_mpi_4_spMV_wrapper(
 ) {
     int thread_id = threadIdx.x + blockIdx.x * blockDim.x;
 
-    int zero_int = 0;
-    bool zero_bool = 0;
-    float zero_float = 0;
-    double zero_double = 0;
+    [[maybe_unused]] int zero_int = 0;
+    [[maybe_unused]] bool zero_bool = 0;
+    [[maybe_unused]] float zero_float = 0;
+    [[maybe_unused]] double zero_double = 0;
 
     double arg0_0_local[1];
     for (int d = 0; d < 1; ++d)
@@ -111,25 +111,25 @@ namespace op2_m_aero_mpi_4_spMV {
 
 __device__ inline void spMV(double *v0, double *v1, double *v2, double *v3, const double *K,
                  const double *p0, const double *p1, const double *p2, const double *p3) {
-  //     double localsum = 0;
-  //  for (int j=0; j<4; j++) {
-  //         localsum = 0;
-  //         for (int k = 0; k<4; k++) {
-  //                 localsum += OP2_STRIDE(K, (j*4+k)] * p[k][0];
-  //         }
-  //         v[j][0] += localsum;
-  //     }
-  // }
-  //
-  //  for (int j=0; j<4; j++) {
-  //    v[j][0] += OP2_STRIDE(K, (j*4+j)] * p[j][0];
-  //         for (int k = j+1; k<4; k++) {
-  //      double mult = OP2_STRIDE(K, (j*4+k)];
-  //             v[j][0] += mult * p[k][0];
-  //      v[k][0] += mult * p[j][0];
-  //         }
-  //     }
-  // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   v0[0] += K[0] * p0[0];
   v0[0] += K[1] * p1[0];
   v1[0] += K[1] * p0[0];
@@ -160,10 +160,10 @@ void op2_k_aero_mpi_4_spMV_wrapper(
 ) {
     int thread_id = threadIdx.x + blockIdx.x * blockDim.x;
 
-    int zero_int = 0;
-    bool zero_bool = 0;
-    float zero_float = 0;
-    double zero_double = 0;
+    [[maybe_unused]] int zero_int = 0;
+    [[maybe_unused]] bool zero_bool = 0;
+    [[maybe_unused]] float zero_float = 0;
+    [[maybe_unused]] double zero_double = 0;
 
     double arg0_0_local[1];
     for (int d = 0; d < 1; ++d)

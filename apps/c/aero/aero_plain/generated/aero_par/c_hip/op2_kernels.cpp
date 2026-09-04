@@ -17,51 +17,51 @@ extern double kappa;
 extern double nmode;
 extern double mfan;
 
-static __constant__ double op2_const_gam_d;
-static __constant__ double op2_const_gm1_d;
-static __constant__ double op2_const_gm1i_d;
-static __constant__ double op2_const_m2_d;
-static __device__ double op2_const_wtg1_d[2];
-static __device__ double op2_const_xi1_d[2];
-static __device__ double op2_const_Ng1_d[4];
-static __device__ double op2_const_Ng1_xi_d[4];
-static __device__ double op2_const_wtg2_d[4];
-static __device__ double op2_const_Ng2_d[16];
-static __device__ double op2_const_Ng2_xi_d[32];
-static __constant__ double op2_const_minf_d;
-static __constant__ double op2_const_freq_d;
-static __constant__ double op2_const_kappa_d;
-static __constant__ double op2_const_nmode_d;
-static __constant__ double op2_const_mfan_d;
+[[maybe_unused]] static __constant__ double op2_const_gam_d;
+[[maybe_unused]] static __constant__ double op2_const_gm1_d;
+[[maybe_unused]] static __constant__ double op2_const_gm1i_d;
+[[maybe_unused]] static __constant__ double op2_const_m2_d;
+[[maybe_unused]] static __device__ double op2_const_wtg1_d[2];
+[[maybe_unused]] static __device__ double op2_const_xi1_d[2];
+[[maybe_unused]] static __device__ double op2_const_Ng1_d[4];
+[[maybe_unused]] static __device__ double op2_const_Ng1_xi_d[4];
+[[maybe_unused]] static __device__ double op2_const_wtg2_d[4];
+[[maybe_unused]] static __device__ double op2_const_Ng2_d[16];
+[[maybe_unused]] static __device__ double op2_const_Ng2_xi_d[32];
+[[maybe_unused]] static __constant__ double op2_const_minf_d;
+[[maybe_unused]] static __constant__ double op2_const_freq_d;
+[[maybe_unused]] static __constant__ double op2_const_kappa_d;
+[[maybe_unused]] static __constant__ double op2_const_nmode_d;
+[[maybe_unused]] static __constant__ double op2_const_mfan_d;
 
-static uint64_t  op2_const_gam_hash = 0;
-static uint64_t  op2_const_gm1_hash = 0;
-static uint64_t  op2_const_gm1i_hash = 0;
-static uint64_t  op2_const_m2_hash = 0;
-static uint64_t  op2_const_wtg1_hash = 0;
-static uint64_t  op2_const_xi1_hash = 0;
-static uint64_t  op2_const_Ng1_hash = 0;
-static uint64_t  op2_const_Ng1_xi_hash = 0;
-static uint64_t  op2_const_wtg2_hash = 0;
-static uint64_t  op2_const_Ng2_hash = 0;
-static uint64_t  op2_const_Ng2_xi_hash = 0;
-static uint64_t  op2_const_minf_hash = 0;
-static uint64_t  op2_const_freq_hash = 0;
-static uint64_t  op2_const_kappa_hash = 0;
-static uint64_t  op2_const_nmode_hash = 0;
-static uint64_t  op2_const_mfan_hash = 0;
+[[maybe_unused]] static uint64_t op2_const_gam_hash = 0;
+[[maybe_unused]] static uint64_t op2_const_gm1_hash = 0;
+[[maybe_unused]] static uint64_t op2_const_gm1i_hash = 0;
+[[maybe_unused]] static uint64_t op2_const_m2_hash = 0;
+[[maybe_unused]] static uint64_t op2_const_wtg1_hash = 0;
+[[maybe_unused]] static uint64_t op2_const_xi1_hash = 0;
+[[maybe_unused]] static uint64_t op2_const_Ng1_hash = 0;
+[[maybe_unused]] static uint64_t op2_const_Ng1_xi_hash = 0;
+[[maybe_unused]] static uint64_t op2_const_wtg2_hash = 0;
+[[maybe_unused]] static uint64_t op2_const_Ng2_hash = 0;
+[[maybe_unused]] static uint64_t op2_const_Ng2_xi_hash = 0;
+[[maybe_unused]] static uint64_t op2_const_minf_hash = 0;
+[[maybe_unused]] static uint64_t op2_const_freq_hash = 0;
+[[maybe_unused]] static uint64_t op2_const_kappa_hash = 0;
+[[maybe_unused]] static uint64_t op2_const_nmode_hash = 0;
+[[maybe_unused]] static uint64_t op2_const_mfan_hash = 0;
 
 #define INCBIN_STYLE INCBIN_STYLE_SNAKE
 #define INCBIN_PREFIX
 #include <extern/incbin.h>
 
 // Note: OP_F2C_PARAMS unused in C++ backend (can be simply extended if needed)
-// #define OP_F2C_PARAMS OP_F2C_PARAMS_5442306734
-// #define OP_F2C_PARAMS_DATA OP_F2C_PARAMS_5442306734_data
+// #define OP_F2C_PARAMS OP_F2C_PARAMS_8821561607
+// #define OP_F2C_PARAMS_DATA OP_F2C_PARAMS_8821561607_data
 // INCTXT(OP_F2C_PARAMS, "op2_const_list_params.h");
 
-#define OP_F2C_PRELUDE OP_F2C_PRELUDE_5442306734
-#define OP_F2C_PRELUDE_DATA OP_F2C_PRELUDE_5442306734_data
+#define OP_F2C_PRELUDE OP_F2C_PRELUDE_8821561607
+#define OP_F2C_PRELUDE_DATA OP_F2C_PRELUDE_8821561607_data
 INCTXT(OP_F2C_PRELUDE, "op_f2c_prelude.h");
 
 

@@ -6,7 +6,7 @@ __device__ inline void res(const double *A, const double *u, double *du,
                 const double *beta, const int *index, const int *idx_ppedge0,
                 const int *idx_ppedge1) {
   *du += (*beta) * (*A) * (*u);
-  // printf("edge %d, nodes %d, %d\n", *index, *idx_ppedge0, *idx_ppedge1);
+
 }}
 
 
@@ -23,10 +23,10 @@ void op2_k_jac_mpi_1_res_wrapper(
 ) {
     int thread_id = threadIdx.x + blockIdx.x * blockDim.x;
 
-    int zero_int = 0;
-    bool zero_bool = 0;
-    float zero_float = 0;
-    double zero_double = 0;
+    [[maybe_unused]] int zero_int = 0;
+    [[maybe_unused]] bool zero_bool = 0;
+    [[maybe_unused]] float zero_float = 0;
+    [[maybe_unused]] double zero_double = 0;
 
     double arg2_0_local[1];
     for (int d = 0; d < 1; ++d)
@@ -63,7 +63,7 @@ __device__ inline void res(const double *A, const double *u, double *du,
                 const double *beta, const int *index, const int *idx_ppedge0,
                 const int *idx_ppedge1) {
   *du += (*beta) * (*A) * (*u);
-  // printf("edge %d, nodes %d, %d\n", *index, *idx_ppedge0, *idx_ppedge1);
+
 }}
 
 extern "C" __global__ __launch_bounds__(128)
@@ -78,10 +78,10 @@ void op2_k_jac_mpi_1_res_wrapper(
 ) {
     int thread_id = threadIdx.x + blockIdx.x * blockDim.x;
 
-    int zero_int = 0;
-    bool zero_bool = 0;
-    float zero_float = 0;
-    double zero_double = 0;
+    [[maybe_unused]] int zero_int = 0;
+    [[maybe_unused]] bool zero_bool = 0;
+    [[maybe_unused]] float zero_float = 0;
+    [[maybe_unused]] double zero_double = 0;
 
     double arg2_0_local[1];
     for (int d = 0; d < 1; ++d)

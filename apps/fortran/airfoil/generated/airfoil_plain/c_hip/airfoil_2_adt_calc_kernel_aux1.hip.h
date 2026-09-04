@@ -68,10 +68,10 @@ void op2_k_airfoil_2_adt_calc_m_wrapper(
     using namespace op2_m_airfoil_2_adt_calc_m;
     int thread_id = threadIdx.x + blockIdx.x * blockDim.x;
 
-    int zero_int = 0;
-    bool zero_bool = 0;
-    float zero_float = 0;
-    double zero_double = 0;
+    [[maybe_unused]] int zero_int = 0;
+    [[maybe_unused]] bool zero_bool = 0;
+    [[maybe_unused]] float zero_float = 0;
+    [[maybe_unused]] double zero_double = 0;
 
     for (int i = thread_id + start; i < end; i += blockDim.x * gridDim.x) {
         int n = i;
@@ -159,10 +159,10 @@ void op2_k_airfoil_2_adt_calc_m_wrapper(
     using namespace op2_m_airfoil_2_adt_calc_m;
     int thread_id = threadIdx.x + blockIdx.x * blockDim.x;
 
-    int zero_int = 0;
-    bool zero_bool = 0;
-    float zero_float = 0;
-    double zero_double = 0;
+    [[maybe_unused]] int zero_int = 0;
+    [[maybe_unused]] bool zero_bool = 0;
+    [[maybe_unused]] float zero_float = 0;
+    [[maybe_unused]] double zero_double = 0;
 
     for (int i = thread_id + start; i < end; i += blockDim.x * gridDim.x) {
         int n = i;
@@ -208,8 +208,8 @@ extern "C" void op2_k_airfoil_2_adt_calc_m_c(
                                     op2_k_airfoil_2_adt_calc_m_src);
 
     if (first_invocation) {
-        info.add_param("op2_const_gam_d", &op2_const_gam, &op2_const_gam_d, &op2_const_gam_hash);
         info.add_param("op2_const_cfl_d", &op2_const_cfl, &op2_const_cfl_d, &op2_const_cfl_hash);
+        info.add_param("op2_const_gam_d", &op2_const_gam, &op2_const_gam_d, &op2_const_gam_hash);
         info.add_param("op2_const_gm1_d", &op2_const_gm1, &op2_const_gm1_d, &op2_const_gm1_hash);
 
         first_invocation = false;

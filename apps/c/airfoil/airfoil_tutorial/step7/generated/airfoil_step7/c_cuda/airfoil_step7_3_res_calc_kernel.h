@@ -50,10 +50,10 @@ void op2_k_airfoil_step7_3_res_calc_wrapper(
 ) {
     int thread_id = threadIdx.x + blockIdx.x * blockDim.x;
 
-    int zero_int = 0;
-    bool zero_bool = 0;
-    float zero_float = 0;
-    double zero_double = 0;
+    [[maybe_unused]] int zero_int = 0;
+    [[maybe_unused]] bool zero_bool = 0;
+    [[maybe_unused]] float zero_float = 0;
+    [[maybe_unused]] double zero_double = 0;
 
     double arg6_0_local[4];
     for (int d = 0; d < 4; ++d)
@@ -139,10 +139,10 @@ void op2_k_airfoil_step7_3_res_calc_wrapper(
 ) {
     int thread_id = threadIdx.x + blockIdx.x * blockDim.x;
 
-    int zero_int = 0;
-    bool zero_bool = 0;
-    float zero_float = 0;
-    double zero_double = 0;
+    [[maybe_unused]] int zero_int = 0;
+    [[maybe_unused]] bool zero_bool = 0;
+    [[maybe_unused]] float zero_float = 0;
+    [[maybe_unused]] double zero_double = 0;
 
     double arg6_0_local[4];
     for (int d = 0; d < 4; ++d)
@@ -227,8 +227,8 @@ void op_par_loop_airfoil_step7_3_res_calc(
     max_blocks = std::min(max_blocks, block_limit);
 
     if (first_invocation) {
-        info.add_param("op2_const_eps_d", &eps, &op2_const_eps_d, &op2_const_eps_hash);
         info.add_param("op2_const_gm1_d", &gm1, &op2_const_gm1_d, &op2_const_gm1_hash);
+        info.add_param("op2_const_eps_d", &eps, &op2_const_eps_d, &op2_const_eps_hash);
 
         first_invocation = false;
     }

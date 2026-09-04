@@ -1,3 +1,6 @@
+#include "reduction_1_cell_count_kernel.F90"
+#include "reduction_2_edge_count_kernel.F90"
+
 module op2_kernels
 
     use iso_c_binding

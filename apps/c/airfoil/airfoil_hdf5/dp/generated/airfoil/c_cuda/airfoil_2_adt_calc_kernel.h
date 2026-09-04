@@ -26,7 +26,7 @@ __device__ inline void adt_calc(const double *x1, const double *x2, const double
   dy = x1[1] - x4[1];
   *adt += fabs(u * dy - v * dx) + c * sqrt(dx * dx + dy * dy);
 
-  //*adt = (*adt) / cfl;
+
   *adt = (*adt) * (1.0f / op2_const_cfl_d);
 }}
 
@@ -88,7 +88,7 @@ __device__ inline void adt_calc(const double *x1, const double *x2, const double
   dy = x1[1] - x4[1];
   *adt += fabs(u * dy - v * dx) + c * sqrt(dx * dx + dy * dy);
 
-  //*adt = (*adt) / cfl;
+
   *adt = (*adt) * (1.0f / op2_const_cfl_d);
 }}
 
@@ -167,8 +167,8 @@ void op_par_loop_airfoil_2_adt_calc(
     max_blocks = std::min(max_blocks, block_limit);
 
     if (first_invocation) {
-        info.add_param("op2_const_cfl_d", &cfl, &op2_const_cfl_d, &op2_const_cfl_hash);
         info.add_param("op2_const_gam_d", &gam, &op2_const_gam_d, &op2_const_gam_hash);
+        info.add_param("op2_const_cfl_d", &cfl, &op2_const_cfl_d, &op2_const_cfl_hash);
         info.add_param("op2_const_gm1_d", &gm1, &op2_const_gm1_d, &op2_const_gm1_hash);
 
         first_invocation = false;

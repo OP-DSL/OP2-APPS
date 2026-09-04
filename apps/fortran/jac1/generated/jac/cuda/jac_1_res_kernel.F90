@@ -21,9 +21,9 @@ contains
 attributes(device) &
 SUBROUTINE res(A, u, du, beta)
   IMPLICIT NONE
-  REAL(KIND = 8), DIMENSION(1) :: A, u, du, beta
+  REAL(KIND = 8) :: A, u, du, beta
   INTEGER(KIND = 4) :: op2_ret
-  op2_ret = atomicAdd(du(1), 0.0D0 + beta(1) * A(1) * u(1))
+  op2_ret = atomicAdd(du, 0.0D0 + beta * A * u)
 END SUBROUTINE
 
 attributes(global) &
@@ -228,8 +228,8 @@ contains
 
 SUBROUTINE res(A, u, du, beta)
   IMPLICIT NONE
-  REAL(KIND = 8), DIMENSION(1) :: A, u, du, beta
-  du(1) = du(1) + beta(1) * A(1) * u(1)
+  REAL(KIND = 8) :: A, u, du, beta
+  du = du + beta * A * u
 END SUBROUTINE
 
 subroutine op2_k_jac_1_res_wr( &

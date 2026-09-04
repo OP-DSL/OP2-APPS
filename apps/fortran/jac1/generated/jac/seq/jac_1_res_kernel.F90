@@ -16,8 +16,8 @@ contains
 
 SUBROUTINE res(A, u, du, beta)
   IMPLICIT NONE
-  REAL(KIND = 8), DIMENSION(1) :: A, u, du, beta
-  du(1) = du(1) + beta(1) * A(1) * u(1)
+  REAL(KIND = 8) :: A, u, du, beta
+  du = du + beta * A * u
 END SUBROUTINE
 
 subroutine op2_k_jac_1_res_wr( &

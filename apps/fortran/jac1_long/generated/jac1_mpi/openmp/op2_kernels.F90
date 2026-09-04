@@ -1,5 +1,8 @@
 #define UNUSED(x) if (.false.) print *, SHAPE(x)
 
+#include "jac1_mpi_1_res_kernel_kernel.F90"
+#include "jac1_mpi_2_update_kernel_kernel.F90"
+
 module op2_kernels
 
     use iso_c_binding

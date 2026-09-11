@@ -166,8 +166,8 @@ void op_par_loop_airfoil_2_adt_calc(
 
     if (first_invocation) {
         info.add_param("op2_const_cfl_d", &cfl, &op2_const_cfl_d, &op2_const_cfl_hash);
-        info.add_param("op2_const_gam_d", &gam, &op2_const_gam_d, &op2_const_gam_hash);
         info.add_param("op2_const_gm1_d", &gm1, &op2_const_gm1_d, &op2_const_gm1_hash);
+        info.add_param("op2_const_gam_d", &gam, &op2_const_gam_d, &op2_const_gam_hash);
 
         first_invocation = false;
     }

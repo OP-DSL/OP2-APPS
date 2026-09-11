@@ -11,8 +11,8 @@ extern double op2_const_alpha;
 
 [[maybe_unused]] static uint64_t op2_const_alpha_hash = 0;
 
-#define OP_F2C_PRELUDE OP_F2C_PRELUDE_4824427976
-#define OP_F2C_PRELUDE_DATA OP_F2C_PRELUDE_4824427976_data
+#define OP_F2C_PRELUDE OP_F2C_PRELUDE_3949807043
+#define OP_F2C_PRELUDE_DATA OP_F2C_PRELUDE_3949807043_data
 INCTXT(OP_F2C_PRELUDE, "op_f2c_prelude.h");
 
 #include <op_f2c_prelude.h>

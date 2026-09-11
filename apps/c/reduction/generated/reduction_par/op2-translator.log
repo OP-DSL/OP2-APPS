@@ -1,29 +1,29 @@
-2026-09-04 14:03:30,072 INFO     __main__: Parsing files:
+2026-09-11 09:15:44,823 INFO     __main__: Parsing files:
     reduction_mpi.cpp
-2026-09-04 14:03:37,733 INFO     __main__: Validating...
-2026-09-04 14:03:37,733 INFO     __main__: Translation scheme: C++/seq
-2026-09-04 14:03:37,767 INFO     __main__: Generated loop host 1 of 2: reduction_mpi_1_res_calc
-2026-09-04 14:03:37,774 INFO     __main__: Generated loop host 2 of 2: reduction_mpi_2_update
-2026-09-04 14:03:37,780 INFO     __main__: Generated master kernel file: generated/reduction_par/seq/op2_kernels.cpp
-2026-09-04 14:03:37,780 WARNING  __main__: No scheme registered for C++/c_seq
-2026-09-04 14:03:37,780 INFO     __main__: Translation scheme: C++/cuda
-2026-09-04 14:03:37,860 INFO     __main__: Generated loop host 1 of 2: reduction_mpi_1_res_calc
-2026-09-04 14:03:37,868 INFO     __main__: Generated loop host 2 of 2: reduction_mpi_2_update
-2026-09-04 14:03:37,871 INFO     __main__: Generated master kernel file: generated/reduction_par/cuda/op2_kernels.cu
-2026-09-04 14:03:37,872 INFO     __main__: Translation scheme: C++/hip
-2026-09-04 14:03:37,940 INFO     __main__: Generated loop host 1 of 2: reduction_mpi_1_res_calc
-2026-09-04 14:03:37,948 INFO     __main__: Generated loop host 2 of 2: reduction_mpi_2_update
-2026-09-04 14:03:37,952 INFO     __main__: Generated master kernel file: generated/reduction_par/hip/op2_kernels.cpp
-2026-09-04 14:03:37,952 INFO     __main__: Translation scheme: C++/c_cuda
-2026-09-04 14:03:38,034 INFO     __main__: Generated loop host 1 of 2: reduction_mpi_1_res_calc
-2026-09-04 14:03:38,042 INFO     __main__: Generated loop host 2 of 2: reduction_mpi_2_update
-2026-09-04 14:03:38,047 INFO     __main__: Generated master kernel file: generated/reduction_par/c_cuda/op2_kernels.cu
-2026-09-04 14:03:38,048 INFO     __main__: Translation scheme: C++/c_hip
-2026-09-04 14:03:38,129 INFO     __main__: Generated loop host 1 of 2: reduction_mpi_1_res_calc
-2026-09-04 14:03:38,137 INFO     __main__: Generated loop host 2 of 2: reduction_mpi_2_update
-2026-09-04 14:03:38,142 INFO     __main__: Generated master kernel file: generated/reduction_par/c_hip/op2_kernels.cpp
-2026-09-04 14:03:38,143 INFO     __main__: Translation scheme: C++/openmp
-2026-09-04 14:03:38,195 INFO     __main__: Generated loop host 1 of 2: reduction_mpi_1_res_calc
-2026-09-04 14:03:38,202 INFO     __main__: Generated loop host 2 of 2: reduction_mpi_2_update
-2026-09-04 14:03:38,204 INFO     __main__: Generated master kernel file: generated/reduction_par/openmp/op2_kernels.cpp
-2026-09-04 14:03:38,205 INFO     __main__: Translated program 1 of 1: generated/reduction_par/reduction_mpi.cpp
+2026-09-11 09:15:52,929 INFO     __main__: Validating...
+2026-09-11 09:15:52,930 INFO     __main__: Translation scheme: C++/seq
+2026-09-11 09:15:52,964 INFO     __main__: Generated loop host 1 of 2: reduction_mpi_1_res_calc
+2026-09-11 09:15:52,969 INFO     __main__: Generated loop host 2 of 2: reduction_mpi_2_update
+2026-09-11 09:15:52,974 INFO     __main__: Generated master kernel file: generated/reduction_par/seq/op2_kernels.cpp
+2026-09-11 09:15:52,974 WARNING  __main__: No scheme registered for C++/c_seq
+2026-09-11 09:15:52,974 INFO     __main__: Translation scheme: C++/cuda
+2026-09-11 09:15:53,057 INFO     __main__: Generated loop host 1 of 2: reduction_mpi_1_res_calc
+2026-09-11 09:15:53,064 INFO     __main__: Generated loop host 2 of 2: reduction_mpi_2_update
+2026-09-11 09:15:53,067 INFO     __main__: Generated master kernel file: generated/reduction_par/cuda/op2_kernels.cu
+2026-09-11 09:15:53,067 INFO     __main__: Translation scheme: C++/hip
+2026-09-11 09:15:53,138 INFO     __main__: Generated loop host 1 of 2: reduction_mpi_1_res_calc
+2026-09-11 09:15:53,144 INFO     __main__: Generated loop host 2 of 2: reduction_mpi_2_update
+2026-09-11 09:15:53,147 INFO     __main__: Generated master kernel file: generated/reduction_par/hip/op2_kernels.cpp
+2026-09-11 09:15:53,147 INFO     __main__: Translation scheme: C++/c_cuda
+2026-09-11 09:15:53,233 INFO     __main__: Generated loop host 1 of 2: reduction_mpi_1_res_calc
+2026-09-11 09:15:53,240 INFO     __main__: Generated loop host 2 of 2: reduction_mpi_2_update
+2026-09-11 09:15:53,246 INFO     __main__: Generated master kernel file: generated/reduction_par/c_cuda/op2_kernels.cu
+2026-09-11 09:15:53,246 INFO     __main__: Translation scheme: C++/c_hip
+2026-09-11 09:15:53,332 INFO     __main__: Generated loop host 1 of 2: reduction_mpi_1_res_calc
+2026-09-11 09:15:53,338 INFO     __main__: Generated loop host 2 of 2: reduction_mpi_2_update
+2026-09-11 09:15:53,344 INFO     __main__: Generated master kernel file: generated/reduction_par/c_hip/op2_kernels.cpp
+2026-09-11 09:15:53,344 INFO     __main__: Translation scheme: C++/openmp
+2026-09-11 09:15:53,399 INFO     __main__: Generated loop host 1 of 2: reduction_mpi_1_res_calc
+2026-09-11 09:15:53,404 INFO     __main__: Generated loop host 2 of 2: reduction_mpi_2_update
+2026-09-11 09:15:53,406 INFO     __main__: Generated master kernel file: generated/reduction_par/openmp/op2_kernels.cpp
+2026-09-11 09:15:53,407 INFO     __main__: Translated program 1 of 1: generated/reduction_par/reduction_mpi.cpp

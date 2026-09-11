@@ -29,8 +29,8 @@ extern double op2_const_qinf[4];
 [[maybe_unused]] static uint64_t op2_const_alpha_hash = 0;
 [[maybe_unused]] static uint64_t op2_const_qinf_hash = 0;
 
-#define OP_F2C_PRELUDE OP_F2C_PRELUDE_1025523488
-#define OP_F2C_PRELUDE_DATA OP_F2C_PRELUDE_1025523488_data
+#define OP_F2C_PRELUDE OP_F2C_PRELUDE_3686206770
+#define OP_F2C_PRELUDE_DATA OP_F2C_PRELUDE_3686206770_data
 INCTXT(OP_F2C_PRELUDE, "op_f2c_prelude.h");
 
 #include <op_f2c_prelude.h>

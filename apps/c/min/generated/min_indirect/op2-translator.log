@@ -1,23 +1,23 @@
-2026-09-04 14:02:33,166 INFO     __main__: Parsing files:
+2026-09-11 09:14:45,755 INFO     __main__: Parsing files:
     min_indirect.cpp
-2026-09-04 14:02:35,456 INFO     __main__: Validating...
-2026-09-04 14:02:35,456 INFO     __main__: Translation scheme: C++/seq
-2026-09-04 14:02:35,484 INFO     __main__: Generated loop host 1 of 1: min_indirect_1_min_kernel
-2026-09-04 14:02:35,489 INFO     __main__: Generated master kernel file: generated/min_indirect/seq/op2_kernels.cpp
-2026-09-04 14:02:35,489 WARNING  __main__: No scheme registered for C++/c_seq
-2026-09-04 14:02:35,489 INFO     __main__: Translation scheme: C++/cuda
-2026-09-04 14:02:35,562 INFO     __main__: Generated loop host 1 of 1: min_indirect_1_min_kernel
-2026-09-04 14:02:35,566 INFO     __main__: Generated master kernel file: generated/min_indirect/cuda/op2_kernels.cu
-2026-09-04 14:02:35,566 INFO     __main__: Translation scheme: C++/hip
-2026-09-04 14:02:35,627 INFO     __main__: Generated loop host 1 of 1: min_indirect_1_min_kernel
-2026-09-04 14:02:35,631 INFO     __main__: Generated master kernel file: generated/min_indirect/hip/op2_kernels.cpp
-2026-09-04 14:02:35,631 INFO     __main__: Translation scheme: C++/c_cuda
-2026-09-04 14:02:35,707 INFO     __main__: Generated loop host 1 of 1: min_indirect_1_min_kernel
-2026-09-04 14:02:35,712 INFO     __main__: Generated master kernel file: generated/min_indirect/c_cuda/op2_kernels.cu
-2026-09-04 14:02:35,712 INFO     __main__: Translation scheme: C++/c_hip
-2026-09-04 14:02:35,786 INFO     __main__: Generated loop host 1 of 1: min_indirect_1_min_kernel
-2026-09-04 14:02:35,791 INFO     __main__: Generated master kernel file: generated/min_indirect/c_hip/op2_kernels.cpp
-2026-09-04 14:02:35,791 INFO     __main__: Translation scheme: C++/openmp
-2026-09-04 14:02:35,837 INFO     __main__: Generated loop host 1 of 1: min_indirect_1_min_kernel
-2026-09-04 14:02:35,838 INFO     __main__: Generated master kernel file: generated/min_indirect/openmp/op2_kernels.cpp
-2026-09-04 14:02:35,839 INFO     __main__: Translated program 1 of 1: generated/min_indirect/min_indirect.cpp
+2026-09-11 09:14:48,282 INFO     __main__: Validating...
+2026-09-11 09:14:48,282 INFO     __main__: Translation scheme: C++/seq
+2026-09-11 09:14:48,312 INFO     __main__: Generated loop host 1 of 1: min_indirect_1_min_kernel
+2026-09-11 09:14:48,317 INFO     __main__: Generated master kernel file: generated/min_indirect/seq/op2_kernels.cpp
+2026-09-11 09:14:48,317 WARNING  __main__: No scheme registered for C++/c_seq
+2026-09-11 09:14:48,317 INFO     __main__: Translation scheme: C++/cuda
+2026-09-11 09:14:48,396 INFO     __main__: Generated loop host 1 of 1: min_indirect_1_min_kernel
+2026-09-11 09:14:48,399 INFO     __main__: Generated master kernel file: generated/min_indirect/cuda/op2_kernels.cu
+2026-09-11 09:14:48,399 INFO     __main__: Translation scheme: C++/hip
+2026-09-11 09:14:48,466 INFO     __main__: Generated loop host 1 of 1: min_indirect_1_min_kernel
+2026-09-11 09:14:48,470 INFO     __main__: Generated master kernel file: generated/min_indirect/hip/op2_kernels.cpp
+2026-09-11 09:14:48,470 INFO     __main__: Translation scheme: C++/c_cuda
+2026-09-11 09:14:48,552 INFO     __main__: Generated loop host 1 of 1: min_indirect_1_min_kernel
+2026-09-11 09:14:48,557 INFO     __main__: Generated master kernel file: generated/min_indirect/c_cuda/op2_kernels.cu
+2026-09-11 09:14:48,558 INFO     __main__: Translation scheme: C++/c_hip
+2026-09-11 09:14:48,639 INFO     __main__: Generated loop host 1 of 1: min_indirect_1_min_kernel
+2026-09-11 09:14:48,644 INFO     __main__: Generated master kernel file: generated/min_indirect/c_hip/op2_kernels.cpp
+2026-09-11 09:14:48,644 INFO     __main__: Translation scheme: C++/openmp
+2026-09-11 09:14:48,696 INFO     __main__: Generated loop host 1 of 1: min_indirect_1_min_kernel
+2026-09-11 09:14:48,697 INFO     __main__: Generated master kernel file: generated/min_indirect/openmp/op2_kernels.cpp
+2026-09-11 09:14:48,698 INFO     __main__: Translated program 1 of 1: generated/min_indirect/min_indirect.cpp

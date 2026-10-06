@@ -1,29 +1,29 @@
-2026-09-11 09:15:08,097 INFO     __main__: Parsing files:
+2026-10-06 23:28:51,907 INFO     __main__: Parsing files:
     jac.cpp
-2026-09-11 09:15:15,694 INFO     __main__: Validating...
-2026-09-11 09:15:15,694 INFO     __main__: Translation scheme: C++/seq
-2026-09-11 09:15:15,729 INFO     __main__: Generated loop host 1 of 2: jac_1_res
-2026-09-11 09:15:15,734 INFO     __main__: Generated loop host 2 of 2: jac_2_update
-2026-09-11 09:15:15,739 INFO     __main__: Generated master kernel file: generated/jac/seq/op2_kernels.cpp
-2026-09-11 09:15:15,739 WARNING  __main__: No scheme registered for C++/c_seq
-2026-09-11 09:15:15,740 INFO     __main__: Translation scheme: C++/cuda
-2026-09-11 09:15:15,825 INFO     __main__: Generated loop host 1 of 2: jac_1_res
-2026-09-11 09:15:15,832 INFO     __main__: Generated loop host 2 of 2: jac_2_update
-2026-09-11 09:15:15,835 INFO     __main__: Generated master kernel file: generated/jac/cuda/op2_kernels.cu
-2026-09-11 09:15:15,835 INFO     __main__: Translation scheme: C++/hip
-2026-09-11 09:15:15,908 INFO     __main__: Generated loop host 1 of 2: jac_1_res
-2026-09-11 09:15:15,913 INFO     __main__: Generated loop host 2 of 2: jac_2_update
-2026-09-11 09:15:15,917 INFO     __main__: Generated master kernel file: generated/jac/hip/op2_kernels.cpp
-2026-09-11 09:15:15,917 INFO     __main__: Translation scheme: C++/c_cuda
-2026-09-11 09:15:16,003 INFO     __main__: Generated loop host 1 of 2: jac_1_res
-2026-09-11 09:15:16,009 INFO     __main__: Generated loop host 2 of 2: jac_2_update
-2026-09-11 09:15:16,015 INFO     __main__: Generated master kernel file: generated/jac/c_cuda/op2_kernels.cu
-2026-09-11 09:15:16,015 INFO     __main__: Translation scheme: C++/c_hip
-2026-09-11 09:15:16,100 INFO     __main__: Generated loop host 1 of 2: jac_1_res
-2026-09-11 09:15:16,107 INFO     __main__: Generated loop host 2 of 2: jac_2_update
-2026-09-11 09:15:16,112 INFO     __main__: Generated master kernel file: generated/jac/c_hip/op2_kernels.cpp
-2026-09-11 09:15:16,113 INFO     __main__: Translation scheme: C++/openmp
-2026-09-11 09:15:16,168 INFO     __main__: Generated loop host 1 of 2: jac_1_res
-2026-09-11 09:15:16,173 INFO     __main__: Generated loop host 2 of 2: jac_2_update
-2026-09-11 09:15:16,174 INFO     __main__: Generated master kernel file: generated/jac/openmp/op2_kernels.cpp
-2026-09-11 09:15:16,175 INFO     __main__: Translated program 1 of 1: generated/jac/jac.cpp
+2026-10-06 23:28:57,034 INFO     __main__: Validating...
+2026-10-06 23:28:57,034 INFO     __main__: Translation scheme: C++/seq
+2026-10-06 23:28:57,057 INFO     __main__: Generated loop host 1 of 2: jac_1_res
+2026-10-06 23:28:57,060 INFO     __main__: Generated loop host 2 of 2: jac_2_update
+2026-10-06 23:28:57,064 INFO     __main__: Generated master kernel file: generated/jac/seq/op2_kernels.cpp
+2026-10-06 23:28:57,064 WARNING  __main__: No scheme registered for C++/c_seq
+2026-10-06 23:28:57,064 INFO     __main__: Translation scheme: C++/cuda
+2026-10-06 23:28:57,122 INFO     __main__: Generated loop host 1 of 2: jac_1_res
+2026-10-06 23:28:57,126 INFO     __main__: Generated loop host 2 of 2: jac_2_update
+2026-10-06 23:28:57,128 INFO     __main__: Generated master kernel file: generated/jac/cuda/op2_kernels.cu
+2026-10-06 23:28:57,128 INFO     __main__: Translation scheme: C++/hip
+2026-10-06 23:28:57,177 INFO     __main__: Generated loop host 1 of 2: jac_1_res
+2026-10-06 23:28:57,181 INFO     __main__: Generated loop host 2 of 2: jac_2_update
+2026-10-06 23:28:57,183 INFO     __main__: Generated master kernel file: generated/jac/hip/op2_kernels.cpp
+2026-10-06 23:28:57,184 INFO     __main__: Translation scheme: C++/c_cuda
+2026-10-06 23:28:57,242 INFO     __main__: Generated loop host 1 of 2: jac_1_res
+2026-10-06 23:28:57,247 INFO     __main__: Generated loop host 2 of 2: jac_2_update
+2026-10-06 23:28:57,251 INFO     __main__: Generated master kernel file: generated/jac/c_cuda/op2_kernels.cu
+2026-10-06 23:28:57,251 INFO     __main__: Translation scheme: C++/c_hip
+2026-10-06 23:28:57,313 INFO     __main__: Generated loop host 1 of 2: jac_1_res
+2026-10-06 23:28:57,319 INFO     __main__: Generated loop host 2 of 2: jac_2_update
+2026-10-06 23:28:57,323 INFO     __main__: Generated master kernel file: generated/jac/c_hip/op2_kernels.cpp
+2026-10-06 23:28:57,323 INFO     __main__: Translation scheme: C++/openmp
+2026-10-06 23:28:57,361 INFO     __main__: Generated loop host 1 of 2: jac_1_res
+2026-10-06 23:28:57,364 INFO     __main__: Generated loop host 2 of 2: jac_2_update
+2026-10-06 23:28:57,365 INFO     __main__: Generated master kernel file: generated/jac/openmp/op2_kernels.cpp
+2026-10-06 23:28:57,366 INFO     __main__: Translated program 1 of 1: generated/jac/jac.cpp

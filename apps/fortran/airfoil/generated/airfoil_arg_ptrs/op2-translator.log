@@ -1,60 +1,62 @@
-2026-09-11 09:16:43,165 DEBUG    fortran: Using consts module: airfoil_constants.F90
-2026-09-11 09:16:43,165 DEBUG    fortran: Using packaged fpp for Fortran parsing: /home/runner/work/OP2-Common/OP2-Common/OP2-Common/translator-v2/fpp/fpp
-2026-09-11 09:16:43,165 INFO     __main__: Parsing files:
+2026-10-06 23:27:16,964 DEBUG    fortran: Using consts module: airfoil_constants.F90
+2026-10-06 23:27:16,964 DEBUG    fortran: Using packaged fpp for Fortran parsing: /home/runner/work/OP2-Common/OP2-Common/OP2-Common/translator-v2/fpp/fpp
+2026-10-06 23:27:16,964 INFO     __main__: Parsing files:
     airfoil_constants.F90
     airfoil_kernels.F90
     airfoil.F90
-2026-09-11 09:16:43,481 INFO     __main__: Validating...
-2026-09-11 09:16:43,516 INFO     __main__: Translation scheme: Fortran/seq
-2026-09-11 09:16:43,560 INFO     __main__: Generated loop host 1 of 5: airfoil_1_save_soln
-2026-09-11 09:16:43,563 INFO     __main__: Generated loop host 2 of 5: airfoil_2_adt_calc
-2026-09-11 09:16:43,567 INFO     __main__: Generated loop host 3 of 5: airfoil_3_res_calc
-2026-09-11 09:16:43,571 INFO     __main__: Generated loop host 4 of 5: airfoil_4_bres_calc
-2026-09-11 09:16:43,573 INFO     __main__: Generated loop host 5 of 5: airfoil_5_update
-2026-09-11 09:16:43,577 INFO     __main__: Generated consts file: generated/airfoil_arg_ptrs/seq/op2_consts.F90
-2026-09-11 09:16:43,579 INFO     __main__: Generated master kernel file: generated/airfoil_arg_ptrs/seq/op2_kernels.F90
-2026-09-11 09:16:43,580 INFO     __main__: Translation scheme: Fortran/c_seq
-2026-09-11 09:16:43,620 INFO     __main__: Generated loop host 1 of 5: airfoil_1_save_soln
-2026-09-11 09:16:43,629 INFO     __main__: Generated loop host 2 of 5: airfoil_2_adt_calc
-2026-09-11 09:16:43,643 INFO     __main__: Generated loop host 3 of 5: airfoil_3_res_calc
-2026-09-11 09:16:43,655 INFO     __main__: Generated loop host 4 of 5: airfoil_4_bres_calc
-2026-09-11 09:16:43,662 INFO     __main__: Generated loop host 5 of 5: airfoil_5_update
-2026-09-11 09:16:43,664 INFO     __main__: Generated master kernel file: generated/airfoil_arg_ptrs/c_seq/op2_kernels.F90
-2026-09-11 09:16:43,664 INFO     __main__: Translation scheme: Fortran/cuda
-2026-09-11 09:16:43,734 INFO     __main__: Generated loop host 1 of 5: airfoil_1_save_soln
-2026-09-11 09:16:43,741 INFO     __main__: Generated loop host 2 of 5: airfoil_2_adt_calc
-2026-09-11 09:16:43,768 INFO     __main__: Generated loop host 3 of 5: airfoil_3_res_calc
-2026-09-11 09:16:43,790 INFO     __main__: Generated loop host 4 of 5: airfoil_4_bres_calc
-2026-09-11 09:16:43,797 INFO     __main__: Generated loop host 5 of 5: airfoil_5_update
-2026-09-11 09:16:43,802 INFO     __main__: Generated consts file: generated/airfoil_arg_ptrs/cuda/op2_consts.F90
-2026-09-11 09:16:43,804 INFO     __main__: Generated master kernel file: generated/airfoil_arg_ptrs/cuda/op2_kernels.F90
-2026-09-11 09:16:43,804 WARNING  __main__: No scheme registered for Fortran/hip
-2026-09-11 09:16:43,804 INFO     __main__: Translation scheme: Fortran/c_cuda
-2026-09-11 09:16:43,887 INFO     __main__: Generated loop host 1 of 5: airfoil_1_save_soln
-2026-09-11 09:16:43,897 INFO     __main__: Generated loop host 2 of 5: airfoil_2_adt_calc
-2026-09-11 09:16:43,918 INFO     __main__: Generated loop host 3 of 5: airfoil_3_res_calc
-2026-09-11 09:16:43,936 INFO     __main__: Generated loop host 4 of 5: airfoil_4_bres_calc
-2026-09-11 09:16:43,944 INFO     __main__: Generated loop host 5 of 5: airfoil_5_update
-2026-09-11 09:16:43,948 INFO     __main__: Generated consts file: generated/airfoil_arg_ptrs/c_cuda/op2_consts.F90
-2026-09-11 09:16:43,958 INFO     __main__: Generated master kernel file: generated/airfoil_arg_ptrs/c_cuda/op2_kernels.F90
-2026-09-11 09:16:43,959 INFO     __main__: Generated master kernel file: generated/airfoil_arg_ptrs/c_cuda/op2_kernels_aux1.cu
-2026-09-11 09:16:43,959 INFO     __main__: Translation scheme: Fortran/c_hip
-2026-09-11 09:16:44,041 INFO     __main__: Generated loop host 1 of 5: airfoil_1_save_soln
-2026-09-11 09:16:44,052 INFO     __main__: Generated loop host 2 of 5: airfoil_2_adt_calc
-2026-09-11 09:16:44,073 INFO     __main__: Generated loop host 3 of 5: airfoil_3_res_calc
-2026-09-11 09:16:44,112 INFO     __main__: Generated loop host 4 of 5: airfoil_4_bres_calc
-2026-09-11 09:16:44,120 INFO     __main__: Generated loop host 5 of 5: airfoil_5_update
-2026-09-11 09:16:44,123 INFO     __main__: Generated consts file: generated/airfoil_arg_ptrs/c_hip/op2_consts.F90
-2026-09-11 09:16:44,134 INFO     __main__: Generated master kernel file: generated/airfoil_arg_ptrs/c_hip/op2_kernels.F90
-2026-09-11 09:16:44,134 INFO     __main__: Generated master kernel file: generated/airfoil_arg_ptrs/c_hip/op2_kernels_aux1.hip.cpp
-2026-09-11 09:16:44,134 INFO     __main__: Translation scheme: Fortran/openmp
-2026-09-11 09:16:44,205 INFO     __main__: Generated loop host 1 of 5: airfoil_1_save_soln
-2026-09-11 09:16:44,221 INFO     __main__: Generated loop host 2 of 5: airfoil_2_adt_calc
-2026-09-11 09:16:44,252 INFO     __main__: Generated loop host 3 of 5: airfoil_3_res_calc
-2026-09-11 09:16:44,274 INFO     __main__: Generated loop host 4 of 5: airfoil_4_bres_calc
-2026-09-11 09:16:44,283 INFO     __main__: Generated loop host 5 of 5: airfoil_5_update
-2026-09-11 09:16:44,286 INFO     __main__: Generated consts file: generated/airfoil_arg_ptrs/openmp/op2_consts.F90
-2026-09-11 09:16:44,288 INFO     __main__: Generated master kernel file: generated/airfoil_arg_ptrs/openmp/op2_kernels.F90
-2026-09-11 09:16:44,289 INFO     __main__: Translated program 1 of 3: generated/airfoil_arg_ptrs/airfoil_constants.F90
-2026-09-11 09:16:44,293 INFO     __main__: Translated program 2 of 3: generated/airfoil_arg_ptrs/airfoil_kernels.F90
-2026-09-11 09:16:44,296 INFO     __main__: Translated program 3 of 3: generated/airfoil_arg_ptrs/airfoil.F90
+2026-10-06 23:27:17,175 INFO     __main__: Validating...
+2026-10-06 23:27:17,202 INFO     __main__: Translation scheme: Fortran/seq
+2026-10-06 23:27:17,232 INFO     __main__: Generated loop host 1 of 5: airfoil_1_save_soln
+2026-10-06 23:27:17,234 INFO     __main__: Generated loop host 2 of 5: airfoil_2_adt_calc
+2026-10-06 23:27:17,237 INFO     __main__: Generated loop host 3 of 5: airfoil_3_res_calc
+2026-10-06 23:27:17,240 INFO     __main__: Generated loop host 4 of 5: airfoil_4_bres_calc
+2026-10-06 23:27:17,241 INFO     __main__: Generated loop host 5 of 5: airfoil_5_update
+2026-10-06 23:27:17,244 INFO     __main__: Generated consts file: generated/airfoil_arg_ptrs/seq/op2_consts.F90
+2026-10-06 23:27:17,246 INFO     __main__: Generated master kernel file: generated/airfoil_arg_ptrs/seq/op2_kernels.F90
+2026-10-06 23:27:17,246 INFO     __main__: Translation scheme: Fortran/c_seq
+2026-10-06 23:27:17,274 INFO     __main__: Generated loop host 1 of 5: airfoil_1_save_soln
+2026-10-06 23:27:17,281 INFO     __main__: Generated loop host 2 of 5: airfoil_2_adt_calc
+2026-10-06 23:27:17,291 INFO     __main__: Generated loop host 3 of 5: airfoil_3_res_calc
+2026-10-06 23:27:17,300 INFO     __main__: Generated loop host 4 of 5: airfoil_4_bres_calc
+2026-10-06 23:27:17,306 INFO     __main__: Generated loop host 5 of 5: airfoil_5_update
+2026-10-06 23:27:17,308 INFO     __main__: Generated consts file: generated/airfoil_arg_ptrs/c_seq/op2_consts.F90
+2026-10-06 23:27:17,313 INFO     __main__: Generated master kernel file: generated/airfoil_arg_ptrs/c_seq/op2_kernels.F90
+2026-10-06 23:27:17,313 INFO     __main__: Generated master kernel file: generated/airfoil_arg_ptrs/c_seq/op2_kernels_aux1.cpp
+2026-10-06 23:27:17,314 INFO     __main__: Translation scheme: Fortran/cuda
+2026-10-06 23:27:17,362 INFO     __main__: Generated loop host 1 of 5: airfoil_1_save_soln
+2026-10-06 23:27:17,367 INFO     __main__: Generated loop host 2 of 5: airfoil_2_adt_calc
+2026-10-06 23:27:17,386 INFO     __main__: Generated loop host 3 of 5: airfoil_3_res_calc
+2026-10-06 23:27:17,401 INFO     __main__: Generated loop host 4 of 5: airfoil_4_bres_calc
+2026-10-06 23:27:17,406 INFO     __main__: Generated loop host 5 of 5: airfoil_5_update
+2026-10-06 23:27:17,410 INFO     __main__: Generated consts file: generated/airfoil_arg_ptrs/cuda/op2_consts.F90
+2026-10-06 23:27:17,411 INFO     __main__: Generated master kernel file: generated/airfoil_arg_ptrs/cuda/op2_kernels.F90
+2026-10-06 23:27:17,412 WARNING  __main__: No scheme registered for Fortran/hip
+2026-10-06 23:27:17,412 INFO     __main__: Translation scheme: Fortran/c_cuda
+2026-10-06 23:27:17,469 INFO     __main__: Generated loop host 1 of 5: airfoil_1_save_soln
+2026-10-06 23:27:17,477 INFO     __main__: Generated loop host 2 of 5: airfoil_2_adt_calc
+2026-10-06 23:27:17,499 INFO     __main__: Generated loop host 3 of 5: airfoil_3_res_calc
+2026-10-06 23:27:17,511 INFO     __main__: Generated loop host 4 of 5: airfoil_4_bres_calc
+2026-10-06 23:27:17,517 INFO     __main__: Generated loop host 5 of 5: airfoil_5_update
+2026-10-06 23:27:17,520 INFO     __main__: Generated consts file: generated/airfoil_arg_ptrs/c_cuda/op2_consts.F90
+2026-10-06 23:27:17,527 INFO     __main__: Generated master kernel file: generated/airfoil_arg_ptrs/c_cuda/op2_kernels.F90
+2026-10-06 23:27:17,527 INFO     __main__: Generated master kernel file: generated/airfoil_arg_ptrs/c_cuda/op2_kernels_aux1.cu
+2026-10-06 23:27:17,527 INFO     __main__: Translation scheme: Fortran/c_hip
+2026-10-06 23:27:17,584 INFO     __main__: Generated loop host 1 of 5: airfoil_1_save_soln
+2026-10-06 23:27:17,592 INFO     __main__: Generated loop host 2 of 5: airfoil_2_adt_calc
+2026-10-06 23:27:17,606 INFO     __main__: Generated loop host 3 of 5: airfoil_3_res_calc
+2026-10-06 23:27:17,619 INFO     __main__: Generated loop host 4 of 5: airfoil_4_bres_calc
+2026-10-06 23:27:17,625 INFO     __main__: Generated loop host 5 of 5: airfoil_5_update
+2026-10-06 23:27:17,627 INFO     __main__: Generated consts file: generated/airfoil_arg_ptrs/c_hip/op2_consts.F90
+2026-10-06 23:27:17,634 INFO     __main__: Generated master kernel file: generated/airfoil_arg_ptrs/c_hip/op2_kernels.F90
+2026-10-06 23:27:17,635 INFO     __main__: Generated master kernel file: generated/airfoil_arg_ptrs/c_hip/op2_kernels_aux1.hip.cpp
+2026-10-06 23:27:17,635 INFO     __main__: Translation scheme: Fortran/openmp
+2026-10-06 23:27:17,684 INFO     __main__: Generated loop host 1 of 5: airfoil_1_save_soln
+2026-10-06 23:27:17,695 INFO     __main__: Generated loop host 2 of 5: airfoil_2_adt_calc
+2026-10-06 23:27:17,717 INFO     __main__: Generated loop host 3 of 5: airfoil_3_res_calc
+2026-10-06 23:27:17,734 INFO     __main__: Generated loop host 4 of 5: airfoil_4_bres_calc
+2026-10-06 23:27:17,740 INFO     __main__: Generated loop host 5 of 5: airfoil_5_update
+2026-10-06 23:27:17,743 INFO     __main__: Generated consts file: generated/airfoil_arg_ptrs/openmp/op2_consts.F90
+2026-10-06 23:27:17,744 INFO     __main__: Generated master kernel file: generated/airfoil_arg_ptrs/openmp/op2_kernels.F90
+2026-10-06 23:27:17,745 INFO     __main__: Translated program 1 of 3: generated/airfoil_arg_ptrs/airfoil_constants.F90
+2026-10-06 23:27:17,748 INFO     __main__: Translated program 2 of 3: generated/airfoil_arg_ptrs/airfoil_kernels.F90
+2026-10-06 23:27:17,751 INFO     __main__: Translated program 3 of 3: generated/airfoil_arg_ptrs/airfoil.F90

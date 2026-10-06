@@ -1,23 +1,23 @@
-2026-09-11 09:14:41,953 INFO     __main__: Parsing files:
+2026-10-06 23:29:21,662 INFO     __main__: Parsing files:
     min_direct.cpp
-2026-09-11 09:14:44,519 INFO     __main__: Validating...
-2026-09-11 09:14:44,520 INFO     __main__: Translation scheme: C++/seq
-2026-09-11 09:14:44,549 INFO     __main__: Generated loop host 1 of 1: min_direct_1_min_kernel
-2026-09-11 09:14:44,554 INFO     __main__: Generated master kernel file: generated/min_direct/seq/op2_kernels.cpp
-2026-09-11 09:14:44,555 WARNING  __main__: No scheme registered for C++/c_seq
-2026-09-11 09:14:44,555 INFO     __main__: Translation scheme: C++/cuda
-2026-09-11 09:14:44,633 INFO     __main__: Generated loop host 1 of 1: min_direct_1_min_kernel
-2026-09-11 09:14:44,637 INFO     __main__: Generated master kernel file: generated/min_direct/cuda/op2_kernels.cu
-2026-09-11 09:14:44,637 INFO     __main__: Translation scheme: C++/hip
-2026-09-11 09:14:44,703 INFO     __main__: Generated loop host 1 of 1: min_direct_1_min_kernel
-2026-09-11 09:14:44,706 INFO     __main__: Generated master kernel file: generated/min_direct/hip/op2_kernels.cpp
-2026-09-11 09:14:44,706 INFO     __main__: Translation scheme: C++/c_cuda
-2026-09-11 09:14:44,788 INFO     __main__: Generated loop host 1 of 1: min_direct_1_min_kernel
-2026-09-11 09:14:44,793 INFO     __main__: Generated master kernel file: generated/min_direct/c_cuda/op2_kernels.cu
-2026-09-11 09:14:44,793 INFO     __main__: Translation scheme: C++/c_hip
-2026-09-11 09:14:44,873 INFO     __main__: Generated loop host 1 of 1: min_direct_1_min_kernel
-2026-09-11 09:14:44,879 INFO     __main__: Generated master kernel file: generated/min_direct/c_hip/op2_kernels.cpp
-2026-09-11 09:14:44,879 INFO     __main__: Translation scheme: C++/openmp
-2026-09-11 09:14:44,929 INFO     __main__: Generated loop host 1 of 1: min_direct_1_min_kernel
-2026-09-11 09:14:44,930 INFO     __main__: Generated master kernel file: generated/min_direct/openmp/op2_kernels.cpp
-2026-09-11 09:14:44,931 INFO     __main__: Translated program 1 of 1: generated/min_direct/min_direct.cpp
+2026-10-06 23:29:23,364 INFO     __main__: Validating...
+2026-10-06 23:29:23,365 INFO     __main__: Translation scheme: C++/seq
+2026-10-06 23:29:23,385 INFO     __main__: Generated loop host 1 of 1: min_direct_1_min_kernel
+2026-10-06 23:29:23,389 INFO     __main__: Generated master kernel file: generated/min_direct/seq/op2_kernels.cpp
+2026-10-06 23:29:23,389 WARNING  __main__: No scheme registered for C++/c_seq
+2026-10-06 23:29:23,389 INFO     __main__: Translation scheme: C++/cuda
+2026-10-06 23:29:23,443 INFO     __main__: Generated loop host 1 of 1: min_direct_1_min_kernel
+2026-10-06 23:29:23,445 INFO     __main__: Generated master kernel file: generated/min_direct/cuda/op2_kernels.cu
+2026-10-06 23:29:23,445 INFO     __main__: Translation scheme: C++/hip
+2026-10-06 23:29:23,491 INFO     __main__: Generated loop host 1 of 1: min_direct_1_min_kernel
+2026-10-06 23:29:23,494 INFO     __main__: Generated master kernel file: generated/min_direct/hip/op2_kernels.cpp
+2026-10-06 23:29:23,494 INFO     __main__: Translation scheme: C++/c_cuda
+2026-10-06 23:29:23,549 INFO     __main__: Generated loop host 1 of 1: min_direct_1_min_kernel
+2026-10-06 23:29:23,553 INFO     __main__: Generated master kernel file: generated/min_direct/c_cuda/op2_kernels.cu
+2026-10-06 23:29:23,553 INFO     __main__: Translation scheme: C++/c_hip
+2026-10-06 23:29:23,608 INFO     __main__: Generated loop host 1 of 1: min_direct_1_min_kernel
+2026-10-06 23:29:23,612 INFO     __main__: Generated master kernel file: generated/min_direct/c_hip/op2_kernels.cpp
+2026-10-06 23:29:23,612 INFO     __main__: Translation scheme: C++/openmp
+2026-10-06 23:29:23,646 INFO     __main__: Generated loop host 1 of 1: min_direct_1_min_kernel
+2026-10-06 23:29:23,647 INFO     __main__: Generated master kernel file: generated/min_direct/openmp/op2_kernels.cpp
+2026-10-06 23:29:23,647 INFO     __main__: Translated program 1 of 1: generated/min_direct/min_direct.cpp

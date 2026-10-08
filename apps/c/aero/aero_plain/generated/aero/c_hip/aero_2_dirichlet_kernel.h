@@ -19,6 +19,7 @@ void op2_k_aero_2_dirichlet_wrapper(
 
 
 
+
         op2_m_aero_2_dirichlet::dirichlet(
             dat0 + map0[0 * stride + n] * 1
         );
@@ -43,6 +44,7 @@ void op2_k_aero_2_dirichlet_wrapper(
 
     for (int i = thread_id + start; i < end; i += blockDim.x * gridDim.x) {
         int n = i;
+
 
 
 

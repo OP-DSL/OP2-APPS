@@ -22,6 +22,7 @@ void op2_k_aero_8_dotR_wrapper(
 
 
 
+
         op2_m_aero_8_dotR::dotR(
             dat0 + n * 1,
             gbl1 + thread_id
@@ -47,6 +48,7 @@ void op2_k_aero_8_dotR_wrapper(
 
     for (int i = thread_id + start; i < end; i += blockDim.x * gridDim.x) {
         int n = i;
+
 
 
 

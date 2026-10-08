@@ -1,39 +1,39 @@
-2026-10-06 23:27:19,757 DEBUG    fortran: Using packaged fpp for Fortran parsing: /home/runner/work/OP2-Common/OP2-Common/OP2-Common/translator-v2/fpp/fpp
-2026-10-06 23:27:19,757 INFO     __main__: Parsing files:
+2026-10-08 10:15:10,528 DEBUG    fortran: Using packaged fpp for Fortran parsing: /home/runner/work/OP2-Common/OP2-Common/OP2-Common/translator-v2/fpp/fpp
+2026-10-08 10:15:10,529 INFO     __main__: Parsing files:
     jac.F90
-2026-10-06 23:27:19,855 INFO     __main__: Validating...
-2026-10-06 23:27:19,858 INFO     __main__: Translation scheme: Fortran/seq
-2026-10-06 23:27:19,887 INFO     __main__: Generated loop host 1 of 2: jac_1_res
-2026-10-06 23:27:19,888 INFO     __main__: Generated loop host 2 of 2: jac_2_update
-2026-10-06 23:27:19,891 INFO     __main__: Generated consts file: generated/jac/seq/op2_consts.F90
-2026-10-06 23:27:19,892 INFO     __main__: Generated master kernel file: generated/jac/seq/op2_kernels.F90
-2026-10-06 23:27:19,892 INFO     __main__: Translation scheme: Fortran/c_seq
-2026-10-06 23:27:19,921 INFO     __main__: Generated loop host 1 of 2: jac_1_res
-2026-10-06 23:27:19,924 INFO     __main__: Generated loop host 2 of 2: jac_2_update
-2026-10-06 23:27:19,926 INFO     __main__: Generated consts file: generated/jac/c_seq/op2_consts.F90
-2026-10-06 23:27:19,931 INFO     __main__: Generated master kernel file: generated/jac/c_seq/op2_kernels.F90
-2026-10-06 23:27:19,931 INFO     __main__: Generated master kernel file: generated/jac/c_seq/op2_kernels_aux1.cpp
-2026-10-06 23:27:19,931 INFO     __main__: Translation scheme: Fortran/cuda
-2026-10-06 23:27:19,981 INFO     __main__: Generated loop host 1 of 2: jac_1_res
-2026-10-06 23:27:19,983 INFO     __main__: Generated loop host 2 of 2: jac_2_update
-2026-10-06 23:27:19,987 INFO     __main__: Generated consts file: generated/jac/cuda/op2_consts.F90
-2026-10-06 23:27:19,988 INFO     __main__: Generated master kernel file: generated/jac/cuda/op2_kernels.F90
-2026-10-06 23:27:19,988 WARNING  __main__: No scheme registered for Fortran/hip
-2026-10-06 23:27:19,988 INFO     __main__: Translation scheme: Fortran/c_cuda
-2026-10-06 23:27:20,051 INFO     __main__: Generated loop host 1 of 2: jac_1_res
-2026-10-06 23:27:20,054 INFO     __main__: Generated loop host 2 of 2: jac_2_update
-2026-10-06 23:27:20,057 INFO     __main__: Generated consts file: generated/jac/c_cuda/op2_consts.F90
-2026-10-06 23:27:20,066 INFO     __main__: Generated master kernel file: generated/jac/c_cuda/op2_kernels.F90
-2026-10-06 23:27:20,066 INFO     __main__: Generated master kernel file: generated/jac/c_cuda/op2_kernels_aux1.cu
-2026-10-06 23:27:20,066 INFO     __main__: Translation scheme: Fortran/c_hip
-2026-10-06 23:27:20,123 INFO     __main__: Generated loop host 1 of 2: jac_1_res
-2026-10-06 23:27:20,126 INFO     __main__: Generated loop host 2 of 2: jac_2_update
-2026-10-06 23:27:20,128 INFO     __main__: Generated consts file: generated/jac/c_hip/op2_consts.F90
-2026-10-06 23:27:20,136 INFO     __main__: Generated master kernel file: generated/jac/c_hip/op2_kernels.F90
-2026-10-06 23:27:20,136 INFO     __main__: Generated master kernel file: generated/jac/c_hip/op2_kernels_aux1.hip.cpp
-2026-10-06 23:27:20,136 INFO     __main__: Translation scheme: Fortran/openmp
-2026-10-06 23:27:20,184 INFO     __main__: Generated loop host 1 of 2: jac_1_res
-2026-10-06 23:27:20,186 INFO     __main__: Generated loop host 2 of 2: jac_2_update
-2026-10-06 23:27:20,189 INFO     __main__: Generated consts file: generated/jac/openmp/op2_consts.F90
-2026-10-06 23:27:20,190 INFO     __main__: Generated master kernel file: generated/jac/openmp/op2_kernels.F90
-2026-10-06 23:27:20,193 INFO     __main__: Translated program 1 of 1: generated/jac/jac.F90
+2026-10-08 10:15:10,678 INFO     __main__: Validating...
+2026-10-08 10:15:10,681 INFO     __main__: Translation scheme: Fortran/seq
+2026-10-08 10:15:10,725 INFO     __main__: Generated loop host 1 of 2: jac_1_res
+2026-10-08 10:15:10,727 INFO     __main__: Generated loop host 2 of 2: jac_2_update
+2026-10-08 10:15:10,730 INFO     __main__: Generated consts file: generated/jac/seq/op2_consts.F90
+2026-10-08 10:15:10,733 INFO     __main__: Generated master kernel file: generated/jac/seq/op2_kernels.F90
+2026-10-08 10:15:10,733 INFO     __main__: Translation scheme: Fortran/c_seq
+2026-10-08 10:15:10,773 INFO     __main__: Generated loop host 1 of 2: jac_1_res
+2026-10-08 10:15:10,776 INFO     __main__: Generated loop host 2 of 2: jac_2_update
+2026-10-08 10:15:10,780 INFO     __main__: Generated consts file: generated/jac/c_seq/op2_consts.F90
+2026-10-08 10:15:10,787 INFO     __main__: Generated master kernel file: generated/jac/c_seq/op2_kernels.F90
+2026-10-08 10:15:10,787 INFO     __main__: Generated master kernel file: generated/jac/c_seq/op2_kernels_aux1.cpp
+2026-10-08 10:15:10,787 INFO     __main__: Translation scheme: Fortran/cuda
+2026-10-08 10:15:10,861 INFO     __main__: Generated loop host 1 of 2: jac_1_res
+2026-10-08 10:15:10,864 INFO     __main__: Generated loop host 2 of 2: jac_2_update
+2026-10-08 10:15:10,869 INFO     __main__: Generated consts file: generated/jac/cuda/op2_consts.F90
+2026-10-08 10:15:10,871 INFO     __main__: Generated master kernel file: generated/jac/cuda/op2_kernels.F90
+2026-10-08 10:15:10,871 WARNING  __main__: No scheme registered for Fortran/hip
+2026-10-08 10:15:10,871 INFO     __main__: Translation scheme: Fortran/c_cuda
+2026-10-08 10:15:10,955 INFO     __main__: Generated loop host 1 of 2: jac_1_res
+2026-10-08 10:15:10,959 INFO     __main__: Generated loop host 2 of 2: jac_2_update
+2026-10-08 10:15:10,963 INFO     __main__: Generated consts file: generated/jac/c_cuda/op2_consts.F90
+2026-10-08 10:15:10,973 INFO     __main__: Generated master kernel file: generated/jac/c_cuda/op2_kernels.F90
+2026-10-08 10:15:10,974 INFO     __main__: Generated master kernel file: generated/jac/c_cuda/op2_kernels_aux1.cu
+2026-10-08 10:15:10,974 INFO     __main__: Translation scheme: Fortran/c_hip
+2026-10-08 10:15:11,059 INFO     __main__: Generated loop host 1 of 2: jac_1_res
+2026-10-08 10:15:11,063 INFO     __main__: Generated loop host 2 of 2: jac_2_update
+2026-10-08 10:15:11,066 INFO     __main__: Generated consts file: generated/jac/c_hip/op2_consts.F90
+2026-10-08 10:15:11,077 INFO     __main__: Generated master kernel file: generated/jac/c_hip/op2_kernels.F90
+2026-10-08 10:15:11,077 INFO     __main__: Generated master kernel file: generated/jac/c_hip/op2_kernels_aux1.hip.cpp
+2026-10-08 10:15:11,077 INFO     __main__: Translation scheme: Fortran/openmp
+2026-10-08 10:15:11,149 INFO     __main__: Generated loop host 1 of 2: jac_1_res
+2026-10-08 10:15:11,152 INFO     __main__: Generated loop host 2 of 2: jac_2_update
+2026-10-08 10:15:11,156 INFO     __main__: Generated consts file: generated/jac/openmp/op2_consts.F90
+2026-10-08 10:15:11,158 INFO     __main__: Generated master kernel file: generated/jac/openmp/op2_kernels.F90
+2026-10-08 10:15:11,161 INFO     __main__: Translated program 1 of 1: generated/jac/jac.F90

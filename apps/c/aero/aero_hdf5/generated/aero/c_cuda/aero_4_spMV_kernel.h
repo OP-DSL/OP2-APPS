@@ -59,23 +59,28 @@ void op2_k_aero_4_spMV_wrapper(
     [[maybe_unused]] double zero_double = 0;
 
     double arg0_0_local[1];
-    for (int d = 0; d < 1; ++d)
-        arg0_0_local[d] = zero_double;
 
     double arg1_1_local[1];
-    for (int d = 0; d < 1; ++d)
-        arg1_1_local[d] = zero_double;
 
     double arg2_2_local[1];
-    for (int d = 0; d < 1; ++d)
-        arg2_2_local[d] = zero_double;
 
     double arg3_3_local[1];
-    for (int d = 0; d < 1; ++d)
-        arg3_3_local[d] = zero_double;
 
     for (int i = thread_id + start; i < end; i += blockDim.x * gridDim.x) {
         int n = i;
+
+        for (int d = 0; d < 1; ++d)
+            arg0_0_local[d] = zero_double;
+
+        for (int d = 0; d < 1; ++d)
+            arg1_1_local[d] = zero_double;
+
+        for (int d = 0; d < 1; ++d)
+            arg2_2_local[d] = zero_double;
+
+        for (int d = 0; d < 1; ++d)
+            arg3_3_local[d] = zero_double;
+
 
 
 
@@ -166,23 +171,28 @@ void op2_k_aero_4_spMV_wrapper(
     [[maybe_unused]] double zero_double = 0;
 
     double arg0_0_local[1];
-    for (int d = 0; d < 1; ++d)
-        arg0_0_local[d] = zero_double;
 
     double arg1_1_local[1];
-    for (int d = 0; d < 1; ++d)
-        arg1_1_local[d] = zero_double;
 
     double arg2_2_local[1];
-    for (int d = 0; d < 1; ++d)
-        arg2_2_local[d] = zero_double;
 
     double arg3_3_local[1];
-    for (int d = 0; d < 1; ++d)
-        arg3_3_local[d] = zero_double;
 
     for (int i = thread_id + start; i < end; i += blockDim.x * gridDim.x) {
         int n = i;
+
+        for (int d = 0; d < 1; ++d)
+            arg0_0_local[d] = zero_double;
+
+        for (int d = 0; d < 1; ++d)
+            arg1_1_local[d] = zero_double;
+
+        for (int d = 0; d < 1; ++d)
+            arg2_2_local[d] = zero_double;
+
+        for (int d = 0; d < 1; ++d)
+            arg3_3_local[d] = zero_double;
+
 
 
 

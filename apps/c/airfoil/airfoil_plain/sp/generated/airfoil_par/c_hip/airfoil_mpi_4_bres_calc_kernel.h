@@ -59,11 +59,13 @@ void op2_k_airfoil_mpi_4_bres_calc_wrapper(
     [[maybe_unused]] double zero_double = 0;
 
     float arg4_0_local[4];
-    for (int d = 0; d < 4; ++d)
-        arg4_0_local[d] = zero_float;
 
     for (int i = thread_id + start; i < end; i += blockDim.x * gridDim.x) {
         int n = i;
+
+        for (int d = 0; d < 4; ++d)
+            arg4_0_local[d] = zero_float;
+
 
 
 
@@ -142,11 +144,13 @@ void op2_k_airfoil_mpi_4_bres_calc_wrapper(
     [[maybe_unused]] double zero_double = 0;
 
     float arg4_0_local[4];
-    for (int d = 0; d < 4; ++d)
-        arg4_0_local[d] = zero_float;
 
     for (int i = thread_id + start; i < end; i += blockDim.x * gridDim.x) {
         int n = i;
+
+        for (int d = 0; d < 4; ++d)
+            arg4_0_local[d] = zero_float;
+
 
 
 

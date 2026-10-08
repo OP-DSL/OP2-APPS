@@ -98,23 +98,28 @@ void op2_k_aero_1_res_calc_wrapper(
     [[maybe_unused]] double zero_double = 0;
 
     double arg9_0_local[1];
-    for (int d = 0; d < 1; ++d)
-        arg9_0_local[d] = zero_double;
 
     double arg10_1_local[1];
-    for (int d = 0; d < 1; ++d)
-        arg10_1_local[d] = zero_double;
 
     double arg11_2_local[1];
-    for (int d = 0; d < 1; ++d)
-        arg11_2_local[d] = zero_double;
 
     double arg12_3_local[1];
-    for (int d = 0; d < 1; ++d)
-        arg12_3_local[d] = zero_double;
 
     for (int i = thread_id + start; i < end; i += blockDim.x * gridDim.x) {
         int n = i;
+
+        for (int d = 0; d < 1; ++d)
+            arg9_0_local[d] = zero_double;
+
+        for (int d = 0; d < 1; ++d)
+            arg10_1_local[d] = zero_double;
+
+        for (int d = 0; d < 1; ++d)
+            arg11_2_local[d] = zero_double;
+
+        for (int d = 0; d < 1; ++d)
+            arg12_3_local[d] = zero_double;
+
 
 
 
@@ -248,23 +253,28 @@ void op2_k_aero_1_res_calc_wrapper(
     [[maybe_unused]] double zero_double = 0;
 
     double arg9_0_local[1];
-    for (int d = 0; d < 1; ++d)
-        arg9_0_local[d] = zero_double;
 
     double arg10_1_local[1];
-    for (int d = 0; d < 1; ++d)
-        arg10_1_local[d] = zero_double;
 
     double arg11_2_local[1];
-    for (int d = 0; d < 1; ++d)
-        arg11_2_local[d] = zero_double;
 
     double arg12_3_local[1];
-    for (int d = 0; d < 1; ++d)
-        arg12_3_local[d] = zero_double;
 
     for (int i = thread_id + start; i < end; i += blockDim.x * gridDim.x) {
         int n = i;
+
+        for (int d = 0; d < 1; ++d)
+            arg9_0_local[d] = zero_double;
+
+        for (int d = 0; d < 1; ++d)
+            arg10_1_local[d] = zero_double;
+
+        for (int d = 0; d < 1; ++d)
+            arg11_2_local[d] = zero_double;
+
+        for (int d = 0; d < 1; ++d)
+            arg12_3_local[d] = zero_double;
+
 
 
 
@@ -359,11 +369,11 @@ void op_par_loop_aero_1_res_calc(
     max_blocks = std::min(max_blocks, block_limit);
 
     if (first_invocation) {
+        info.add_param("op2_const_gm1_d", &gm1, &op2_const_gm1_d, &op2_const_gm1_hash);
         info.add_param("op2_const_gm1i_d", &gm1i, &op2_const_gm1i_d, &op2_const_gm1i_hash);
+        info.add_param("op2_const_wtg2_d", wtg2, sizeof(op2_const_wtg2_d) / sizeof(wtg2[0]), op2_const_wtg2_d, &op2_const_wtg2_hash);
         info.add_param("op2_const_Ng2_xi_d", Ng2_xi, sizeof(op2_const_Ng2_xi_d) / sizeof(Ng2_xi[0]), op2_const_Ng2_xi_d, &op2_const_Ng2_xi_hash);
         info.add_param("op2_const_m2_d", &m2, &op2_const_m2_d, &op2_const_m2_hash);
-        info.add_param("op2_const_gm1_d", &gm1, &op2_const_gm1_d, &op2_const_gm1_hash);
-        info.add_param("op2_const_wtg2_d", wtg2, sizeof(op2_const_wtg2_d) / sizeof(wtg2[0]), op2_const_wtg2_d, &op2_const_wtg2_hash);
 
         first_invocation = false;
     }

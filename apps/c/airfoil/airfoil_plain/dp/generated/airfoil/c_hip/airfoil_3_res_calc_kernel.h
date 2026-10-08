@@ -56,15 +56,18 @@ void op2_k_airfoil_3_res_calc_wrapper(
     [[maybe_unused]] double zero_double = 0;
 
     double arg6_0_local[4];
-    for (int d = 0; d < 4; ++d)
-        arg6_0_local[d] = zero_double;
 
     double arg7_1_local[4];
-    for (int d = 0; d < 4; ++d)
-        arg7_1_local[d] = zero_double;
 
     for (int i = thread_id + start; i < end; i += blockDim.x * gridDim.x) {
         int n = i;
+
+        for (int d = 0; d < 4; ++d)
+            arg6_0_local[d] = zero_double;
+
+        for (int d = 0; d < 4; ++d)
+            arg7_1_local[d] = zero_double;
+
 
 
 
@@ -145,15 +148,18 @@ void op2_k_airfoil_3_res_calc_wrapper(
     [[maybe_unused]] double zero_double = 0;
 
     double arg6_0_local[4];
-    for (int d = 0; d < 4; ++d)
-        arg6_0_local[d] = zero_double;
 
     double arg7_1_local[4];
-    for (int d = 0; d < 4; ++d)
-        arg7_1_local[d] = zero_double;
 
     for (int i = thread_id + start; i < end; i += blockDim.x * gridDim.x) {
         int n = i;
+
+        for (int d = 0; d < 4; ++d)
+            arg6_0_local[d] = zero_double;
+
+        for (int d = 0; d < 4; ++d)
+            arg7_1_local[d] = zero_double;
+
 
 
 
@@ -227,8 +233,8 @@ void op_par_loop_airfoil_3_res_calc(
     max_blocks = std::min(max_blocks, block_limit);
 
     if (first_invocation) {
-        info.add_param("op2_const_eps_d", &eps, &op2_const_eps_d, &op2_const_eps_hash);
         info.add_param("op2_const_gm1_d", &gm1, &op2_const_gm1_d, &op2_const_gm1_hash);
+        info.add_param("op2_const_eps_d", &eps, &op2_const_eps_d, &op2_const_eps_hash);
 
         first_invocation = false;
     }

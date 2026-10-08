@@ -11,12 +11,12 @@ extern float alpha;
 #include <extern/incbin.h>
 
 // Note: OP_F2C_PARAMS unused in C++ backend (can be simply extended if needed)
-// #define OP_F2C_PARAMS OP_F2C_PARAMS_3207648268
-// #define OP_F2C_PARAMS_DATA OP_F2C_PARAMS_3207648268_data
+// #define OP_F2C_PARAMS OP_F2C_PARAMS_7911058504
+// #define OP_F2C_PARAMS_DATA OP_F2C_PARAMS_7911058504_data
 // INCTXT(OP_F2C_PARAMS, "op2_const_list_params.h");
 
-#define OP_F2C_PRELUDE OP_F2C_PRELUDE_3207648268
-#define OP_F2C_PRELUDE_DATA OP_F2C_PRELUDE_3207648268_data
+#define OP_F2C_PRELUDE OP_F2C_PRELUDE_7911058504
+#define OP_F2C_PRELUDE_DATA OP_F2C_PRELUDE_7911058504_data
 INCTXT(OP_F2C_PRELUDE, "op_f2c_prelude.h");
 
 

@@ -1,77 +1,77 @@
-2026-10-06 23:27:27,879 INFO     __main__: Parsing files:
+2026-10-08 10:15:22,280 INFO     __main__: Parsing files:
     aero.cpp
-2026-10-06 23:27:33,042 INFO     __main__: Validating...
-2026-10-06 23:27:33,043 INFO     __main__: Translation scheme: C++/seq
-2026-10-06 23:27:33,066 INFO     __main__: Generated loop host 1 of 10: aero_1_res_calc
-2026-10-06 23:27:33,069 INFO     __main__: Generated loop host 2 of 10: aero_2_dirichlet
-2026-10-06 23:27:33,073 INFO     __main__: Generated loop host 3 of 10: aero_3_init_cg
-2026-10-06 23:27:33,076 INFO     __main__: Generated loop host 4 of 10: aero_4_spMV
-2026-10-06 23:27:33,079 INFO     __main__: Generated loop host 5 of 10: aero_5_dirichlet
-2026-10-06 23:27:33,082 INFO     __main__: Generated loop host 6 of 10: aero_6_dotPV
-2026-10-06 23:27:33,085 INFO     __main__: Generated loop host 7 of 10: aero_7_updateUR
-2026-10-06 23:27:33,088 INFO     __main__: Generated loop host 8 of 10: aero_8_dotR
-2026-10-06 23:27:33,091 INFO     __main__: Generated loop host 9 of 10: aero_9_updateP
-2026-10-06 23:27:33,094 INFO     __main__: Generated loop host 10 of 10: aero_10_update
-2026-10-06 23:27:33,098 INFO     __main__: Generated master kernel file: generated/aero/seq/op2_kernels.cpp
-2026-10-06 23:27:33,098 WARNING  __main__: No scheme registered for C++/c_seq
-2026-10-06 23:27:33,098 INFO     __main__: Translation scheme: C++/cuda
-2026-10-06 23:27:33,159 INFO     __main__: Generated loop host 1 of 10: aero_1_res_calc
-2026-10-06 23:27:33,163 INFO     __main__: Generated loop host 2 of 10: aero_2_dirichlet
-2026-10-06 23:27:33,167 INFO     __main__: Generated loop host 3 of 10: aero_3_init_cg
-2026-10-06 23:27:33,171 INFO     __main__: Generated loop host 4 of 10: aero_4_spMV
-2026-10-06 23:27:33,175 INFO     __main__: Generated loop host 5 of 10: aero_5_dirichlet
-2026-10-06 23:27:33,178 INFO     __main__: Generated loop host 6 of 10: aero_6_dotPV
-2026-10-06 23:27:33,182 INFO     __main__: Generated loop host 7 of 10: aero_7_updateUR
-2026-10-06 23:27:33,185 INFO     __main__: Generated loop host 8 of 10: aero_8_dotR
-2026-10-06 23:27:33,188 INFO     __main__: Generated loop host 9 of 10: aero_9_updateP
-2026-10-06 23:27:33,192 INFO     __main__: Generated loop host 10 of 10: aero_10_update
-2026-10-06 23:27:33,194 INFO     __main__: Generated master kernel file: generated/aero/cuda/op2_kernels.cu
-2026-10-06 23:27:33,195 INFO     __main__: Translation scheme: C++/hip
-2026-10-06 23:27:33,247 INFO     __main__: Generated loop host 1 of 10: aero_1_res_calc
-2026-10-06 23:27:33,250 INFO     __main__: Generated loop host 2 of 10: aero_2_dirichlet
-2026-10-06 23:27:33,254 INFO     __main__: Generated loop host 3 of 10: aero_3_init_cg
-2026-10-06 23:27:33,258 INFO     __main__: Generated loop host 4 of 10: aero_4_spMV
-2026-10-06 23:27:33,262 INFO     __main__: Generated loop host 5 of 10: aero_5_dirichlet
-2026-10-06 23:27:33,265 INFO     __main__: Generated loop host 6 of 10: aero_6_dotPV
-2026-10-06 23:27:33,269 INFO     __main__: Generated loop host 7 of 10: aero_7_updateUR
-2026-10-06 23:27:33,272 INFO     __main__: Generated loop host 8 of 10: aero_8_dotR
-2026-10-06 23:27:33,276 INFO     __main__: Generated loop host 9 of 10: aero_9_updateP
-2026-10-06 23:27:33,279 INFO     __main__: Generated loop host 10 of 10: aero_10_update
-2026-10-06 23:27:33,282 INFO     __main__: Generated master kernel file: generated/aero/hip/op2_kernels.cpp
-2026-10-06 23:27:33,282 INFO     __main__: Translation scheme: C++/c_cuda
-2026-10-06 23:27:33,356 INFO     __main__: Generated loop host 1 of 10: aero_1_res_calc
-2026-10-06 23:27:33,360 INFO     __main__: Generated loop host 2 of 10: aero_2_dirichlet
-2026-10-06 23:27:33,364 INFO     __main__: Generated loop host 3 of 10: aero_3_init_cg
-2026-10-06 23:27:33,369 INFO     __main__: Generated loop host 4 of 10: aero_4_spMV
-2026-10-06 23:27:33,372 INFO     __main__: Generated loop host 5 of 10: aero_5_dirichlet
-2026-10-06 23:27:33,376 INFO     __main__: Generated loop host 6 of 10: aero_6_dotPV
-2026-10-06 23:27:33,379 INFO     __main__: Generated loop host 7 of 10: aero_7_updateUR
-2026-10-06 23:27:33,383 INFO     __main__: Generated loop host 8 of 10: aero_8_dotR
-2026-10-06 23:27:33,386 INFO     __main__: Generated loop host 9 of 10: aero_9_updateP
-2026-10-06 23:27:33,390 INFO     __main__: Generated loop host 10 of 10: aero_10_update
-2026-10-06 23:27:33,394 INFO     __main__: Generated master kernel file: generated/aero/c_cuda/op2_kernels.cu
-2026-10-06 23:27:33,394 INFO     __main__: Translation scheme: C++/c_hip
-2026-10-06 23:27:33,456 INFO     __main__: Generated loop host 1 of 10: aero_1_res_calc
-2026-10-06 23:27:33,459 INFO     __main__: Generated loop host 2 of 10: aero_2_dirichlet
-2026-10-06 23:27:33,463 INFO     __main__: Generated loop host 3 of 10: aero_3_init_cg
-2026-10-06 23:27:33,468 INFO     __main__: Generated loop host 4 of 10: aero_4_spMV
-2026-10-06 23:27:33,471 INFO     __main__: Generated loop host 5 of 10: aero_5_dirichlet
-2026-10-06 23:27:33,475 INFO     __main__: Generated loop host 6 of 10: aero_6_dotPV
-2026-10-06 23:27:33,479 INFO     __main__: Generated loop host 7 of 10: aero_7_updateUR
-2026-10-06 23:27:33,482 INFO     __main__: Generated loop host 8 of 10: aero_8_dotR
-2026-10-06 23:27:33,486 INFO     __main__: Generated loop host 9 of 10: aero_9_updateP
-2026-10-06 23:27:33,489 INFO     __main__: Generated loop host 10 of 10: aero_10_update
-2026-10-06 23:27:33,493 INFO     __main__: Generated master kernel file: generated/aero/c_hip/op2_kernels.cpp
-2026-10-06 23:27:33,493 INFO     __main__: Translation scheme: C++/openmp
-2026-10-06 23:27:33,530 INFO     __main__: Generated loop host 1 of 10: aero_1_res_calc
-2026-10-06 23:27:33,534 INFO     __main__: Generated loop host 2 of 10: aero_2_dirichlet
-2026-10-06 23:27:33,537 INFO     __main__: Generated loop host 3 of 10: aero_3_init_cg
-2026-10-06 23:27:33,541 INFO     __main__: Generated loop host 4 of 10: aero_4_spMV
-2026-10-06 23:27:33,544 INFO     __main__: Generated loop host 5 of 10: aero_5_dirichlet
-2026-10-06 23:27:33,547 INFO     __main__: Generated loop host 6 of 10: aero_6_dotPV
-2026-10-06 23:27:33,550 INFO     __main__: Generated loop host 7 of 10: aero_7_updateUR
-2026-10-06 23:27:33,553 INFO     __main__: Generated loop host 8 of 10: aero_8_dotR
-2026-10-06 23:27:33,557 INFO     __main__: Generated loop host 9 of 10: aero_9_updateP
-2026-10-06 23:27:33,560 INFO     __main__: Generated loop host 10 of 10: aero_10_update
-2026-10-06 23:27:33,561 INFO     __main__: Generated master kernel file: generated/aero/openmp/op2_kernels.cpp
-2026-10-06 23:27:33,562 INFO     __main__: Translated program 1 of 1: generated/aero/aero.cpp
+2026-10-08 10:15:29,713 INFO     __main__: Validating...
+2026-10-08 10:15:29,713 INFO     __main__: Translation scheme: C++/seq
+2026-10-08 10:15:29,747 INFO     __main__: Generated loop host 1 of 10: aero_1_res_calc
+2026-10-08 10:15:29,751 INFO     __main__: Generated loop host 2 of 10: aero_2_dirichlet
+2026-10-08 10:15:29,755 INFO     __main__: Generated loop host 3 of 10: aero_3_init_cg
+2026-10-08 10:15:29,759 INFO     __main__: Generated loop host 4 of 10: aero_4_spMV
+2026-10-08 10:15:29,763 INFO     __main__: Generated loop host 5 of 10: aero_5_dirichlet
+2026-10-08 10:15:29,766 INFO     __main__: Generated loop host 6 of 10: aero_6_dotPV
+2026-10-08 10:15:29,770 INFO     __main__: Generated loop host 7 of 10: aero_7_updateUR
+2026-10-08 10:15:29,774 INFO     __main__: Generated loop host 8 of 10: aero_8_dotR
+2026-10-08 10:15:29,778 INFO     __main__: Generated loop host 9 of 10: aero_9_updateP
+2026-10-08 10:15:29,781 INFO     __main__: Generated loop host 10 of 10: aero_10_update
+2026-10-08 10:15:29,787 INFO     __main__: Generated master kernel file: generated/aero/seq/op2_kernels.cpp
+2026-10-08 10:15:29,787 WARNING  __main__: No scheme registered for C++/c_seq
+2026-10-08 10:15:29,787 INFO     __main__: Translation scheme: C++/cuda
+2026-10-08 10:15:29,873 INFO     __main__: Generated loop host 1 of 10: aero_1_res_calc
+2026-10-08 10:15:29,878 INFO     __main__: Generated loop host 2 of 10: aero_2_dirichlet
+2026-10-08 10:15:29,882 INFO     __main__: Generated loop host 3 of 10: aero_3_init_cg
+2026-10-08 10:15:29,888 INFO     __main__: Generated loop host 4 of 10: aero_4_spMV
+2026-10-08 10:15:29,892 INFO     __main__: Generated loop host 5 of 10: aero_5_dirichlet
+2026-10-08 10:15:29,896 INFO     __main__: Generated loop host 6 of 10: aero_6_dotPV
+2026-10-08 10:15:29,901 INFO     __main__: Generated loop host 7 of 10: aero_7_updateUR
+2026-10-08 10:15:29,905 INFO     __main__: Generated loop host 8 of 10: aero_8_dotR
+2026-10-08 10:15:29,909 INFO     __main__: Generated loop host 9 of 10: aero_9_updateP
+2026-10-08 10:15:29,913 INFO     __main__: Generated loop host 10 of 10: aero_10_update
+2026-10-08 10:15:29,917 INFO     __main__: Generated master kernel file: generated/aero/cuda/op2_kernels.cu
+2026-10-08 10:15:29,917 INFO     __main__: Translation scheme: C++/hip
+2026-10-08 10:15:29,992 INFO     __main__: Generated loop host 1 of 10: aero_1_res_calc
+2026-10-08 10:15:29,997 INFO     __main__: Generated loop host 2 of 10: aero_2_dirichlet
+2026-10-08 10:15:30,001 INFO     __main__: Generated loop host 3 of 10: aero_3_init_cg
+2026-10-08 10:15:30,007 INFO     __main__: Generated loop host 4 of 10: aero_4_spMV
+2026-10-08 10:15:30,011 INFO     __main__: Generated loop host 5 of 10: aero_5_dirichlet
+2026-10-08 10:15:30,015 INFO     __main__: Generated loop host 6 of 10: aero_6_dotPV
+2026-10-08 10:15:30,020 INFO     __main__: Generated loop host 7 of 10: aero_7_updateUR
+2026-10-08 10:15:30,024 INFO     __main__: Generated loop host 8 of 10: aero_8_dotR
+2026-10-08 10:15:30,028 INFO     __main__: Generated loop host 9 of 10: aero_9_updateP
+2026-10-08 10:15:30,032 INFO     __main__: Generated loop host 10 of 10: aero_10_update
+2026-10-08 10:15:30,036 INFO     __main__: Generated master kernel file: generated/aero/hip/op2_kernels.cpp
+2026-10-08 10:15:30,036 INFO     __main__: Translation scheme: C++/c_cuda
+2026-10-08 10:15:30,137 INFO     __main__: Generated loop host 1 of 10: aero_1_res_calc
+2026-10-08 10:15:30,142 INFO     __main__: Generated loop host 2 of 10: aero_2_dirichlet
+2026-10-08 10:15:30,147 INFO     __main__: Generated loop host 3 of 10: aero_3_init_cg
+2026-10-08 10:15:30,153 INFO     __main__: Generated loop host 4 of 10: aero_4_spMV
+2026-10-08 10:15:30,157 INFO     __main__: Generated loop host 5 of 10: aero_5_dirichlet
+2026-10-08 10:15:30,162 INFO     __main__: Generated loop host 6 of 10: aero_6_dotPV
+2026-10-08 10:15:30,166 INFO     __main__: Generated loop host 7 of 10: aero_7_updateUR
+2026-10-08 10:15:30,170 INFO     __main__: Generated loop host 8 of 10: aero_8_dotR
+2026-10-08 10:15:30,174 INFO     __main__: Generated loop host 9 of 10: aero_9_updateP
+2026-10-08 10:15:30,179 INFO     __main__: Generated loop host 10 of 10: aero_10_update
+2026-10-08 10:15:30,184 INFO     __main__: Generated master kernel file: generated/aero/c_cuda/op2_kernels.cu
+2026-10-08 10:15:30,185 INFO     __main__: Translation scheme: C++/c_hip
+2026-10-08 10:15:30,275 INFO     __main__: Generated loop host 1 of 10: aero_1_res_calc
+2026-10-08 10:15:30,280 INFO     __main__: Generated loop host 2 of 10: aero_2_dirichlet
+2026-10-08 10:15:30,285 INFO     __main__: Generated loop host 3 of 10: aero_3_init_cg
+2026-10-08 10:15:30,291 INFO     __main__: Generated loop host 4 of 10: aero_4_spMV
+2026-10-08 10:15:30,295 INFO     __main__: Generated loop host 5 of 10: aero_5_dirichlet
+2026-10-08 10:15:30,299 INFO     __main__: Generated loop host 6 of 10: aero_6_dotPV
+2026-10-08 10:15:30,304 INFO     __main__: Generated loop host 7 of 10: aero_7_updateUR
+2026-10-08 10:15:30,308 INFO     __main__: Generated loop host 8 of 10: aero_8_dotR
+2026-10-08 10:15:30,312 INFO     __main__: Generated loop host 9 of 10: aero_9_updateP
+2026-10-08 10:15:30,317 INFO     __main__: Generated loop host 10 of 10: aero_10_update
+2026-10-08 10:15:30,322 INFO     __main__: Generated master kernel file: generated/aero/c_hip/op2_kernels.cpp
+2026-10-08 10:15:30,323 INFO     __main__: Translation scheme: C++/openmp
+2026-10-08 10:15:30,377 INFO     __main__: Generated loop host 1 of 10: aero_1_res_calc
+2026-10-08 10:15:30,382 INFO     __main__: Generated loop host 2 of 10: aero_2_dirichlet
+2026-10-08 10:15:30,386 INFO     __main__: Generated loop host 3 of 10: aero_3_init_cg
+2026-10-08 10:15:30,391 INFO     __main__: Generated loop host 4 of 10: aero_4_spMV
+2026-10-08 10:15:30,395 INFO     __main__: Generated loop host 5 of 10: aero_5_dirichlet
+2026-10-08 10:15:30,399 INFO     __main__: Generated loop host 6 of 10: aero_6_dotPV
+2026-10-08 10:15:30,403 INFO     __main__: Generated loop host 7 of 10: aero_7_updateUR
+2026-10-08 10:15:30,406 INFO     __main__: Generated loop host 8 of 10: aero_8_dotR
+2026-10-08 10:15:30,410 INFO     __main__: Generated loop host 9 of 10: aero_9_updateP
+2026-10-08 10:15:30,414 INFO     __main__: Generated loop host 10 of 10: aero_10_update
+2026-10-08 10:15:30,416 INFO     __main__: Generated master kernel file: generated/aero/openmp/op2_kernels.cpp
+2026-10-08 10:15:30,417 INFO     __main__: Translated program 1 of 1: generated/aero/aero.cpp

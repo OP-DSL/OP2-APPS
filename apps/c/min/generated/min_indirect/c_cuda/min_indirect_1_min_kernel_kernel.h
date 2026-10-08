@@ -25,6 +25,7 @@ void op2_k_min_indirect_1_min_kernel_wrapper(
 
 
 
+
         op2_m_min_indirect_1_min_kernel::min_kernel(
             dat0 + map0[0 * stride + n] * 1,
             gbl1 + thread_id
@@ -53,6 +54,7 @@ void op2_k_min_indirect_1_min_kernel_wrapper(
 
     for (int i = thread_id + start; i < end; i += blockDim.x * gridDim.x) {
         int n = i;
+
 
 
 

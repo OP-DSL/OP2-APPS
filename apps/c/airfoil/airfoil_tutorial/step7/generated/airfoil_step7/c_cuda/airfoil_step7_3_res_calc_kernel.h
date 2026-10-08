@@ -56,15 +56,18 @@ void op2_k_airfoil_step7_3_res_calc_wrapper(
     [[maybe_unused]] double zero_double = 0;
 
     double arg6_0_local[4];
-    for (int d = 0; d < 4; ++d)
-        arg6_0_local[d] = zero_double;
 
     double arg7_1_local[4];
-    for (int d = 0; d < 4; ++d)
-        arg7_1_local[d] = zero_double;
 
     for (int i = thread_id + start; i < end; i += blockDim.x * gridDim.x) {
         int n = i;
+
+        for (int d = 0; d < 4; ++d)
+            arg6_0_local[d] = zero_double;
+
+        for (int d = 0; d < 4; ++d)
+            arg7_1_local[d] = zero_double;
+
 
 
 
@@ -145,15 +148,18 @@ void op2_k_airfoil_step7_3_res_calc_wrapper(
     [[maybe_unused]] double zero_double = 0;
 
     double arg6_0_local[4];
-    for (int d = 0; d < 4; ++d)
-        arg6_0_local[d] = zero_double;
 
     double arg7_1_local[4];
-    for (int d = 0; d < 4; ++d)
-        arg7_1_local[d] = zero_double;
 
     for (int i = thread_id + start; i < end; i += blockDim.x * gridDim.x) {
         int n = i;
+
+        for (int d = 0; d < 4; ++d)
+            arg6_0_local[d] = zero_double;
+
+        for (int d = 0; d < 4; ++d)
+            arg7_1_local[d] = zero_double;
+
 
 
 

@@ -56,12 +56,12 @@ extern double mfan;
 #include <extern/incbin.h>
 
 // Note: OP_F2C_PARAMS unused in C++ backend (can be simply extended if needed)
-// #define OP_F2C_PARAMS OP_F2C_PARAMS_4541321279
-// #define OP_F2C_PARAMS_DATA OP_F2C_PARAMS_4541321279_data
+// #define OP_F2C_PARAMS OP_F2C_PARAMS_1166289453
+// #define OP_F2C_PARAMS_DATA OP_F2C_PARAMS_1166289453_data
 // INCTXT(OP_F2C_PARAMS, "op2_const_list_params.h");
 
-#define OP_F2C_PRELUDE OP_F2C_PRELUDE_4541321279
-#define OP_F2C_PRELUDE_DATA OP_F2C_PRELUDE_4541321279_data
+#define OP_F2C_PRELUDE OP_F2C_PRELUDE_1166289453
+#define OP_F2C_PRELUDE_DATA OP_F2C_PRELUDE_1166289453_data
 INCTXT(OP_F2C_PRELUDE, "op_f2c_prelude.h");
 
 

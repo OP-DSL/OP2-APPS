@@ -73,9 +73,6 @@ int main(int argc, char **argv) {
   // OP initialisation
   op_init(argc, argv, 2);
 
-  const char *mesh_path = argc > 1 ? argv[1] : "new_grid.dat";
-  const int requested_iterations = argc > 2 ? atoi(argv[2]) : 1000;
-
   int *becell, *ecell, *bound, *bedge, *edge, *cell;
   double *x, *q, *qold, *adt, *res;
 
@@ -86,16 +83,16 @@ int main(int argc, char **argv) {
 
   // read in grid
 
-  op_printf("reading in grid %s\n", mesh_path);
+  op_printf("reading in grid \n");
 
   FILE *fp;
-  if ((fp = fopen(mesh_path, "r")) == NULL) {
-    op_printf("can't open file %s\n", mesh_path);
+  if ((fp = fopen("./new_grid.dat", "r")) == NULL) {
+    op_printf("can't open file new_grid.dat\n");
     exit(-1);
   }
 
   if (fscanf(fp, "%d %d %d %d \n", &nnode, &ncell, &nedge, &nbedge) != 4) {
-    op_printf("error reading from %s\n", mesh_path);
+    op_printf("error reading from new_grid.dat\n");
     exit(-1);
   }
 
@@ -114,7 +111,7 @@ int main(int argc, char **argv) {
 
   for (int n = 0; n < nnode; n++) {
     if (fscanf(fp, "%lf %lf \n", &x[2 * n], &x[2 * n + 1]) != 2) {
-      op_printf("error reading from %s\n", mesh_path);
+      op_printf("error reading from new_grid.dat\n");
       exit(-1);
     }
   }
@@ -122,7 +119,7 @@ int main(int argc, char **argv) {
   for (int n = 0; n < ncell; n++) {
     if (fscanf(fp, "%d %d %d %d \n", &cell[4 * n], &cell[4 * n + 1],
                &cell[4 * n + 2], &cell[4 * n + 3]) != 4) {
-      op_printf("error reading from %s\n", mesh_path);
+      op_printf("error reading from new_grid.dat\n");
       exit(-1);
     }
   }
@@ -130,7 +127,7 @@ int main(int argc, char **argv) {
   for (int n = 0; n < nedge; n++) {
     if (fscanf(fp, "%d %d %d %d \n", &edge[2 * n], &edge[2 * n + 1],
                &ecell[2 * n], &ecell[2 * n + 1]) != 4) {
-      op_printf("error reading from %s\n", mesh_path);
+      op_printf("error reading from new_grid.dat\n");
       exit(-1);
     }
   }
@@ -138,7 +135,7 @@ int main(int argc, char **argv) {
   for (int n = 0; n < nbedge; n++) {
     if (fscanf(fp, "%d %d %d %d \n", &bedge[2 * n], &bedge[2 * n + 1],
                &becell[n], &bound[n]) != 4) {
-      op_printf("error reading from %s\n", mesh_path);
+      op_printf("error reading from new_grid.dat\n");
       exit(-1);
     }
   }
@@ -219,9 +216,7 @@ int main(int argc, char **argv) {
 
   // main time-marching loop
 
-  niter = requested_iterations;
-
-  const auto timestep_start = std::chrono::high_resolution_clock::now();
+  niter = 1000;
 
   for (int iter = 1; iter <= niter; iter++) {
 
@@ -300,13 +295,6 @@ int main(int argc, char **argv) {
       }
     }
   }
-
-  const double timestep_ms = std::chrono::duration<double, std::milli>(
-        std::chrono::high_resolution_clock::now() - timestep_start).count();
-  op_printf("Airfoil timestep loop: cells=%d iterations=%d time_ms=%.3f "
-            "ms_per_iter=%.6f\n",
-            ncell, niter, timestep_ms,
-            niter > 0 ? timestep_ms / niter : 0.0);
 
   op_profile_end();
 

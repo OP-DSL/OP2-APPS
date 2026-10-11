@@ -33,7 +33,6 @@ void op2_k_jac_2_update_wrapper(
     for (int i = thread_id + start; i < end; i += blockDim.x * gridDim.x) {
         int n = i;
 
-
         int idx = n;
 
 
@@ -79,7 +78,6 @@ void op2_k_jac_2_update_wrapper(
 
     for (int i = thread_id + start; i < end; i += blockDim.x * gridDim.x) {
         int n = i;
-
 
         int idx = n;
 

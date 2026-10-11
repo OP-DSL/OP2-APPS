@@ -172,8 +172,8 @@ subroutine op2_k_airfoil_3_res_calc_m( &
     end if
 
     call op_profile_next("Update consts")
-    call op_update_const_cuda_gm1()
     call op_update_const_cuda_eps()
+    call op_update_const_cuda_gm1()
 
     call op_profile_exit()
 

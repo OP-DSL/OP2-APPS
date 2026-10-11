@@ -135,7 +135,7 @@ static void scatter_int_array(int *g_array, int *l_array, int comm_size,
 
 static void check_scan(int items_received, int items_expected) {
   if (items_received != items_expected) {
-    op_printf("error reading mesh file\n");
+    op_printf("error reading from new_grid.dat\n");
     exit(-1);
   }
 }
@@ -147,9 +147,6 @@ static void check_scan(int items_received, int items_expected) {
 int main(int argc, char **argv) {
   // OP initialisation
   op_init(argc, argv, 2);
-
-  const char *mesh_path = argc > 1 ? argv[1] : "new_grid.dat";
-  const int requested_iterations = argc > 2 ? atoi(argv[2]) : 1000;
 
   // MPI for user I/O
   int my_rank;
@@ -172,8 +169,8 @@ int main(int argc, char **argv) {
   /* read in grid from disk on root processor */
   FILE *fp;
 
-  if ((fp = fopen(mesh_path, "r")) == NULL) {
-    op_printf("can't open file %s\n", mesh_path);
+  if ((fp = fopen("new_grid.dat", "r")) == NULL) {
+    op_printf("can't open file new_grid.dat\n");
     exit(-1);
   }
 
@@ -206,7 +203,7 @@ int main(int argc, char **argv) {
   qinf[2] = 0.0f;
   qinf[3] = r * e;
 
-  op_printf("reading in grid %s\n", mesh_path);
+  op_printf("reading in grid \n");
   op_printf("Global number of nodes, cells, edges, bedges = %d, %d, %d, %d\n",
             g_nnode, g_ncell, g_nedge, g_nbedge);
 
@@ -362,8 +359,7 @@ int main(int argc, char **argv) {
 
   // initialise timers for total execution wall time
 
-  niter = requested_iterations;
-  const auto timestep_start = std::chrono::high_resolution_clock::now();
+  niter = 1000;
   for (int iter = 1; iter <= niter; iter++) {
 
     // save old flow solution
@@ -439,13 +435,6 @@ int main(int argc, char **argv) {
       }
     }
   }
-
-  const double timestep_ms = std::chrono::duration<double, std::milli>(
-        std::chrono::high_resolution_clock::now() - timestep_start).count();
-  op_printf("Airfoil timestep loop: cells=%d iterations=%d time_ms=%.3f "
-            "ms_per_iter=%.6f\n",
-            g_ncell, niter, timestep_ms,
-            niter > 0 ? timestep_ms / niter : 0.0);
 
   op_profile_end();
 

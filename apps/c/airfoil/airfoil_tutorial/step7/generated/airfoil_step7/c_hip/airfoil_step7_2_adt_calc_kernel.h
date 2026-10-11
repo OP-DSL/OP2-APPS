@@ -48,7 +48,6 @@ void op2_k_airfoil_step7_2_adt_calc_wrapper(
 
 
 
-
         op2_m_airfoil_step7_2_adt_calc::adt_calc(
             dat0 + map0[0 * stride + n] * 2,
             dat0 + map0[1 * stride + n] * 2,
@@ -107,7 +106,6 @@ void op2_k_airfoil_step7_2_adt_calc_wrapper(
 
     for (int i = thread_id + start; i < end; i += blockDim.x * gridDim.x) {
         int n = i;
-
 
 
 

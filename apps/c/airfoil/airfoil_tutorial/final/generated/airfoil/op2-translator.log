@@ -1,47 +1,47 @@
-2026-10-11 18:43:12,259 INFO     __main__: Parsing files:
+2026-10-12 07:46:01,091 INFO     __main__: Parsing files:
     airfoil.cpp
-2026-10-11 18:43:19,976 INFO     __main__: Validating...
-2026-10-11 18:43:19,976 INFO     __main__: Translation scheme: C++/seq
-2026-10-11 18:43:20,010 INFO     __main__: Generated loop host 1 of 5: airfoil_1_save_soln
-2026-10-11 18:43:20,016 INFO     __main__: Generated loop host 2 of 5: airfoil_2_adt_calc
-2026-10-11 18:43:20,021 INFO     __main__: Generated loop host 3 of 5: airfoil_3_res_calc
-2026-10-11 18:43:20,025 INFO     __main__: Generated loop host 4 of 5: airfoil_4_bres_calc
-2026-10-11 18:43:20,029 INFO     __main__: Generated loop host 5 of 5: airfoil_5_update
-2026-10-11 18:43:20,035 INFO     __main__: Generated master kernel file: generated/airfoil/seq/op2_kernels.cpp
-2026-10-11 18:43:20,035 WARNING  __main__: No scheme registered for C++/c_seq
-2026-10-11 18:43:20,035 INFO     __main__: Translation scheme: C++/cuda
-2026-10-11 18:43:20,121 INFO     __main__: Generated loop host 1 of 5: airfoil_1_save_soln
-2026-10-11 18:43:20,129 INFO     __main__: Generated loop host 2 of 5: airfoil_2_adt_calc
-2026-10-11 18:43:20,137 INFO     __main__: Generated loop host 3 of 5: airfoil_3_res_calc
-2026-10-11 18:43:20,146 INFO     __main__: Generated loop host 4 of 5: airfoil_4_bres_calc
-2026-10-11 18:43:20,151 INFO     __main__: Generated loop host 5 of 5: airfoil_5_update
-2026-10-11 18:43:20,155 INFO     __main__: Generated master kernel file: generated/airfoil/cuda/op2_kernels.cu
-2026-10-11 18:43:20,155 INFO     __main__: Translation scheme: C++/hip
-2026-10-11 18:43:20,230 INFO     __main__: Generated loop host 1 of 5: airfoil_1_save_soln
-2026-10-11 18:43:20,238 INFO     __main__: Generated loop host 2 of 5: airfoil_2_adt_calc
-2026-10-11 18:43:20,247 INFO     __main__: Generated loop host 3 of 5: airfoil_3_res_calc
-2026-10-11 18:43:20,257 INFO     __main__: Generated loop host 4 of 5: airfoil_4_bres_calc
-2026-10-11 18:43:20,264 INFO     __main__: Generated loop host 5 of 5: airfoil_5_update
-2026-10-11 18:43:20,268 INFO     __main__: Generated master kernel file: generated/airfoil/hip/op2_kernels.cpp
-2026-10-11 18:43:20,268 INFO     __main__: Translation scheme: C++/c_cuda
-2026-10-11 18:43:20,360 INFO     __main__: Generated loop host 1 of 5: airfoil_1_save_soln
-2026-10-11 18:43:20,368 INFO     __main__: Generated loop host 2 of 5: airfoil_2_adt_calc
-2026-10-11 18:43:20,376 INFO     __main__: Generated loop host 3 of 5: airfoil_3_res_calc
-2026-10-11 18:43:20,385 INFO     __main__: Generated loop host 4 of 5: airfoil_4_bres_calc
-2026-10-11 18:43:20,391 INFO     __main__: Generated loop host 5 of 5: airfoil_5_update
-2026-10-11 18:43:20,397 INFO     __main__: Generated master kernel file: generated/airfoil/c_cuda/op2_kernels.cu
-2026-10-11 18:43:20,397 INFO     __main__: Translation scheme: C++/c_hip
-2026-10-11 18:43:20,485 INFO     __main__: Generated loop host 1 of 5: airfoil_1_save_soln
-2026-10-11 18:43:20,493 INFO     __main__: Generated loop host 2 of 5: airfoil_2_adt_calc
-2026-10-11 18:43:20,502 INFO     __main__: Generated loop host 3 of 5: airfoil_3_res_calc
-2026-10-11 18:43:20,511 INFO     __main__: Generated loop host 4 of 5: airfoil_4_bres_calc
-2026-10-11 18:43:20,517 INFO     __main__: Generated loop host 5 of 5: airfoil_5_update
-2026-10-11 18:43:20,523 INFO     __main__: Generated master kernel file: generated/airfoil/c_hip/op2_kernels.cpp
-2026-10-11 18:43:20,523 INFO     __main__: Translation scheme: C++/openmp
-2026-10-11 18:43:20,596 INFO     __main__: Generated loop host 1 of 5: airfoil_1_save_soln
-2026-10-11 18:43:20,602 INFO     __main__: Generated loop host 2 of 5: airfoil_2_adt_calc
-2026-10-11 18:43:20,608 INFO     __main__: Generated loop host 3 of 5: airfoil_3_res_calc
-2026-10-11 18:43:20,613 INFO     __main__: Generated loop host 4 of 5: airfoil_4_bres_calc
-2026-10-11 18:43:20,618 INFO     __main__: Generated loop host 5 of 5: airfoil_5_update
-2026-10-11 18:43:20,619 INFO     __main__: Generated master kernel file: generated/airfoil/openmp/op2_kernels.cpp
-2026-10-11 18:43:20,620 INFO     __main__: Translated program 1 of 1: generated/airfoil/airfoil.cpp
+2026-10-12 07:46:07,649 INFO     __main__: Validating...
+2026-10-12 07:46:07,649 INFO     __main__: Translation scheme: C++/seq
+2026-10-12 07:46:07,678 INFO     __main__: Generated loop host 1 of 5: airfoil_1_save_soln
+2026-10-12 07:46:07,683 INFO     __main__: Generated loop host 2 of 5: airfoil_2_adt_calc
+2026-10-12 07:46:07,687 INFO     __main__: Generated loop host 3 of 5: airfoil_3_res_calc
+2026-10-12 07:46:07,691 INFO     __main__: Generated loop host 4 of 5: airfoil_4_bres_calc
+2026-10-12 07:46:07,695 INFO     __main__: Generated loop host 5 of 5: airfoil_5_update
+2026-10-12 07:46:07,700 INFO     __main__: Generated master kernel file: generated/airfoil/seq/op2_kernels.cpp
+2026-10-12 07:46:07,700 WARNING  __main__: No scheme registered for C++/c_seq
+2026-10-12 07:46:07,700 INFO     __main__: Translation scheme: C++/cuda
+2026-10-12 07:46:07,772 INFO     __main__: Generated loop host 1 of 5: airfoil_1_save_soln
+2026-10-12 07:46:07,779 INFO     __main__: Generated loop host 2 of 5: airfoil_2_adt_calc
+2026-10-12 07:46:07,787 INFO     __main__: Generated loop host 3 of 5: airfoil_3_res_calc
+2026-10-12 07:46:07,794 INFO     __main__: Generated loop host 4 of 5: airfoil_4_bres_calc
+2026-10-12 07:46:07,799 INFO     __main__: Generated loop host 5 of 5: airfoil_5_update
+2026-10-12 07:46:07,803 INFO     __main__: Generated master kernel file: generated/airfoil/cuda/op2_kernels.cu
+2026-10-12 07:46:07,803 INFO     __main__: Translation scheme: C++/hip
+2026-10-12 07:46:07,865 INFO     __main__: Generated loop host 1 of 5: airfoil_1_save_soln
+2026-10-12 07:46:07,872 INFO     __main__: Generated loop host 2 of 5: airfoil_2_adt_calc
+2026-10-12 07:46:07,879 INFO     __main__: Generated loop host 3 of 5: airfoil_3_res_calc
+2026-10-12 07:46:07,887 INFO     __main__: Generated loop host 4 of 5: airfoil_4_bres_calc
+2026-10-12 07:46:07,893 INFO     __main__: Generated loop host 5 of 5: airfoil_5_update
+2026-10-12 07:46:07,897 INFO     __main__: Generated master kernel file: generated/airfoil/hip/op2_kernels.cpp
+2026-10-12 07:46:07,897 INFO     __main__: Translation scheme: C++/c_cuda
+2026-10-12 07:46:07,972 INFO     __main__: Generated loop host 1 of 5: airfoil_1_save_soln
+2026-10-12 07:46:07,980 INFO     __main__: Generated loop host 2 of 5: airfoil_2_adt_calc
+2026-10-12 07:46:07,987 INFO     __main__: Generated loop host 3 of 5: airfoil_3_res_calc
+2026-10-12 07:46:07,996 INFO     __main__: Generated loop host 4 of 5: airfoil_4_bres_calc
+2026-10-12 07:46:08,001 INFO     __main__: Generated loop host 5 of 5: airfoil_5_update
+2026-10-12 07:46:08,007 INFO     __main__: Generated master kernel file: generated/airfoil/c_cuda/op2_kernels.cu
+2026-10-12 07:46:08,007 INFO     __main__: Translation scheme: C++/c_hip
+2026-10-12 07:46:08,082 INFO     __main__: Generated loop host 1 of 5: airfoil_1_save_soln
+2026-10-12 07:46:08,090 INFO     __main__: Generated loop host 2 of 5: airfoil_2_adt_calc
+2026-10-12 07:46:08,097 INFO     __main__: Generated loop host 3 of 5: airfoil_3_res_calc
+2026-10-12 07:46:08,105 INFO     __main__: Generated loop host 4 of 5: airfoil_4_bres_calc
+2026-10-12 07:46:08,111 INFO     __main__: Generated loop host 5 of 5: airfoil_5_update
+2026-10-12 07:46:08,116 INFO     __main__: Generated master kernel file: generated/airfoil/c_hip/op2_kernels.cpp
+2026-10-12 07:46:08,116 INFO     __main__: Translation scheme: C++/openmp
+2026-10-12 07:46:08,176 INFO     __main__: Generated loop host 1 of 5: airfoil_1_save_soln
+2026-10-12 07:46:08,181 INFO     __main__: Generated loop host 2 of 5: airfoil_2_adt_calc
+2026-10-12 07:46:08,186 INFO     __main__: Generated loop host 3 of 5: airfoil_3_res_calc
+2026-10-12 07:46:08,191 INFO     __main__: Generated loop host 4 of 5: airfoil_4_bres_calc
+2026-10-12 07:46:08,195 INFO     __main__: Generated loop host 5 of 5: airfoil_5_update
+2026-10-12 07:46:08,197 INFO     __main__: Generated master kernel file: generated/airfoil/openmp/op2_kernels.cpp
+2026-10-12 07:46:08,198 INFO     __main__: Translated program 1 of 1: generated/airfoil/airfoil.cpp

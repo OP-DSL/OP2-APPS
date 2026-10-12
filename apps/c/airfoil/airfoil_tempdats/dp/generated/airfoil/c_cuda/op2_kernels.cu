@@ -29,12 +29,12 @@ extern double qinf[4];
 #include <extern/incbin.h>
 
 // Note: OP_F2C_PARAMS unused in C++ backend (can be simply extended if needed)
-// #define OP_F2C_PARAMS OP_F2C_PARAMS_8244013929
-// #define OP_F2C_PARAMS_DATA OP_F2C_PARAMS_8244013929_data
+// #define OP_F2C_PARAMS OP_F2C_PARAMS_9345924090
+// #define OP_F2C_PARAMS_DATA OP_F2C_PARAMS_9345924090_data
 // INCTXT(OP_F2C_PARAMS, "op2_const_list_params.h");
 
-#define OP_F2C_PRELUDE OP_F2C_PRELUDE_8244013929
-#define OP_F2C_PRELUDE_DATA OP_F2C_PRELUDE_8244013929_data
+#define OP_F2C_PRELUDE OP_F2C_PRELUDE_9345924090
+#define OP_F2C_PRELUDE_DATA OP_F2C_PRELUDE_9345924090_data
 INCTXT(OP_F2C_PRELUDE, "op_f2c_prelude.h");
 
 

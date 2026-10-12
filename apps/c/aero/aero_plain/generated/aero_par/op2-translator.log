@@ -1,77 +1,77 @@
-2026-10-11 18:41:51,281 INFO     __main__: Parsing files:
+2026-10-12 07:44:51,673 INFO     __main__: Parsing files:
     aero_mpi.cpp
-2026-10-11 18:41:59,492 INFO     __main__: Validating...
-2026-10-11 18:41:59,492 INFO     __main__: Translation scheme: C++/seq
-2026-10-11 18:41:59,528 INFO     __main__: Generated loop host 1 of 10: aero_mpi_1_res_calc
-2026-10-11 18:41:59,535 INFO     __main__: Generated loop host 2 of 10: aero_mpi_2_dirichlet
-2026-10-11 18:41:59,540 INFO     __main__: Generated loop host 3 of 10: aero_mpi_3_init_cg
-2026-10-11 18:41:59,546 INFO     __main__: Generated loop host 4 of 10: aero_mpi_4_spMV
-2026-10-11 18:41:59,551 INFO     __main__: Generated loop host 5 of 10: aero_mpi_5_dirichlet
-2026-10-11 18:41:59,555 INFO     __main__: Generated loop host 6 of 10: aero_mpi_6_dotPV
-2026-10-11 18:41:59,560 INFO     __main__: Generated loop host 7 of 10: aero_mpi_7_updateUR
-2026-10-11 18:41:59,565 INFO     __main__: Generated loop host 8 of 10: aero_mpi_8_dotR
-2026-10-11 18:41:59,571 INFO     __main__: Generated loop host 9 of 10: aero_mpi_9_updateP
-2026-10-11 18:41:59,575 INFO     __main__: Generated loop host 10 of 10: aero_mpi_10_update
-2026-10-11 18:41:59,581 INFO     __main__: Generated master kernel file: generated/aero_par/seq/op2_kernels.cpp
-2026-10-11 18:41:59,581 WARNING  __main__: No scheme registered for C++/c_seq
-2026-10-11 18:41:59,581 INFO     __main__: Translation scheme: C++/cuda
-2026-10-11 18:41:59,690 INFO     __main__: Generated loop host 1 of 10: aero_mpi_1_res_calc
-2026-10-11 18:41:59,696 INFO     __main__: Generated loop host 2 of 10: aero_mpi_2_dirichlet
-2026-10-11 18:41:59,702 INFO     __main__: Generated loop host 3 of 10: aero_mpi_3_init_cg
-2026-10-11 18:41:59,710 INFO     __main__: Generated loop host 4 of 10: aero_mpi_4_spMV
-2026-10-11 18:41:59,715 INFO     __main__: Generated loop host 5 of 10: aero_mpi_5_dirichlet
-2026-10-11 18:41:59,721 INFO     __main__: Generated loop host 6 of 10: aero_mpi_6_dotPV
-2026-10-11 18:41:59,726 INFO     __main__: Generated loop host 7 of 10: aero_mpi_7_updateUR
-2026-10-11 18:41:59,732 INFO     __main__: Generated loop host 8 of 10: aero_mpi_8_dotR
-2026-10-11 18:41:59,737 INFO     __main__: Generated loop host 9 of 10: aero_mpi_9_updateP
-2026-10-11 18:41:59,743 INFO     __main__: Generated loop host 10 of 10: aero_mpi_10_update
-2026-10-11 18:41:59,747 INFO     __main__: Generated master kernel file: generated/aero_par/cuda/op2_kernels.cu
-2026-10-11 18:41:59,748 INFO     __main__: Translation scheme: C++/hip
-2026-10-11 18:41:59,829 INFO     __main__: Generated loop host 1 of 10: aero_mpi_1_res_calc
-2026-10-11 18:41:59,836 INFO     __main__: Generated loop host 2 of 10: aero_mpi_2_dirichlet
-2026-10-11 18:41:59,841 INFO     __main__: Generated loop host 3 of 10: aero_mpi_3_init_cg
-2026-10-11 18:41:59,848 INFO     __main__: Generated loop host 4 of 10: aero_mpi_4_spMV
-2026-10-11 18:41:59,855 INFO     __main__: Generated loop host 5 of 10: aero_mpi_5_dirichlet
-2026-10-11 18:41:59,861 INFO     __main__: Generated loop host 6 of 10: aero_mpi_6_dotPV
-2026-10-11 18:41:59,867 INFO     __main__: Generated loop host 7 of 10: aero_mpi_7_updateUR
-2026-10-11 18:41:59,872 INFO     __main__: Generated loop host 8 of 10: aero_mpi_8_dotR
-2026-10-11 18:41:59,878 INFO     __main__: Generated loop host 9 of 10: aero_mpi_9_updateP
-2026-10-11 18:41:59,884 INFO     __main__: Generated loop host 10 of 10: aero_mpi_10_update
-2026-10-11 18:41:59,888 INFO     __main__: Generated master kernel file: generated/aero_par/hip/op2_kernels.cpp
-2026-10-11 18:41:59,888 INFO     __main__: Translation scheme: C++/c_cuda
-2026-10-11 18:41:59,988 INFO     __main__: Generated loop host 1 of 10: aero_mpi_1_res_calc
-2026-10-11 18:41:59,994 INFO     __main__: Generated loop host 2 of 10: aero_mpi_2_dirichlet
-2026-10-11 18:42:00,000 INFO     __main__: Generated loop host 3 of 10: aero_mpi_3_init_cg
-2026-10-11 18:42:00,009 INFO     __main__: Generated loop host 4 of 10: aero_mpi_4_spMV
-2026-10-11 18:42:00,016 INFO     __main__: Generated loop host 5 of 10: aero_mpi_5_dirichlet
-2026-10-11 18:42:00,023 INFO     __main__: Generated loop host 6 of 10: aero_mpi_6_dotPV
-2026-10-11 18:42:00,031 INFO     __main__: Generated loop host 7 of 10: aero_mpi_7_updateUR
-2026-10-11 18:42:00,038 INFO     __main__: Generated loop host 8 of 10: aero_mpi_8_dotR
-2026-10-11 18:42:00,045 INFO     __main__: Generated loop host 9 of 10: aero_mpi_9_updateP
-2026-10-11 18:42:00,053 INFO     __main__: Generated loop host 10 of 10: aero_mpi_10_update
-2026-10-11 18:42:00,059 INFO     __main__: Generated master kernel file: generated/aero_par/c_cuda/op2_kernels.cu
-2026-10-11 18:42:00,059 INFO     __main__: Translation scheme: C++/c_hip
-2026-10-11 18:42:00,158 INFO     __main__: Generated loop host 1 of 10: aero_mpi_1_res_calc
-2026-10-11 18:42:00,166 INFO     __main__: Generated loop host 2 of 10: aero_mpi_2_dirichlet
-2026-10-11 18:42:00,173 INFO     __main__: Generated loop host 3 of 10: aero_mpi_3_init_cg
-2026-10-11 18:42:00,182 INFO     __main__: Generated loop host 4 of 10: aero_mpi_4_spMV
-2026-10-11 18:42:00,188 INFO     __main__: Generated loop host 5 of 10: aero_mpi_5_dirichlet
-2026-10-11 18:42:00,196 INFO     __main__: Generated loop host 6 of 10: aero_mpi_6_dotPV
-2026-10-11 18:42:00,203 INFO     __main__: Generated loop host 7 of 10: aero_mpi_7_updateUR
-2026-10-11 18:42:00,210 INFO     __main__: Generated loop host 8 of 10: aero_mpi_8_dotR
-2026-10-11 18:42:00,215 INFO     __main__: Generated loop host 9 of 10: aero_mpi_9_updateP
-2026-10-11 18:42:00,222 INFO     __main__: Generated loop host 10 of 10: aero_mpi_10_update
-2026-10-11 18:42:00,228 INFO     __main__: Generated master kernel file: generated/aero_par/c_hip/op2_kernels.cpp
-2026-10-11 18:42:00,228 INFO     __main__: Translation scheme: C++/openmp
-2026-10-11 18:42:00,288 INFO     __main__: Generated loop host 1 of 10: aero_mpi_1_res_calc
-2026-10-11 18:42:00,295 INFO     __main__: Generated loop host 2 of 10: aero_mpi_2_dirichlet
-2026-10-11 18:42:00,301 INFO     __main__: Generated loop host 3 of 10: aero_mpi_3_init_cg
-2026-10-11 18:42:00,308 INFO     __main__: Generated loop host 4 of 10: aero_mpi_4_spMV
-2026-10-11 18:42:00,315 INFO     __main__: Generated loop host 5 of 10: aero_mpi_5_dirichlet
-2026-10-11 18:42:00,321 INFO     __main__: Generated loop host 6 of 10: aero_mpi_6_dotPV
-2026-10-11 18:42:00,326 INFO     __main__: Generated loop host 7 of 10: aero_mpi_7_updateUR
-2026-10-11 18:42:00,332 INFO     __main__: Generated loop host 8 of 10: aero_mpi_8_dotR
-2026-10-11 18:42:00,337 INFO     __main__: Generated loop host 9 of 10: aero_mpi_9_updateP
-2026-10-11 18:42:00,342 INFO     __main__: Generated loop host 10 of 10: aero_mpi_10_update
-2026-10-11 18:42:00,344 INFO     __main__: Generated master kernel file: generated/aero_par/openmp/op2_kernels.cpp
-2026-10-11 18:42:00,345 INFO     __main__: Translated program 1 of 1: generated/aero_par/aero_mpi.cpp
+2026-10-12 07:44:58,576 INFO     __main__: Validating...
+2026-10-12 07:44:58,576 INFO     __main__: Translation scheme: C++/seq
+2026-10-12 07:44:58,606 INFO     __main__: Generated loop host 1 of 10: aero_mpi_1_res_calc
+2026-10-12 07:44:58,612 INFO     __main__: Generated loop host 2 of 10: aero_mpi_2_dirichlet
+2026-10-12 07:44:58,617 INFO     __main__: Generated loop host 3 of 10: aero_mpi_3_init_cg
+2026-10-12 07:44:58,622 INFO     __main__: Generated loop host 4 of 10: aero_mpi_4_spMV
+2026-10-12 07:44:58,627 INFO     __main__: Generated loop host 5 of 10: aero_mpi_5_dirichlet
+2026-10-12 07:44:58,632 INFO     __main__: Generated loop host 6 of 10: aero_mpi_6_dotPV
+2026-10-12 07:44:58,636 INFO     __main__: Generated loop host 7 of 10: aero_mpi_7_updateUR
+2026-10-12 07:44:58,641 INFO     __main__: Generated loop host 8 of 10: aero_mpi_8_dotR
+2026-10-12 07:44:58,645 INFO     __main__: Generated loop host 9 of 10: aero_mpi_9_updateP
+2026-10-12 07:44:58,650 INFO     __main__: Generated loop host 10 of 10: aero_mpi_10_update
+2026-10-12 07:44:58,655 INFO     __main__: Generated master kernel file: generated/aero_par/seq/op2_kernels.cpp
+2026-10-12 07:44:58,655 WARNING  __main__: No scheme registered for C++/c_seq
+2026-10-12 07:44:58,655 INFO     __main__: Translation scheme: C++/cuda
+2026-10-12 07:44:58,749 INFO     __main__: Generated loop host 1 of 10: aero_mpi_1_res_calc
+2026-10-12 07:44:58,755 INFO     __main__: Generated loop host 2 of 10: aero_mpi_2_dirichlet
+2026-10-12 07:44:58,761 INFO     __main__: Generated loop host 3 of 10: aero_mpi_3_init_cg
+2026-10-12 07:44:58,767 INFO     __main__: Generated loop host 4 of 10: aero_mpi_4_spMV
+2026-10-12 07:44:58,773 INFO     __main__: Generated loop host 5 of 10: aero_mpi_5_dirichlet
+2026-10-12 07:44:58,778 INFO     __main__: Generated loop host 6 of 10: aero_mpi_6_dotPV
+2026-10-12 07:44:58,784 INFO     __main__: Generated loop host 7 of 10: aero_mpi_7_updateUR
+2026-10-12 07:44:58,789 INFO     __main__: Generated loop host 8 of 10: aero_mpi_8_dotR
+2026-10-12 07:44:58,795 INFO     __main__: Generated loop host 9 of 10: aero_mpi_9_updateP
+2026-10-12 07:44:58,801 INFO     __main__: Generated loop host 10 of 10: aero_mpi_10_update
+2026-10-12 07:44:58,804 INFO     __main__: Generated master kernel file: generated/aero_par/cuda/op2_kernels.cu
+2026-10-12 07:44:58,804 INFO     __main__: Translation scheme: C++/hip
+2026-10-12 07:44:58,873 INFO     __main__: Generated loop host 1 of 10: aero_mpi_1_res_calc
+2026-10-12 07:44:58,879 INFO     __main__: Generated loop host 2 of 10: aero_mpi_2_dirichlet
+2026-10-12 07:44:58,885 INFO     __main__: Generated loop host 3 of 10: aero_mpi_3_init_cg
+2026-10-12 07:44:58,892 INFO     __main__: Generated loop host 4 of 10: aero_mpi_4_spMV
+2026-10-12 07:44:58,897 INFO     __main__: Generated loop host 5 of 10: aero_mpi_5_dirichlet
+2026-10-12 07:44:58,903 INFO     __main__: Generated loop host 6 of 10: aero_mpi_6_dotPV
+2026-10-12 07:44:58,909 INFO     __main__: Generated loop host 7 of 10: aero_mpi_7_updateUR
+2026-10-12 07:44:58,914 INFO     __main__: Generated loop host 8 of 10: aero_mpi_8_dotR
+2026-10-12 07:44:58,920 INFO     __main__: Generated loop host 9 of 10: aero_mpi_9_updateP
+2026-10-12 07:44:58,926 INFO     __main__: Generated loop host 10 of 10: aero_mpi_10_update
+2026-10-12 07:44:58,929 INFO     __main__: Generated master kernel file: generated/aero_par/hip/op2_kernels.cpp
+2026-10-12 07:44:58,929 INFO     __main__: Translation scheme: C++/c_cuda
+2026-10-12 07:44:59,012 INFO     __main__: Generated loop host 1 of 10: aero_mpi_1_res_calc
+2026-10-12 07:44:59,018 INFO     __main__: Generated loop host 2 of 10: aero_mpi_2_dirichlet
+2026-10-12 07:44:59,024 INFO     __main__: Generated loop host 3 of 10: aero_mpi_3_init_cg
+2026-10-12 07:44:59,032 INFO     __main__: Generated loop host 4 of 10: aero_mpi_4_spMV
+2026-10-12 07:44:59,037 INFO     __main__: Generated loop host 5 of 10: aero_mpi_5_dirichlet
+2026-10-12 07:44:59,043 INFO     __main__: Generated loop host 6 of 10: aero_mpi_6_dotPV
+2026-10-12 07:44:59,049 INFO     __main__: Generated loop host 7 of 10: aero_mpi_7_updateUR
+2026-10-12 07:44:59,055 INFO     __main__: Generated loop host 8 of 10: aero_mpi_8_dotR
+2026-10-12 07:44:59,060 INFO     __main__: Generated loop host 9 of 10: aero_mpi_9_updateP
+2026-10-12 07:44:59,066 INFO     __main__: Generated loop host 10 of 10: aero_mpi_10_update
+2026-10-12 07:44:59,071 INFO     __main__: Generated master kernel file: generated/aero_par/c_cuda/op2_kernels.cu
+2026-10-12 07:44:59,071 INFO     __main__: Translation scheme: C++/c_hip
+2026-10-12 07:44:59,153 INFO     __main__: Generated loop host 1 of 10: aero_mpi_1_res_calc
+2026-10-12 07:44:59,159 INFO     __main__: Generated loop host 2 of 10: aero_mpi_2_dirichlet
+2026-10-12 07:44:59,166 INFO     __main__: Generated loop host 3 of 10: aero_mpi_3_init_cg
+2026-10-12 07:44:59,173 INFO     __main__: Generated loop host 4 of 10: aero_mpi_4_spMV
+2026-10-12 07:44:59,179 INFO     __main__: Generated loop host 5 of 10: aero_mpi_5_dirichlet
+2026-10-12 07:44:59,185 INFO     __main__: Generated loop host 6 of 10: aero_mpi_6_dotPV
+2026-10-12 07:44:59,191 INFO     __main__: Generated loop host 7 of 10: aero_mpi_7_updateUR
+2026-10-12 07:44:59,197 INFO     __main__: Generated loop host 8 of 10: aero_mpi_8_dotR
+2026-10-12 07:44:59,202 INFO     __main__: Generated loop host 9 of 10: aero_mpi_9_updateP
+2026-10-12 07:44:59,208 INFO     __main__: Generated loop host 10 of 10: aero_mpi_10_update
+2026-10-12 07:44:59,213 INFO     __main__: Generated master kernel file: generated/aero_par/c_hip/op2_kernels.cpp
+2026-10-12 07:44:59,213 INFO     __main__: Translation scheme: C++/openmp
+2026-10-12 07:44:59,263 INFO     __main__: Generated loop host 1 of 10: aero_mpi_1_res_calc
+2026-10-12 07:44:59,269 INFO     __main__: Generated loop host 2 of 10: aero_mpi_2_dirichlet
+2026-10-12 07:44:59,274 INFO     __main__: Generated loop host 3 of 10: aero_mpi_3_init_cg
+2026-10-12 07:44:59,280 INFO     __main__: Generated loop host 4 of 10: aero_mpi_4_spMV
+2026-10-12 07:44:59,285 INFO     __main__: Generated loop host 5 of 10: aero_mpi_5_dirichlet
+2026-10-12 07:44:59,290 INFO     __main__: Generated loop host 6 of 10: aero_mpi_6_dotPV
+2026-10-12 07:44:59,295 INFO     __main__: Generated loop host 7 of 10: aero_mpi_7_updateUR
+2026-10-12 07:44:59,300 INFO     __main__: Generated loop host 8 of 10: aero_mpi_8_dotR
+2026-10-12 07:44:59,305 INFO     __main__: Generated loop host 9 of 10: aero_mpi_9_updateP
+2026-10-12 07:44:59,310 INFO     __main__: Generated loop host 10 of 10: aero_mpi_10_update
+2026-10-12 07:44:59,311 INFO     __main__: Generated master kernel file: generated/aero_par/openmp/op2_kernels.cpp
+2026-10-12 07:44:59,312 INFO     __main__: Translated program 1 of 1: generated/aero_par/aero_mpi.cpp
